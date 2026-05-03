@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="logo-section">
+            <img src="logo.png" alt="Logo" class="logo-img">
+        </div>
+
+        <div class="form sign-up-container">
+            <form class="formulario">
+            <h2>Iniciar sesión</h2>
+
+            <div class="inputs">
+                <input type="email" class="box" placeholder="Correo" id="email">
+                <div class="password-wrapper">
+                    <input type="password" class="box" placeholder="Contraseña" id="password">
+                    <span class="toggle-password" data-target="password">👁️</span>
+                </div>
+                <a href="#">Olvidaste tu contraseña</a>
+                <a href="#" class="ok-account">¿No tienes una cuenta?</a>
+                <input type="submit" value="Iniciar sesión" class="submit">
+            </div>
+
+          </form>
+        </div>
+
+        <div class="form sign-in-container">
+            <form class="formulario2">
+            <h2>REGISTRARSE</h2>
+
+            <div class="inputs">
+                <input type="text" class="box" placeholder="Nombre" name="nombre" id="name">
+                <input type="email" class="box" placeholder="Email" name="email" id="email2">
+                <div class="password-wrapper">
+                    <input type="password" class="box" placeholder="Contraseña" name="password" id="password2">
+                    <span class="toggle-password" data-target="password2">👁️</span>
+                </div>
+                <div class="password-wrapper">
+                    <input type="password" class="box" placeholder="Confirmar contraseña" name="confirm_password" id="confirm_password">
+                    <span class="toggle-password" data-target="confirm_password">👁️</span>
+                </div>
+                <select class="box" id="rol">
+                    <option value="" disabled selected>Selecciona rol</option>
+                    <option value="docente">Docente</option>
+                    <option value="administrativo">Administrativo</option>
+                    <option value="externo">Externo</option>
+                </select>
+                <a href="#" class="no-account">¿Ya tienes una cuenta?</a>
+                <input type="submit" value="Registrarse" class="submit">
+            </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="runtime-links-banner" class="runtime-banner">
+        <strong>Links activos:</strong>
+        <span id="runtime-local">Local: -</span>
+        <span id="runtime-public">Cloudflare: -</span>
+    </div>
+
+    <p class="notify check_notify">EXITO</p>
+    <p class="notify error_notify">ERROR</p>
+    <script src="js/script.js"></script>
+</body>
+</html>

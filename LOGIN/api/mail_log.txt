@@ -1,0 +1,1122 @@
+==========================================
+[2026-05-02 20:52:52] PARA: danielbenitezm4229@gmail.com
+ASUNTO: Recuperación de contraseña
+MENSAJE:
+Hola daniel,
+
+Recibimos una solicitud para recuperar tu contraseña.
+Token de recuperación (demo local): 479efb7678c3c44084a0fa290625ffa1
+En un entorno productivo este token se usaría en un enlace seguro con expiración.
+
+Si no solicitaste este cambio, ignora este mensaje.
+==========================================
+
+==========================================
+[2026-05-02 20:53:31] PARA: dabenitez67@poligran.edu.co
+ASUNTO: Recuperación de contraseña
+MENSAJE:
+Hola Daniel Benitez ,
+
+Recibimos una solicitud para recuperar tu contraseña.
+Token de recuperación (demo local): 5debee226ac8490b3e220e5381c0a8fe
+En un entorno productivo este token se usaría en un enlace seguro con expiración.
+
+Si no solicitaste este cambio, ignora este mensaje.
+==========================================
+
+==========================================
+[2026-05-02 20:59:37] PARA: danielbenitezm4229@gmail.com
+ASUNTO: Recuperación de contraseña
+MENSAJE:
+Hola daniel,
+
+Recibimos una solicitud para recuperar tu contraseña.
+Token de recuperación (demo local): 2e02ba2bf37a52c83d891a4c4aba6086
+En un entorno productivo este token se usaría en un enlace seguro con expiración.
+
+Si no solicitaste este cambio, ignora este mensaje.
+==========================================
+
+==================================================
+[2026-05-02 23:03:50] PARA: marco15@gmail.com
+ASUNTO: Reserva RECHAZADA - Auditorio B2
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, marco
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B2
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                11:00 - 12:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:03:52] mail() FALLÓ → marco15@gmail.com
+==================================================
+[2026-05-02 23:03:56] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B1
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                15:00 - 16:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:03:58] mail() FALLÓ → atabordag@poligran.edu.co
+==================================================
+[2026-05-02 23:03:58] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B2
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B2
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                15:00 - 16:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:04:00] mail() FALLÓ → atabordag@poligran.edu.co
+==================================================
+[2026-05-02 23:04:01] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B1
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                09:00 - 11:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:04:03] mail() FALLÓ → atabordag@poligran.edu.co
+==================================================
+[2026-05-02 23:04:04] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B2
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B2
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                09:00 - 11:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:04:06] mail() FALLÓ → atabordag@poligran.edu.co
+==================================================
+[2026-05-02 23:04:10] PARA: marco15@gmail.com
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+
+
+
+    
+    
+    Reserva Aprobada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ✅ Reserva APROBADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, marco
+                            
+                            
+                                Nos complace informarte que tu solicitud de reserva ha sido
+                                APROBADA exitosamente.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Detalles de tu reserva
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B2
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora inicio:
+                                                13:00
+                                            
+                                            
+                                                🕐 Hora fin:
+                                                15:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            ⚠️ Recuerda presentar tu identificación 5 minutos antes del inicio de tu reserva.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:04:12] mail() FALLÓ → marco15@gmail.com
+==================================================
+[2026-05-02 23:04:12] PARA: tomas111@gmail.com
+ASUNTO: Reserva RECHAZADA - Auditorio B2
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, tomas
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B2
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                16:00 - 18:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:04:14] mail() FALLÓ → tomas111@gmail.com
+==================================================
+[2026-05-02 23:04:14] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+
+
+
+    
+    
+    Reserva Rechazada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ❌ Reserva RECHAZADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Lamentamos informarte que tu solicitud de reserva ha sido
+                                RECHAZADA.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Reserva rechazada
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B1
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora:
+                                                11:00 - 12:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            Puedes realizar una nueva solicitud de reserva para otra fecha u horario disponible.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:04:16] mail() FALLÓ → atabordag@poligran.edu.co
+==================================================
+[2026-05-02 23:24:07] PARA: tomas111@gmail.com
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+
+
+
+    
+    
+    Reserva Aprobada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ✅ Reserva APROBADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, tomas
+                            
+                            
+                                Nos complace informarte que tu solicitud de reserva ha sido
+                                APROBADA exitosamente.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Detalles de tu reserva
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B3
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora inicio:
+                                                15:00
+                                            
+                                            
+                                                🕐 Hora fin:
+                                                17:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            ⚠️ Recuerda presentar tu identificación 5 minutos antes del inicio de tu reserva.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:24:09] mail() FALLÓ → tomas111@gmail.com
+==================================================
+[2026-05-02 23:24:12] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+
+
+
+    
+    
+    Reserva Aprobada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ✅ Reserva APROBADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Nos complace informarte que tu solicitud de reserva ha sido
+                                APROBADA exitosamente.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Detalles de tu reserva
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B1
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora inicio:
+                                                16:00
+                                            
+                                            
+                                                🕐 Hora fin:
+                                                17:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            ⚠️ Recuerda presentar tu identificación 5 minutos antes del inicio de tu reserva.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:24:14] mail() FALLÓ → atabordag@poligran.edu.co
+==================================================
+[2026-05-02 23:28:48] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+
+
+
+    
+    
+    Reserva Aprobada
+
+
+    
+        
+            
+                
+                    
+                    
+                        
+                            
+                                ✅ Reserva APROBADA
+                            
+                            
+                                Sistema de Reservas de Auditorios
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Hola, Alejandro
+                            
+                            
+                                Nos complace informarte que tu solicitud de reserva ha sido
+                                APROBADA exitosamente.
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            📋 Detalles de tu reserva
+                                        
+                                        
+                                            
+                                                📍 Espacio:
+                                                Auditorio B2
+                                            
+                                            
+                                                📅 Fecha:
+                                                02/05/2026
+                                            
+                                            
+                                                🕐 Hora inicio:
+                                                09:00
+                                            
+                                            
+                                                🕐 Hora fin:
+                                                11:00
+                                            
+                                        
+                                    
+                                
+                            
+
+                            
+                            
+                                
+                                    
+                                        
+                                            ⚠️ Recuerda presentar tu identificación 5 minutos antes del inicio de tu reserva.
+                                        
+                                    
+                                
+                            
+
+                            
+                                Si tienes alguna pregunta, comunícate con la administración del sistema.
+                            
+                        
+                    
+                    
+                    
+                        
+                            
+                                Este es un mensaje automático del Sistema de Reservas de Auditorios.
+                                Por favor no respondas a este correo.
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+==================================================
+
+[2026-05-02 23:28:51] mail() FALLÓ → atabordag@poligran.edu.co
