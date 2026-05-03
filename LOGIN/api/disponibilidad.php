@@ -8,8 +8,8 @@ $fecha = $_GET['fecha'] ?? date('Y-m-d');
 
 try {
     // Consultamos todas las reservas para esa fecha que no estén rechazadas
-    $sql = "SELECT espacio, hora_inicio, hora_fin 
-            FROM reservas 
+    $sql = "SELECT espacio, fecha, hora_inicio, hora_fin
+            FROM reservas
             WHERE fecha = ? AND estado IN ('Pendiente', 'Aprobada')";
     
     $stmt = $pdo->prepare($sql);

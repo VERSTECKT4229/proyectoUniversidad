@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS reservas (
     hora_fin TIME NOT NULL,
     espacio ENUM('B1','B2','B3') NOT NULL,
     requisitos TEXT NULL,
-    estado ENUM('Pendiente','Aprobada','Rechazada') DEFAULT 'Pendiente',
+    estado ENUM('Pendiente','Aprobada','Rechazada','Cancelada') DEFAULT 'Pendiente',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_reservas_usuario
         FOREIGN KEY (usuario_id)

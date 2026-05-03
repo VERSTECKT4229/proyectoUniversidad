@@ -347,6 +347,42 @@ body{
     background: #dfdfdf;
 }
 
+.estado-pendiente {
+    color: #b45309;
+    background: #fef3c7;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.82em;
+    font-weight: 600;
+}
+
+.estado-aprobada {
+    color: #166534;
+    background: #dcfce7;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.82em;
+    font-weight: 600;
+}
+
+.estado-rechazada {
+    color: #991b1b;
+    background: #fee2e2;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.82em;
+    font-weight: 600;
+}
+
+.estado-cancelada {
+    color: #4b5563;
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.82em;
+    font-weight: 600;
+}
+
 .card-list {
     margin-top: 16px;
     display: grid;
