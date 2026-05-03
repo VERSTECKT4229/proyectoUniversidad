@@ -69,26 +69,6 @@ try {
         exit;
     }
 
-    // Regla B3: requiere que B1 y B2 estén libres simultáneamente
-    if ($espacio === 'B3') {
-        if (hasConflict($pdo, 'B1', $fechaSolo, $horaInicio, $horaFin) ||
-            hasConflict($pdo, 'B2', $fechaSolo, $horaInicio, $horaFin)) {
-            echo json_encode([
-                'success' => false,
-                'message' => 'B3 solo puede reservarse si B1 y B2 están libres en ese horario'
-            ]);
-            exit;
-        }
-    } else {
-        // Si se reserva B1 o B2, no puede haber una reserva de B3 en ese horario
-        if (hasConflict($pdo, 'B3', $fechaSolo, $horaInicio, $horaFin)) {
-            echo json_encode([
-                'success' => false,
-                'message' => "No se puede reservar $espacio porque B3 ocupa ese horario completo"
-            ]);
-            exit;
-        }
-    }
 
     $stmt = $pdo->prepare(
         "INSERT INTO reservas (usuario_id, fecha, hora_inicio, hora_fin, espacio, requisitos, estado)

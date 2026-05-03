@@ -260,42 +260,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     hourTd.textContent = hour;
                     tr.appendChild(hourTd);
 
-                    const b1busy = reservas.some(r => r.espacio === 'B1' && overlaps(r.hora_inicio, r.hora_fin, hour));
-                    const b2busy = reservas.some(r => r.espacio === 'B2' && overlaps(r.hora_inicio, r.hora_fin, hour));
-                    const b3busy = reservas.some(r => r.espacio === 'B3' && overlaps(r.hora_inicio, r.hora_fin, hour));
-
                     espacios.forEach(espacio => {
-                        const td = document.createElement('td');
+                        const td    = document.createElement('td');
+                        const match = reservas.some(r => r.espacio === espacio && overlaps(r.hora_inicio, r.hora_fin, hour));
 
-                        if (espacio === 'B1') {
-                            if (b1busy || b3busy) {
-                                td.className   = b1busy ? 'slot occupied' : 'slot blocked';
-                                td.textContent = b1busy ? 'Ocupado' : 'Bloqueado';
-                            } else {
-                                td.className   = 'slot available';
-                                td.textContent = 'Disponible';
-                            }
-                        } else if (espacio === 'B2') {
-                            if (b2busy || b3busy) {
-                                td.className   = b2busy ? 'slot occupied' : 'slot blocked';
-                                td.textContent = b2busy ? 'Ocupado' : 'Bloqueado';
-                            } else {
-                                td.className   = 'slot available';
-                                td.textContent = 'Disponible';
-                            }
-                        } else { // B3
-                            if (b3busy) {
-                                td.className   = 'slot occupied';
-                                td.textContent = 'Ocupado';
-                            } else if (b1busy || b2busy) {
-                                td.className   = 'slot blocked';
-                                td.textContent = 'Bloqueado';
-                            } else {
-                                td.className   = 'slot available';
-                                td.textContent = 'Disponible';
-                            }
+                        if (match) {
+                            td.className   = 'slot occupied';
+                            td.textContent = 'Ocupado';
+                        } else {
+                            td.className   = 'slot available';
+                            td.textContent = 'Disponible';
                         }
-
                         tr.appendChild(td);
                     });
 
