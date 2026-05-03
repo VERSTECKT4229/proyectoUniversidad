@@ -260,23 +260,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     hourTd.textContent = hour;
                     tr.appendChild(hourTd);
 
-                    espacios.forEach(espacio => {
-                        const td    = document.createElement('td');
-                        const match = reservas.find(r => {
-                            // Normalizamos la fecha de la API: extraemos solo el YYYY-MM-DD
-                            const apiFecha = r.fecha ? String(r.fecha).split(' ')[0] : '';
-                            return apiFecha === fecha &&
-                                   r.espacio === espacio &&
-                                   overlaps(r.hora_inicio, r.hora_fin, hour);
-                        });
+                    const b1busy = reservas.some(r => r.espacio === 'B1' && overlaps(r.hora_inicio, r.hora_fin, hour));
+                    const b2busy = reservas.some(r => r.espacio === 'B2' && overlaps(r.hora_inicio, r.hora_fin, hour));
+                    const b3busy = reservas.some(r => r.espacio === 'B3' && overlaps(r.hora_inicio, r.hora_fin, hour));
 
-                        if (match) {
-                            td.className   = 'slot occupied';
-                            td.textContent = 'Ocupado';
-                        } else {
-                            td.className   = 'slot available';
-                            td.textContent = 'Disponible';
+                    espacios.forEach(espacio => {
+                        const td = document.createElement('td');
+
+                        if (espacio === 'B1') {
+                            if (b1busy || b3busy) {
+                                td.className   = b1busy ? 'slot occupied' : 'slot blocked';
+                                td.textContent = b1busy ? 'Ocupado' : 'Bloqueado';
+                            } else {
+                                td.className   = 'slot available';
+                                td.textContent = 'Disponible';
+                            }
+                        } else if (espacio === 'B2') {
+                            if (b2busy || b3busy) {
+                                td.className   = b2busy ? 'slot occupied' : 'slot blocked';
+                                td.textContent = b2busy ? 'Ocupado' : 'Bloqueado';
+                            } else {
+                                td.className   = 'slot available';
+                                td.textContent = 'Disponible';
+                            }
+                        } else { // B3
+                            if (b3busy) {
+                                td.className   = 'slot occupied';
+                                td.textContent = 'Ocupado';
+                            } else if (b1busy || b2busy) {
+                                td.className   = 'slot blocked';
+                                td.textContent = 'Bloqueado';
+                            } else {
+                                td.className   = 'slot available';
+                                td.textContent = 'Disponible';
+                            }
                         }
+
                         tr.appendChild(td);
                     });
 
@@ -454,8 +473,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filtro de fecha en disponibilidad
     const dispDateFilter = document.getElementById('disp-date-filter');
     if (dispDateFilter) {
-        // Evento AUTOMÁTICO al cambiar el selector de fecha
         dispDateFilter.addEventListener('change', () => {
+            syncStateFromInput();
+            loadDisponibilidad();
+        });
+    }
+
+    const dispVerBtn = document.getElementById('disp-ver-btn');
+    if (dispVerBtn) {
+        dispVerBtn.addEventListener('click', () => {
             syncStateFromInput();
             loadDisponibilidad();
         });
