@@ -471,79 +471,94 @@ body{
     margin: 0 0 12px 0;
 }
 
-/* === BOTONES ADMIN ✔❌ === */
-.admin-btn {
-    font-size: 24px;
-    width: 44px;
-    height: 44px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    margin: 0 4px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.admin-btn:hover {
-    transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-}
-
-.approve-btn {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    color: white;
-}
-
-.reject-btn {
-    background: linear-gradient(135deg, #dc3545, #fd7e14);
-    color: white;
-}
-
+/* === CARD DE RESERVAS PENDIENTES (ADMIN) === */
 .reservation-card.admin-reserva {
     display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    padding: 16px;
-    margin-bottom: 12px;
-    border-left: 5px solid #ffc107;
-}
-
-.reserva-actions {
-    flex-shrink: 0;
-    display: flex;
     flex-direction: column;
-    gap: 8px;
+    padding: 0;
+    margin-bottom: 16px;
+    border-left: 4px solid #f59e0b;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-.reserva-info p {
-    margin: 4px 0;
-    font-size: 14px;
+.admin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.reserva-info strong {
+.admin-card-espacio {
+    font-size: 16px;
+    font-weight: 700;
     color: #1a237e;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .reservation-card.admin-reserva {
+.admin-card-body {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-card-row {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.admin-card-label {
+    width: 80px;
+    flex-shrink: 0;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.admin-card-actions {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid #f0f0f0;
+}
+
+.admin-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    letter-spacing: 0.02em;
+}
+
+.admin-btn:hover {
+    opacity: 0.88;
+}
+
+.approve-btn {
+    background: #16a34a;
+    color: #fff;
+    border-radius: 0 0 0 8px;
+}
+
+.reject-btn {
+    background: #dc2626;
+    color: #fff;
+    border-radius: 0 0 8px 0;
+    border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+@media (max-width: 600px) {
+    .admin-card-actions {
         flex-direction: column;
-        gap: 12px;
     }
-    
-    .reserva-actions {
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-    .admin-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
+    .approve-btn { border-radius: 0; }
+    .reject-btn  { border-radius: 0 0 8px 8px; border-left: none; border-top: 1px solid rgba(255,255,255,0.2); }
 }
 
 

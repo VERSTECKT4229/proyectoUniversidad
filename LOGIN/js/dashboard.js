@@ -333,27 +333,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             adminReservasList.innerHTML = data.pendientes.map(reserva => {
-                // Obtener ID de forma robusta (cualquier variante de nombre)
-                const rawId  = reserva.id ?? reserva.ID ?? reserva.reserva_id ?? reserva.id_reserva ?? '';
-                const safeId = String(rawId).trim();
+                const safeId = String(reserva.id ?? '').trim();
 
                 return `
                 <div class="reservation-card admin-reserva">
-                    <div class="reserva-actions">
-                        <button class="admin-btn approve-btn"
-                                data-id="${safeId}" data-accion="aprobar"
-                                title="Aprobar">✔️ Aprobar</button>
-                        <button class="admin-btn reject-btn"
-                                data-id="${safeId}" data-accion="rechazar"
-                                title="Rechazar">❌ Rechazar</button>
+                    <div class="admin-card-header">
+                        <span class="admin-card-espacio">Auditorio ${reserva.espacio}</span>
+                        <span class="estado-pendiente">Pendiente</span>
                     </div>
-                    <div class="reserva-info">
-                        <p><strong>${reserva.espacio}</strong> |
-                           ${formatReservationDate(reserva.fecha)} | Estado: PENDIENTE</p>
-                        <p><strong>Usuario:</strong> ${reserva.usuario}</p>
-                        <p><strong>Horas:</strong>
-                           ${reserva.hora_inicio.slice(0,5)} - ${reserva.hora_fin.slice(0,5)}</p>
-                        <p><strong>Requisitos:</strong> ${reserva.requisitos || 'Ninguno'}</p>
+                    <div class="admin-card-body">
+                        <div class="admin-card-row">
+                            <span class="admin-card-label">Usuario</span>
+                            <span>${reserva.usuario}</span>
+                        </div>
+                        <div class="admin-card-row">
+                            <span class="admin-card-label">Fecha</span>
+                            <span>${formatReservationDate(reserva.fecha)}</span>
+                        </div>
+                        <div class="admin-card-row">
+                            <span class="admin-card-label">Horario</span>
+                            <span>${reserva.hora_inicio.slice(0,5)} – ${reserva.hora_fin.slice(0,5)}</span>
+                        </div>
+                        <div class="admin-card-row">
+                            <span class="admin-card-label">Requisitos</span>
+                            <span>${reserva.requisitos || '—'}</span>
+                        </div>
+                    </div>
+                    <div class="admin-card-actions">
+                        <button class="admin-btn approve-btn"
+                                data-id="${safeId}" data-accion="aprobar">
+                            ✔ Aprobar
+                        </button>
+                        <button class="admin-btn reject-btn"
+                                data-id="${safeId}" data-accion="rechazar">
+                            ✖ Rechazar
+                        </button>
                     </div>
                 </div>`;
             }).join('');
