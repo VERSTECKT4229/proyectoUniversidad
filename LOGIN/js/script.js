@@ -186,14 +186,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const data = await res.json();
+                const loginErrEl = document.getElementById('login-error-msg');
                 if (data.success) {
+                    if (loginErrEl) loginErrEl.style.display = 'none';
                     showSuccess('LOGIN CORRECTO');
                     setTimeout(() => {
                         window.location.href = data.redirect || 'dashboard.php';
                     }, 700);
                 } else if (data.locked) {
+                    if (loginErrEl) {
+                        loginErrEl.textContent = data.message;
+                        loginErrEl.style.display = 'block';
+                    }
                     lockLoginForm(data.remaining || 5);
                 } else {
+                    if (loginErrEl) {
+                        loginErrEl.textContent = data.message;
+                        loginErrEl.style.display = 'block';
+                    }
                     showError(data.message || 'Error');
                 }
             } catch (err) {

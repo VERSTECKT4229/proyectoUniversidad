@@ -78,8 +78,7 @@ try {
         echo json_encode(['success' => true, 'message' => 'Reserva aprobada correctamente']);
 
     } else {
-        // Rechazar = eliminar registro
-        $stmt = $pdo->prepare("DELETE FROM reservas WHERE id = ? AND estado = 'Pendiente'");
+        $stmt = $pdo->prepare("UPDATE reservas SET estado = 'Rechazada' WHERE id = ? AND estado = 'Pendiente'");
         $stmt->execute([$id]);
 
         if ($stmt->rowCount() > 0) {

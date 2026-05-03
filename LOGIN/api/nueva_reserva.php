@@ -41,6 +41,11 @@ if ($horaInicio >= $horaFin) {
     exit;
 }
 
+if ($horaInicio < '07:00' || $horaFin > '20:00') {
+    echo json_encode(['success' => false, 'message' => 'Las reservas deben realizarse entre las 07:00 y las 20:00']);
+    exit;
+}
+
 function hasConflict(PDO $pdo, string $espacio, string $fecha, string $horaInicio, string $horaFin): bool
 {
     $sql = "SELECT COUNT(*) AS total
@@ -56,13 +61,14 @@ function hasConflict(PDO $pdo, string $espacio, string $fecha, string $horaInici
 }
 
 try {
-    if (hasConflict($pdo, $espacio, $fecha, $horaInicio, $horaFin)) {
+    if (hasConflict($pdo, $espacio, $fechaSolo, $horaInicio, $horaFin)) {
         echo json_encode([
             'success' => false,
             'message' => 'No hay disponibilidad para el espacio seleccionado'
         ]);
         exit;
     }
+
 
     $stmt = $pdo->prepare(
         "INSERT INTO reservas (usuario_id, fecha, hora_inicio, hora_fin, espacio, requisitos, estado)
