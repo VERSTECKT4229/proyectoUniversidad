@@ -7,27 +7,20 @@
  */
 
 // ============================================================
-// CARGA CONDICIONAL DE PHPMAILER (no falla si no está instalado)
+// CARGA DE PHPMAILER VIA COMPOSER
 // ============================================================
 $_phpmailerAvailable = false;
-if (
-    file_exists(__DIR__ . '/PHPMailer/src/Exception.php') &&
-    file_exists(__DIR__ . '/PHPMailer/src/PHPMailer.php') &&
-    file_exists(__DIR__ . '/PHPMailer/src/SMTP.php')
-) {
-    require_once __DIR__ . '/PHPMailer/src/Exception.php';
-    require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
-    require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
     $_phpmailerAvailable = true;
 }
 
 // ============================================================
 // CONFIGURACIÓN DEL REMITENTE
-// Cambia estos valores cuando tengas credenciales reales.
 // ============================================================
-define('MAIL_FROM',     'tu_correo@gmail.com');
+define('MAIL_FROM',     'danielbenitezm4229@gmail.com');
 define('MAIL_FROM_NAME','Sistema de Reservas Poligran');
-define('MAIL_PASSWORD', 'tu_clave_de_aplicacion'); // Contraseña de Aplicación de Google
+define('MAIL_PASSWORD', 'tmpn fssi eufa fobk');
 define('MAIL_LOG_PATH', __DIR__ . '/mail_log.txt');
 
 // ============================================================
