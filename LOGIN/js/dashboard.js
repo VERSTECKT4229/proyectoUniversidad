@@ -19,7 +19,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${year}-${month}-${day}`;
     }
 
-    let currentWeekStart = new Date();
+    // Escape HTML para evitar XSS
+    function escapeHtml(str) {
+        return String(str ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;');
+    }
+
+    // Normaliza al lunes de la semana
+    function getMonday(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = day === 0 ? -6 : 1 - day;
+        d.setDate(d.getDate() + diff);
+        d.setHours(0, 0, 0, 0);
+        return d;
+    }
+
+    let currentWeekStart = getMonday(new Date());
 
     function getWeekDates(baseDate = currentWeekStart) {
         const days = [];
@@ -184,14 +204,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             misReservasList.innerHTML = reservas.map(r => `
                 <div class="reservation-card">
-                    <p><strong>Espacio:</strong> ${r.espacio}</p>
+                    <p><strong>Espacio:</strong> ${escapeHtml(r.espacio)}</p>
                     <p><strong>Fecha:</strong> ${formatReservationDate(r.fecha)}</p>
                     <p><strong>Hora:</strong> ${r.hora_inicio.slice(0,5)} - ${r.hora_fin.slice(0,5)}</p>
                     <p><strong>Estado:</strong>
-                        <span class="estado-${r.estado.toLowerCase()}">${r.estado}</span>
+                        <span class="estado-${r.estado.toLowerCase()}">${escapeHtml(r.estado)}</span>
                     </p>
+                    ${r.estado === 'Pendiente' ? `<button class="cancel-reserva-btn" data-id="${r.id}">Cancelar reserva</button>` : ''}
                 </div>
             `).join('');
+
+            // Botones de cancelar con closure (evita lectura tardía del DOM)
+            misReservasList.querySelectorAll('.cancel-reserva-btn').forEach(btn => {
+                const reservaId = parseInt(btn.getAttribute('data-id'), 10);
+                btn.addEventListener('click', async () => {
+                    if (!confirm('¿Cancelar esta reserva?')) return;
+                    try {
+                        const res = await fetch('api/cancelar_reserva.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id_reserva: reservaId })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            loadMisReservas();
+                        } else {
+                            alert('❌ ' + (data.message || 'No se pudo cancelar'));
+                        }
+                    } catch (err) {
+                        alert('❌ Error de conexión al cancelar');
+                    }
+                });
+            });
 
         } catch (err) {
             console.error('Error loadMisReservas:', err);
@@ -237,8 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const res  = await fetch(`api/disponibilidad.php?fecha=${fecha}&_=${Date.now()}`);
             const data = await res.json();
             
-            // Debug: Ver exactamente qué está llegando del servidor
-            console.log(`Datos recibidos para ${fecha}:`, data.reservas);
 
             if (!data.success) {
                 disponibilidadCalendar.innerHTML =
@@ -307,19 +349,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            adminReservasList.innerHTML = data.pendientes.map(reserva => {
-                const safeId = String(reserva.id ?? '').trim();
-
-                return `
+            adminReservasList.innerHTML = data.pendientes.map(reserva => `
                 <div class="reservation-card admin-reserva">
                     <div class="admin-card-header">
-                        <span class="admin-card-espacio">Auditorio ${reserva.espacio}</span>
+                        <span class="admin-card-espacio">Auditorio ${escapeHtml(reserva.espacio)}</span>
                         <span class="estado-pendiente">Pendiente</span>
                     </div>
                     <div class="admin-card-body">
                         <div class="admin-card-row">
                             <span class="admin-card-label">Usuario</span>
-                            <span>${reserva.usuario}</span>
+                            <span>${escapeHtml(reserva.usuario)}</span>
                         </div>
                         <div class="admin-card-row">
                             <span class="admin-card-label">Fecha</span>
@@ -331,30 +370,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="admin-card-row">
                             <span class="admin-card-label">Requisitos</span>
-                            <span>${reserva.requisitos || '—'}</span>
+                            <span>${escapeHtml(reserva.requisitos) || '—'}</span>
                         </div>
                     </div>
                     <div class="admin-card-actions">
-                        <button class="admin-btn approve-btn"
-                                data-id="${safeId}" data-accion="aprobar">
-                            ✔ Aprobar
-                        </button>
-                        <button class="admin-btn reject-btn"
-                                data-id="${safeId}" data-accion="rechazar">
-                            ✖ Rechazar
-                        </button>
+                        <button class="admin-btn approve-btn">✔ Aprobar</button>
+                        <button class="admin-btn reject-btn">✖ Rechazar</button>
                     </div>
-                </div>`;
-            }).join('');
+                </div>
+            `).join('');
 
-            // Listeners directos (evita problemas con onclick inline)
-            adminReservasList.querySelectorAll('.admin-btn[data-id]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    window.decidirReserva(
-                        btn.getAttribute('data-id'),
-                        btn.getAttribute('data-accion')
-                    );
-                });
+            // Closures: el ID es un número capturado directamente, nunca leído del DOM
+            const cards = adminReservasList.querySelectorAll('.reservation-card.admin-reserva');
+            data.pendientes.forEach((reserva, i) => {
+                const reservaId = parseInt(reserva.id, 10);
+                if (!cards[i]) return;
+                cards[i].querySelector('.approve-btn').addEventListener('click', () => decidirReserva(reservaId, 'aprobar'));
+                cards[i].querySelector('.reject-btn').addEventListener('click',  () => decidirReserva(reservaId, 'rechazar'));
             });
 
         } catch (err) {
@@ -366,47 +398,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     // DECIDIR RESERVA (aprobar / rechazar)
     // ============================================
-    window.decidirReserva = async (id, accion) => {
-        const idNum = parseInt(String(id).trim(), 10);
-        console.log('decidirReserva → id:', id, '| idNum:', idNum, '| accion:', accion);
-
-        if (!Number.isInteger(idNum) || idNum <= 0) {
-            console.error('ID inválido recibido:', id);
-            alert('Error: ID de reserva inválido (' + id + ')');
-            return;
-        }
-
-        if (!['aprobar', 'rechazar'].includes(accion)) {
-            alert('Error: Acción no válida');
-            return;
-        }
-
-        const mensaje = accion === 'aprobar' ? 'Aprobar esta reserva' : 'Rechazar esta reserva';
-        if (!confirm(`¿${mensaje}?`)) return;
+    async function decidirReserva(reservaId, accion) {
+        const label = accion === 'aprobar' ? 'Aprobar' : 'Rechazar';
+        if (!confirm(`¿${label} esta reserva?`)) return;
 
         try {
-            const res = await fetch('api/admin_decidir_reserva.php', {
+            const res  = await fetch('api/admin_decidir_reserva.php', {
                 method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify({ id: idNum, accion })
+                body:    JSON.stringify({ id: reservaId, accion })
             });
-
             const data = await res.json();
-            console.log('Respuesta servidor:', data);
 
             if (data.success) {
-                alert(accion === 'aprobar'
-                    ? '✅ Reserva aprobada correctamente'
-                    : '✅ Reserva rechazada');
+                alert(accion === 'aprobar' ? '✅ Reserva aprobada' : '✅ Reserva rechazada');
                 loadAdminReservas();
             } else {
-                alert('❌ Error: ' + (data.message || 'No se pudo procesar'));
+                alert('❌ ' + (data.message || 'No se pudo procesar'));
             }
         } catch (err) {
-            console.error('Error en decidirReserva:', err);
             alert('❌ Error de conexión: ' + err.message);
         }
-    };
+    }
 
     // ============================================
     // ACTIVAR VISTA
@@ -454,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (todayWeekBtn) {
         todayWeekBtn.addEventListener('click', () => {
-            currentWeekStart = new Date();
+            currentWeekStart = getMonday(new Date());
             loadMisReservas();
         });
     }

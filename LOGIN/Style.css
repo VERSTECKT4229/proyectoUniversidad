@@ -399,6 +399,24 @@ body{
     font-weight: 600;
 }
 
+.cancel-reserva-btn {
+    margin-top: 8px;
+    padding: 6px 14px;
+    background: none;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    color: #6b7280;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.cancel-reserva-btn:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #dc2626;
+}
+
 .card-list {
     margin-top: 16px;
     display: grid;
