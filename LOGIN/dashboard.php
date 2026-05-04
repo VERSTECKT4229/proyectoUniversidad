@@ -99,7 +99,6 @@ $user = $_SESSION['user'];
                 <p class="legend">
                     <span class="badge available">Verde: disponible</span>
                     <span class="badge occupied">Rojo: ocupado</span>
-                    <span class="badge blocked">Gris: no permitido (B3 requiere B1 y B2 libres)</span>
                 </p>
                 <div id="disponibilidad-calendar" class="calendar-grid"></div>
             </section>
