@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            misReservasList.innerHTML = reservas.map(r => `
+misReservasList.innerHTML = reservas.map(r => `
                 <div class="reservation-card">
                     <p><strong>Espacio:</strong> ${escapeHtml(r.espacio)}</p>
                     <p><strong>Fecha:</strong> ${formatReservationDate(r.fecha)}</p>
@@ -210,11 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Estado:</strong>
                         <span class="estado-${r.estado.toLowerCase()}">${escapeHtml(r.estado)}</span>
                     </p>
+                    ${r.requisitos ? `<button class="view-recursos-btn" data-id="${r.id}">Ver Recursos</button>
+                    <div id="recursos-${r.id}" class="recursos-detalles" style="display:none;">
+                        <p><strong>Recursos:</strong> ${escapeHtml(r.requisitos)}</p>
+                    </div>` : ''}
                     ${r.estado === 'Pendiente' ? `<button class="cancel-reserva-btn" data-id="${r.id}">Cancelar reserva</button>` : ''}
                 </div>
             `).join('');
 
-            // Botones de cancelar con closure (evita lectura tardía del DOM)
+// Botones de cancelar con closure (evita lectura tardía del DOM)
             misReservasList.querySelectorAll('.cancel-reserva-btn').forEach(btn => {
                 const reservaId = parseInt(btn.getAttribute('data-id'), 10);
                 btn.addEventListener('click', async () => {
@@ -233,6 +237,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     } catch (err) {
                         alert('❌ Error de conexión al cancelar');
+                    }
+                });
+            });
+
+            // Botones de Ver Recursos (toggle mostrar/ocultar)
+            misReservasList.querySelectorAll('.view-recursos-btn').forEach(btn => {
+                const reservaId = btn.getAttribute('data-id');
+                btn.addEventListener('click', () => {
+                    const detalles = document.getElementById('recursos-' + reservaId);
+                    if (detalles) {
+                        if (detalles.style.display === 'none') {
+                            detalles.style.display = 'block';
+                            btn.textContent = 'Ocultar Recursos';
+                        } else {
+                            detalles.style.display = 'none';
+                            btn.textContent = 'Ver Recursos';
+                        }
                     }
                 });
             });
@@ -369,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>${reserva.hora_inicio.slice(0,5)} – ${reserva.hora_fin.slice(0,5)}</span>
                         </div>
                         <div class="admin-card-row">
-                            <span class="admin-card-label">Requisitos</span>
+<span class="admin-card-label">Recursos</span>
                             <span>${escapeHtml(reserva.requisitos) || '—'}</span>
                         </div>
                     </div>
@@ -392,6 +413,93 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Error loadAdminReservas:', err);
             adminReservasList.innerHTML = '<p class="error-text">Error de conexión.</p>';
+        }
+    }
+
+// ============================================
+    // PERFIL: HISTORIAL DE RESERVAS
+    // ============================================
+    // Variable para almacenar todas las reservas (cache)
+    let todasLasReservas = [];
+
+    async function loadPerfilHistorial() {
+        const perfilHistorial = document.getElementById('perfil-historial');
+        if (!perfilHistorial) return;
+
+        try {
+            const res = await fetch('api/mis_reservas.php');
+            const data = await res.json();
+
+            if (!data.success) {
+                perfilHistorial.innerHTML = `<p class="error-text">${data.message || 'No se pudo cargar el historial.'}</p>`;
+                return;
+            }
+
+            // Guardar todas las reservas en la variable global
+            todasLasReservas = data.reservas || [];
+
+            // Obtener el valor del filtro
+            const filtroSelect = document.getElementById('historial-filtro');
+            const filtroEstado = filtroSelect ? filtroSelect.value : 'todas';
+
+            // Aplicar el filtro y mostrar
+            renderPerfilHistorial(filtroEstado);
+
+        } catch (err) {
+            console.error('Error loadPerfilHistorial:', err);
+            perfilHistorial.innerHTML = '<p class="error-text">Error de conexión al cargar el historial.</p>';
+        }
+    }
+
+    function renderPerfilHistorial(filtroEstado) {
+        const perfilHistorial = document.getElementById('perfil-historial');
+        if (!perfilHistorial) return;
+
+        if (todasLasReservas.length === 0) {
+            perfilHistorial.innerHTML = '<p>No tienes reservas en tu historial.</p>';
+            return;
+        }
+
+        // Filtrar las reservas según el estado seleccionado
+        let reservasFiltradas = todasLasReservas;
+        if (filtroEstado !== 'todas') {
+            reservasFiltradas = todasLasReservas.filter(r => r.estado === filtroEstado);
+        }
+
+        // Ordenar por fecha descendente (más reciente primero)
+        reservasFiltradas.sort((a, b) => {
+            const dateA = new Date(b.fecha + ' ' + b.hora_inicio);
+            const dateB = new Date(a.fecha + ' ' + a.hora_inicio);
+            return dateB - dateA;
+        });
+
+        if (reservasFiltradas.length === 0) {
+            const mensaje = filtroEstado === 'todas' 
+                ? 'No tienes reservas en tu historial.'
+                : `No tienes reservas ${filtroEstado.toLowerCase()}s.`;
+            perfilHistorial.innerHTML = `<p>${mensaje}</p>`;
+            return;
+        }
+
+        perfilHistorial.innerHTML = reservasFiltradas.map(r => `
+            <div class="reservation-card">
+                <p><strong>Espacio:</strong> ${escapeHtml(r.espacio)}</p>
+                <p><strong>Fecha:</strong> ${formatReservationDate(r.fecha)}</p>
+                <p><strong>Hora:</strong> ${r.hora_inicio.slice(0,5)} - ${r.hora_fin.slice(0,5)}</p>
+                <p><strong>Estado:</strong>
+                    <span class="estado-${r.estado.toLowerCase()}">${escapeHtml(r.estado)}</span>
+                </p>
+            </div>
+        `).join('');
+    }
+
+    // Event listener para el filtro de historial
+    function setupHistorialFiltro() {
+        const filtroSelect = document.getElementById('historial-filtro');
+        if (filtroSelect) {
+            filtroSelect.addEventListener('change', (e) => {
+                renderPerfilHistorial(e.target.value);
+            });
         }
     }
 
@@ -421,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ============================================
+// ============================================
     // ACTIVAR VISTA
     // ============================================
     function activateView(viewName) {
@@ -434,9 +542,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetBtn = document.querySelector(`.menu-item[data-view="${viewName}"]`);
         if (targetBtn) targetBtn.classList.add('active');
 
+        // Cargar datos según la vista
         if (viewName === 'mis-reservas') loadMisReservas();
         if (viewName === 'disponibilidad') loadDisponibilidad();
         if (viewName === 'admin-reservas') loadAdminReservas();
+        if (viewName === 'perfil') loadPerfilHistorial();
+    }
+
+// ============================================
+    // DETECTAR ROL DESDE HTML Y AJUSTAR VISTA INICIAL
+    // ============================================
+    // El rol se pasa desde PHP en un data attribute del body
+    const bodyElement = document.querySelector('.dashboard-body');
+    const userRol = bodyElement ? bodyElement.getAttribute('data-user-role') : null;
+
+    // Si es practicante, la vista inicial debe ser disponibilidad
+    if (userRol === 'practicante') {
+        const disponibilidadView = document.getElementById('view-disponibilidad');
+        const disponibilidadBtn = document.querySelector('.menu-item[data-view="disponibilidad"]');
+        
+        views.forEach(v => v.classList.remove('active'));
+        menuButtons.forEach(b => b.classList.remove('active'));
+        
+        if (disponibilidadView) disponibilidadView.classList.add('active');
+        if (disponibilidadBtn) disponibilidadBtn.classList.add('active');
+        
+        loadDisponibilidad(); // Cargar disponibilidad al inicio
     }
 
     // ============================================
@@ -584,9 +715,107 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+// ============================================
+    // CALIFICAR SERVICIO (Modal)
+    // ============================================
+    let calificacionSeleccionada = 0;
+
+    function initCalificarServicio() {
+        const btnCalificar = document.getElementById('btn-calificar-servicio');
+        const modal = document.getElementById('modal-calificar');
+        const modalClose = modal?.querySelector('.modal-close');
+        const ratingBtns = document.querySelectorAll('.rating-btn');
+        const btnEnviar = document.getElementById('btn-enviar-calificacion');
+        const ratingSelection = document.getElementById('rating-selection');
+
+        if (!btnCalificar || !modal) return;
+
+        // Abrir modal
+        btnCalificar.addEventListener('click', () => {
+            modal.style.display = 'block';
+            calificacionSeleccionada = 0;
+            if (btnEnviar) btnEnviar.disabled = true;
+            if (ratingSelection) ratingSelection.textContent = '';
+            const commentBox = document.getElementById('rating-comment');
+            if (commentBox) commentBox.value = '';
+            const msg = document.getElementById('rating-msg');
+            if (msg) { msg.textContent = ''; msg.className = 'form-msg'; }
+        });
+
+        // Cerrar modal
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Selección de rating
+        ratingBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                calificacionSeleccionada = parseInt(btn.getAttribute('data-value'), 10);
+                ratingBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                if (ratingSelection) {
+                    ratingSelection.textContent = '⭐'.repeat(calificacionSeleccionada) + ' ' + calificacionSeleccionada + '/10';
+                }
+                if (btnEnviar) btnEnviar.disabled = false;
+            });
+        });
+
+        // Enviar calificación
+        if (btnEnviar) {
+            btnEnviar.addEventListener('click', async () => {
+                if (calificacionSeleccionada < 1 || calificacionSeleccionada > 10) return;
+
+                const commentBox = document.getElementById('rating-comment');
+                const comentario = commentBox ? commentBox.value.trim() : '';
+                const msg = document.getElementById('rating-msg');
+
+                try {
+                    const res = await fetch('api/calificar_servicio.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            calificacion: calificacionSeleccionada,
+                            comentario: comentario
+                        })
+                    });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        if (msg) {
+                            msg.textContent = '✅ ¡Gracias por tu calificación!';
+                            msg.classList.add('ok');
+                        }
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                        }, 1500);
+                    } else {
+                        if (msg) {
+                            msg.textContent = '❌ ' + (data.message || 'Error al enviar');
+                            msg.classList.add('error');
+                        }
+                    }
+                } catch (err) {
+                    if (msg) {
+                        msg.textContent = '❌ Error de conexión';
+                        msg.classList.add('error');
+                    }
+                }
+            });
+        }
+    }
+
     // ============================================
     // INICIALIZACIÓN
     // ============================================
     loadRuntimeLinks();
+    setupHistorialFiltro();
+    initCalificarServicio();
     activateView('mis-reservas');
 });

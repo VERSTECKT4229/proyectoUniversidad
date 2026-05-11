@@ -41,7 +41,7 @@ try {
         exit;
     }
 
-    $rolesPermitidos = ['administrativo', 'docente', 'externo'];
+$rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante'];
     $rol = trim((string)($user['rol'] ?? ''));
 
     if (!in_array($rol, $rolesPermitidos, true)) {
@@ -49,7 +49,8 @@ try {
         exit;
     }
 
-    if (in_array($rol, ['administrativo', 'docente'], true)) {
+    $requiresDomain = in_array($rol, ['administrativo', 'docente'], true);
+    if ($requiresDomain && !is_local_request()) {
         if (!preg_match('/^[A-Za-z0-9._%+\-]+@poligran\.edu\.co$/i', (string)$user['email'])) {
             echo json_encode([
                 'success' => false,
@@ -135,6 +136,7 @@ try {
         'user' => $_SESSION['user']
     ]);
 } catch (Throwable $e) {
+    error_log('login.php error: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,

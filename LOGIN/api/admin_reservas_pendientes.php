@@ -16,10 +16,11 @@ try {
 
     // Consultamos reservas pendientes con el nombre del usuario
     $stmt = $pdo->prepare("
-        SELECT r.*, u.nombre AS usuario 
-        FROM reservas r 
-        JOIN usuarios u ON r.usuario_id = u.id 
-        WHERE r.estado = 'Pendiente' 
+        SELECT r.ID AS id, r.usuario_id, r.fecha, r.hora_inicio, r.hora_fin,
+               r.espacio, r.requisitos, r.estado, u.nombre AS usuario
+        FROM reservas r
+        JOIN usuarios u ON r.usuario_id = u.ID
+        WHERE r.estado = 'Pendiente'
         ORDER BY r.fecha ASC
     ");
     $stmt->execute();

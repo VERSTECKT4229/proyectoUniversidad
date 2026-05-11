@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('administrativo', 'docente', 'externo') NOT NULL DEFAULT 'externo',
+rol ENUM('administrativo', 'docente', 'externo', 'practicante') NOT NULL DEFAULT 'externo',
     failed_attempts INT DEFAULT 0,
     locked_until DATETIME DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

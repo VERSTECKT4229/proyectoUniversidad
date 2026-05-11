@@ -15,7 +15,7 @@ $usuario_id  = (int)($_SESSION['user']['id'] ?? 0);
 $fecha       = trim($data['fecha'] ?? '');
 $hora_inicio = trim($data['hora_inicio'] ?? '');
 $hora_fin    = trim($data['hora_fin'] ?? '');
-$espacio     = trim($data['espacio'] ?? '');
+$espacio     = strtoupper(trim($data['espacio'] ?? ''));
 $requisitos  = trim($data['requisitos'] ?? '');
 
 if ($usuario_id <= 0 || $fecha === '' || $hora_inicio === '' || $hora_fin === '' || $espacio === '') {
@@ -38,9 +38,16 @@ try {
         exit;
     }
 
+    // Validar que no sea martes (2) ni jueves (4)
+    $diaSemana = $fechaObj->format('N'); // 1=lunes, 2=martes, 3=miércoles, 4=jueves, 5=viernes, etc.
+    if ($diaSemana === '2' || $diaSemana === '4') {
+        echo json_encode(['success' => false, 'message' => 'No se permiten reservas los martes ni jueves']);
+        exit;
+    }
+
     function hayConflicto($pdo, $espacio, $fecha, $inicio, $fin) {
         $sql = "SELECT COUNT(*) FROM reservas 
-                WHERE espacio = ? AND fecha = ? 
+                WHERE UPPER(espacio) = UPPER(?) AND fecha = ? 
                 AND estado IN ('Pendiente', 'Aprobada')
                 AND (hora_inicio < ? AND hora_fin > ?)";
         $stmt = $pdo->prepare($sql);
@@ -48,17 +55,44 @@ try {
         return $stmt->fetchColumn() > 0;
     }
 
-    // Lógica B3: requiere B1 y B2 libres
-    if ($espacio === 'B3') {
-        if (hayConflicto($pdo, 'B1', $fecha, $hora_inicio, $hora_fin) || 
-            hayConflicto($pdo, 'B2', $fecha, $hora_inicio, $hora_fin)) {
-            echo json_encode(['success' => false, 'message' => 'B3 requiere disponibilidad de B1 y B2']);
-            exit;
+    function verificarDisponibilidadEspacio($pdo, $espacio, $fecha, $hora_inicio, $hora_fin) {
+        // Reglas:
+        // - B1 y B2 son INDEPENDIENTES entre sí
+        // - B3 es la combinación de B1+B2, requiere AMBOS libres
+        // - No se puede reservar un espacio si ya hay reserva en ese horario
+        
+        if ($espacio === 'B3') {
+            // Para B3, debe haber disponibilidad en B1 Y B2
+            if (hayConflicto($pdo, 'B1', $fecha, $hora_inicio, $hora_fin)) {
+                return ['disponible' => false, 'mensaje' => 'No se puede reservar B3 porque B1 ya está ocupado en ese horario'];
+            }
+            if (hayConflicto($pdo, 'B2', $fecha, $hora_inicio, $hora_fin)) {
+                return ['disponible' => false, 'mensaje' => 'No se puede reservar B3 porque B2 ya está ocupado en ese horario'];
+            }
+            if (hayConflicto($pdo, 'B3', $fecha, $hora_inicio, $hora_fin)) {
+                return ['disponible' => false, 'mensaje' => 'B3 ya está ocupado en ese horario'];
+            }
+        } elseif ($espacio === 'B1' || $espacio === 'B2') {
+            // Para B1 o B2: no se puede si hay conflicto en ese espacio
+            // PERO también se bloquea si B3 está ocupado en ese horario
+            if (hayConflicto($pdo, $espacio, $fecha, $hora_inicio, $hora_fin)) {
+                return ['disponible' => false, 'mensaje' => "El espacio {$espacio} ya está ocupado en ese horario"];
+            }
+            if (hayConflicto($pdo, 'B3', $fecha, $hora_inicio, $hora_fin)) {
+                return ['disponible' => false, 'mensaje' => "No se puede reservar {$espacio} porque B3 (combinación de espacios) ya está ocupado en ese horario"];
+            }
         }
+        
+        return ['disponible' => true, 'mensaje' => 'Disponible'];
     }
 
-    if (hayConflicto($pdo, $espacio, $fecha, $hora_inicio, $hora_fin)) {
-        echo json_encode(['success' => false, 'message' => 'El espacio ya está ocupado en ese horario']);
+    // Verificar disponibilidad
+    $resultado = verificarDisponibilidadEspacio($pdo, $espacio, $fecha, $hora_inicio, $hora_fin);
+    if (!$resultado['disponible']) {
+        echo json_encode([
+            'success' => false,
+            'message' => $resultado['mensaje']
+        ]);
         exit;
     }
 

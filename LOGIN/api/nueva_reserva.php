@@ -15,7 +15,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 $fecha = trim($data['fecha'] ?? '');
 $horaInicio = trim($data['hora_inicio'] ?? '');
 $horaFin = trim($data['hora_fin'] ?? '');
-$espacio = trim($data['espacio'] ?? '');
+$espacio = strtoupper(trim($data['espacio'] ?? ''));
 $requisitos = trim($data['requisitos_adicionales'] ?? '');
 $userId = (int)($_SESSION['user']['id'] ?? 0);
 $userEmail = (string)($_SESSION['user']['email'] ?? '');
@@ -30,6 +30,15 @@ if ($fecha === '' || $horaInicio === '' || $horaFin === '' || !in_array($espacio
 
 // Limpiar fecha de cualquier componente de hora y validar 24h
 $fechaSolo = explode(' ', $fecha)[0];
+
+// Validar que no sea martes (2) ni jueves (4)
+$fechaObj = new DateTime($fechaSolo);
+$diaSemana = $fechaObj->format('N'); // 1=lunes, 2=martes, 3=miércoles, 4=jueves, 5=viernes, etc.
+if ($diaSemana === '2' || $diaSemana === '4') {
+    echo json_encode(['success' => false, 'message' => 'No se permiten reservas los martes ni jueves']);
+    exit;
+}
+
 $timestampReserva = strtotime("$fechaSolo $horaInicio");
 if ($timestampReserva < (time() + 86400)) {
     echo json_encode(['success' => false, 'message' => 'Las reservas deben realizarse con al menos 24 horas de antelación']);
@@ -60,15 +69,48 @@ function hasConflict(PDO $pdo, string $espacio, string $fecha, string $horaInici
     return ((int)($row['total'] ?? 0)) > 0;
 }
 
+function verificarDisponibilidadEspacioNueva(PDO $pdo, string $espacio, string $fecha, string $horaInicio, string $horaFin): array
+{
+    // Reglas:
+    // - B1 y B2 son INDEPENDIENTES entre sí
+    // - B3 es la combinación de B1+B2, requiere AMBOS libres
+    // - No se puede reservar un espacio si ya hay reserva en ese horario
+    
+    if ($espacio === 'B3') {
+        // Para B3, debe haber disponibilidad en B1 Y B2
+        if (hasConflict($pdo, 'B1', $fecha, $horaInicio, $horaFin)) {
+            return ['disponible' => false, 'mensaje' => 'No se puede reservar B3 porque B1 ya está ocupado en ese horario'];
+        }
+        if (hasConflict($pdo, 'B2', $fecha, $horaInicio, $horaFin)) {
+            return ['disponible' => false, 'mensaje' => 'No se puede reservar B3 porque B2 ya está ocupado en ese horario'];
+        }
+        if (hasConflict($pdo, 'B3', $fecha, $horaInicio, $horaFin)) {
+            return ['disponible' => false, 'mensaje' => 'B3 ya está ocupado en ese horario'];
+        }
+    } elseif ($espacio === 'B1' || $espacio === 'B2') {
+        // Para B1 o B2: no se puede si hay conflicto en ese espacio
+        // PERO también se bloquea si B3 está ocupado en ese horario
+        if (hasConflict($pdo, $espacio, $fecha, $horaInicio, $horaFin)) {
+            return ['disponible' => false, 'mensaje' => "El espacio {$espacio} ya está ocupado en ese horario"];
+        }
+        if (hasConflict($pdo, 'B3', $fecha, $horaInicio, $horaFin)) {
+            return ['disponible' => false, 'mensaje' => "No se puede reservar {$espacio} porque B3 (combinación de espacios) ya está ocupado en ese horario"];
+        }
+    }
+    
+    return ['disponible' => true, 'mensaje' => 'Disponible'];
+}
+
 try {
-    if (hasConflict($pdo, $espacio, $fechaSolo, $horaInicio, $horaFin)) {
+    // Verificar disponibilidad del espacio
+    $resultado = verificarDisponibilidadEspacioNueva($pdo, $espacio, $fechaSolo, $horaInicio, $horaFin);
+    if (!$resultado['disponible']) {
         echo json_encode([
             'success' => false,
-            'message' => 'No hay disponibilidad para el espacio seleccionado'
+            'message' => $resultado['mensaje']
         ]);
         exit;
     }
-
 
     $stmt = $pdo->prepare(
         "INSERT INTO reservas (usuario_id, fecha, hora_inicio, hora_fin, espacio, requisitos, estado)
@@ -84,6 +126,7 @@ try {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Error al registrar la reserva'
+        'message' => 'Error al registrar la reserva: ' . $e->getMessage()
     ]);
 }
+?>

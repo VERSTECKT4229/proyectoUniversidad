@@ -1120,3 +1120,2438 @@ MENSAJE:
 ==================================================
 
 [2026-05-02 23:28:51] mail() FALLÓ → atabordag@poligran.edu.co
+==========================================
+[2026-05-03 20:12:39] PARA: dabenitez67@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Daniel Benitez </strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 03/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 15:10 – 17:12</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-03 20:26:20] PARA: dabenitez67@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Daniel Benitez </strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B2</p>
+        <p>📅 <strong>Fecha:</strong> 03/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 16:26 – 17:26</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-04 07:11:16] PARA: dabenitez67@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Daniel Benitez </strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 03/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 13:28 – 15:28</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-04 07:15:30] PARA: juanpabloescobarmarin@gmail.com
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>kobar</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 29/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 18:15 – 19:23</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-04 23:13:31] PARA: danielbenitezm4229@gmail.com
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>daniel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 06/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:10 – 08:10</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-05 02:06:01] PARA: soulmanxyz@gmail.com
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B2</p>
+        <p>📅 <strong>Fecha:</strong> 06/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 11:00 – 13:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-05 03:04:56] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 07/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:06 – 12:04</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-05 22:40:05] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 20/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-05 23:15:11] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poligran</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 09/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 17:00 – 18:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-05 23:56:12] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 07/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 11:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:00:17] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 10/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:00:32] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 10/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:07:45] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 07/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:00 – 08:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:07:47] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B2</p>
+        <p>📅 <strong>Fecha:</strong> 10/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:08:58] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 13:00 – 14:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:09:00] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B2</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 13:00 – 14:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:10:36] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 09:00 – 10:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:22:44] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 08/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:22 – 12:22</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:27:58] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 11:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:28:45] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 11:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:42:42] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 12:00</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:42:44] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 12:00</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:43:26] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:00 – 11:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:45:37] PARA: saraque@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B2
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>samuel</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B2</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 15:00 – 16:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 00:45:40] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 11/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 13:00 – 14:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 23:24:43] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 08/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:27 – 12:28</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-06 23:42:41] PARA: danielbenitezm4229@gmail.com
+ASUNTO: 📊 Nueva Calificación de Servicio: 1/10
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .rating { text-align: center; font-size: 36px; margin: 20px 0; }
+    .rating-number { display: inline-block; background: #1a237e; color: #fff;
+                  border-radius: 50%; width: 80px; height: 80px; line-height: 80px;
+                  font-size: 32px; font-weight: bold; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>📊 Calificación de Servicio</h1>
+    </div>
+    <div style="padding: 24px;">
+      <div class="rating">
+        <div class="rating-number">1/10</div>
+        <div style="font-size: 24px; margin-top: 8px;">⭐</div>
+      </div>
+      <div class="detail">
+        <p>👤 <strong>Usuario:</strong> d</p>
+        <p>📧 <strong>Email:</strong> dalbenitezm@poligran.edu.co</p>
+        <p>📅 <strong>Fecha:</strong> 06/05/2026 23:42:41</p>
+        <p>💬 <strong>Comentario:</strong></p>
+        <p style="font-style: italic; color: #555;">la cagada va en la taza</p>
+      </div>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-07 00:04:07] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 09/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 08:01 – 10:01</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 01:52:16] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 12/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:09 – 09:06</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 03:39:50] PARA: danielbenitezm4229@gmail.com
+ASUNTO: 📊 Nueva Calificación de Servicio: 1/10
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .rating { text-align: center; font-size: 36px; margin: 20px 0; }
+    .rating-number { display: inline-block; background: #1a237e; color: #fff;
+                  border-radius: 50%; width: 80px; height: 80px; line-height: 80px;
+                  font-size: 32px; font-weight: bold; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>📊 Calificación de Servicio</h1>
+    </div>
+    <div style="padding: 24px;">
+      <div class="rating">
+        <div class="rating-number">1/10</div>
+        <div style="font-size: 24px; margin-top: 8px;">⭐</div>
+      </div>
+      <div class="detail">
+        <p>👤 <strong>Usuario:</strong> Mepicaelpene</p>
+        <p>📧 <strong>Email:</strong> brayancasthier@gmail.com</p>
+        <p>📅 <strong>Fecha:</strong> 08/05/2026 03:39:50</p>
+        <p>💬 <strong>Comentario:</strong></p>
+        <p style="font-style: italic; color: #555;">me robaron la cuenta</p>
+      </div>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 03:39:53] PARA: danielbenitezm4229@gmail.com
+ASUNTO: 📊 Nueva Calificación de Servicio: 1/10
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .rating { text-align: center; font-size: 36px; margin: 20px 0; }
+    .rating-number { display: inline-block; background: #1a237e; color: #fff;
+                  border-radius: 50%; width: 80px; height: 80px; line-height: 80px;
+                  font-size: 32px; font-weight: bold; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>📊 Calificación de Servicio</h1>
+    </div>
+    <div style="padding: 24px;">
+      <div class="rating">
+        <div class="rating-number">1/10</div>
+        <div style="font-size: 24px; margin-top: 8px;">⭐</div>
+      </div>
+      <div class="detail">
+        <p>👤 <strong>Usuario:</strong> Mepicaelpene</p>
+        <p>📧 <strong>Email:</strong> brayancasthier@gmail.com</p>
+        <p>📅 <strong>Fecha:</strong> 08/05/2026 03:39:53</p>
+        <p>💬 <strong>Comentario:</strong></p>
+        <p style="font-style: italic; color: #555;">me robaron la cuenta</p>
+      </div>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 03:41:10] PARA: brayancasthier@gmail.com
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Mepicaelpene</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 10/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 09:40 – 19:45</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:40:20] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 12/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:35 – 10:35</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:40:54] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 12/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:35 – 10:35</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:45:15] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 12/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 11:00 – 13:00</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:45:26] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 19/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 09:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:45:36] PARA: atabordag@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>Alejandro</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 19/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 09:00 – 12:00</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:57:10] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 13/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:55 – 11:00</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:57:14] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 20/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 10:55 – 11:55</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 17:58:26] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 13/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 08:56 – 11:56</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 18:07:39] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 13/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:07 – 08:07</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-08 18:08:28] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva APROBADA - Auditorio B3
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #28a745; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+    .note { background: #fff8e1; border-left: 4px solid #ffc107;
+            padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Nos complace informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">✅ APROBADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B3</p>
+        <p>📅 <strong>Fecha:</strong> 20/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 08:08 – 09:08</p>
+      </div>
+      <div class="note">
+        ⚠️ Recuerda presentarte con tu identificación <strong>5 minutos antes</strong>
+        del inicio de tu reserva.
+      </div>
+      <p style="margin-top:20px; color:#555; font-size:14px;">
+        Si tienes alguna pregunta, comunícate con la administración.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+
+==========================================
+[2026-05-09 18:51:41] PARA: dalbenitezm@poligran.edu.co
+ASUNTO: Reserva RECHAZADA - Auditorio B1
+MENSAJE:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f7ff; margin: 0; padding: 20px; }
+    .card { background: #fff; border-radius: 10px; max-width: 520px; margin: auto;
+            padding: 32px; box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+    .header { background: #1a237e; color: #fff; border-radius: 8px 8px 0 0;
+              padding: 20px 24px; text-align: center; }
+    .header h1 { margin: 0; font-size: 22px; }
+    .badge { display: inline-block; background: #dc3545; color: #fff;
+             border-radius: 20px; padding: 6px 18px; font-size: 15px;
+             font-weight: bold; margin: 16px 0; }
+    .detail { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .detail p { margin: 8px 0; font-size: 15px; color: #333; }
+    .detail strong { color: #1a237e; }
+    .footer { text-align: center; color: #888; font-size: 12px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>🏛️ Sistema de Reservas Poli</h1>
+    </div>
+    <div style="padding: 24px;">
+      <p>Hola, <strong>d</strong></p>
+      <p>Lamentamos informarte que tu solicitud de reserva ha sido:</p>
+      <div style="text-align:center;">
+        <span class="badge">❌ RECHAZADA</span>
+      </div>
+      <div class="detail">
+        <p>📍 <strong>Espacio:</strong> Auditorio B1</p>
+        <p>📅 <strong>Fecha:</strong> 15/05/2026</p>
+        <p>🕐 <strong>Hora:</strong> 07:15 – 10:15</p>
+      </div>
+      <p style="color:#555; font-size:14px;">
+        Puedes intentar reservar en otro horario o comunicarte con la administración
+        para más información.
+      </p>
+    </div>
+    <div class="footer">
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
+    </div>
+  </div>
+</body>
+</html>
+==========================================
+

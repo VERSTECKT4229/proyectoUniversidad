@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const signUpContainer = document.querySelector('.sign-up-container');
     const signInContainer = document.querySelector('.sign-in-container');
-    const okAccountLink = document.querySelector('.ok-account');
-    const noAccountLink = document.querySelector('.no-account');
+    const okAccountLinks = document.querySelectorAll('.ok-account');
+    const noAccountLinks = document.querySelectorAll('.no-account');
     const notifyCheck = document.querySelector('.check_notify');
     const notifyError = document.querySelector('.error_notify');
 
@@ -65,21 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadRuntimeLinks();
 
-    if (okAccountLink) {
-        okAccountLink.addEventListener('click', (e) => {
+    okAccountLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
             signUpContainer.style.display = 'none';
             signInContainer.style.display = 'block';
         });
-    }
+    });
 
-    if (noAccountLink) {
-        noAccountLink.addEventListener('click', (e) => {
+    noAccountLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
             signInContainer.style.display = 'none';
             signUpContainer.style.display = 'block';
         });
-    }
+    });
 
     // Función para bloquear/deshabilitar formulario de login
     function lockLoginForm(seconds) {

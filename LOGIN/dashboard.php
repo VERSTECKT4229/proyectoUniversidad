@@ -9,22 +9,24 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Reservas de Auditorios</title>
+<title>Dashboard - Reservas Poli de Auditorios</title>
     <link rel="stylesheet" href="Style.css">
 </head>
-<body class="dashboard-body">
+<body class="dashboard-body" data-user-role="<?php echo $user['rol']; ?>">
     <div class="dashboard-layout">
         <aside class="sidebar">
             <div class="brand-box">
                 <img src="assets/img/logo-institucional.png" alt="Logo institucional" class="brand-logo" onerror="this.style.display='none'">
-                <h2>Reservas</h2>
+<h2>Reservas Poli</h2>
             </div>
             <p class="welcome">Hola, <?php echo htmlspecialchars($user['nombre']); ?></p>
 
-            <nav class="menu">
+<nav class="menu">
+                <?php if ($user['rol'] !== 'practicante'): ?>
                 <button class="menu-item active" data-view="mis-reservas">Mis reservas</button>
                 <button class="menu-item" data-view="nueva-reserva">Nueva reserva</button>
-                <button class="menu-item" data-view="disponibilidad">Ver disponibilidad</button>
+                <?php endif; ?>
+                <button class="menu-item <?php echo ($user['rol'] === 'practicante') ? 'active' : ''; ?>" data-view="disponibilidad">Ver disponibilidad</button>
 
 <?php if (in_array($user['rol'], ['administrador', 'administrativo'])): ?>
                 <button class="menu-item admin-view" data-view="admin-reservas">Reservas pendientes</button>
@@ -34,7 +36,7 @@ $user = $_SESSION['user'];
                     <div class="dropdown-content">
                         <button class="menu-item submenu-item" data-view="perfil">Mi perfil</button>
                         <button class="menu-item submenu-item" data-view="password">Cambiar contraseña</button>
-                        <a class="menu-item submenu-item logout-link" href="api/logout.php">Cerrar sesión</a>
+<a class="menu-item submenu-item logout-link" href="api/logout.php" onclick="return confirm('¿Estás seguro que quieres cerrar sesión?')">Cerrar sesión</a>
                     </div>
                 </div>
             </nav>
@@ -46,19 +48,25 @@ $user = $_SESSION['user'];
                 <span id="runtime-local">Local: -</span>
                 <span id="runtime-public">Cloudflare: -</span>
             </div>
+<?php if ($user['rol'] !== 'practicante'): ?>
             <section id="view-mis-reservas" class="view active">
-                <h1>Mis reservas</h1>
-                <div class="calendar-nav">
-                    <button id="prev-week" class="secondary-btn">← Semana anterior</button>
-                    <button id="next-week" class="secondary-btn">Semana siguiente →</button>
-                    <button id="today-week" class="secondary-btn">Hoy</button>
-                </div>
+                <h1 class="section-header">
+                    Mis reservas
+                    <div class="calendar-nav">
+                        <button id="prev-week" class="week-btn">← Anterior</button>
+                        <button id="today-week" class="week-btn week-btn-today">Hoy</button>
+                        <button id="next-week" class="week-btn">Siguiente →</button>
+                    </div>
+                </h1>
                 <div id="mis-reservas-calendar" class="calendar-grid"></div>
                 <div id="mis-reservas-list" class="card-list"></div>
             </section>
 
             <section id="view-nueva-reserva" class="view">
-                <h1>Nueva reserva</h1>
+                <h1>
+                    Nueva reserva
+<button id="btn-calificar-servicio" class="rate-btn">★ Calificar Servicio</button>
+                </h1>
                 <div class="form-card centered">
                     <form id="nueva-reserva-form">
                         <label>Fecha</label>
@@ -73,12 +81,12 @@ $user = $_SESSION['user'];
                         <label>Espacio</label>
                         <select name="espacio" required>
                             <option value="">Seleccione</option>
-                            <option value="B1">B1</option>
-                            <option value="B2">B2</option>
-                            <option value="B3">B3</option>
+<option value="B1">B1 - Capacidad (50)</option>
+                            <option value="B2">B2 - Capacidad (50)</option>
+                            <option value="B3">B3 - Capacidad (100)</option>
                         </select>
 
-                        <label>Requisitos adicionales (opcional)</label>
+<label>Recursos adicionales (opcional)</label>
                         <textarea name="requisitos_adicionales" rows="4" placeholder="Proyector, sonido, etc."></textarea>
 
                         <button type="submit" class="primary-btn">Finalizar reserva</button>
@@ -86,6 +94,7 @@ $user = $_SESSION['user'];
                     <p id="nueva-reserva-msg" class="form-msg"></p>
                 </div>
             </section>
+            <?php endif; ?>
 
             <section id="view-disponibilidad" class="view">
                 <h1>Disponibilidad general</h1>
@@ -103,13 +112,24 @@ $user = $_SESSION['user'];
                 <div id="disponibilidad-calendar" class="calendar-grid"></div>
             </section>
 
-            <section id="view-perfil" class="view">
+<section id="view-perfil" class="view">
                 <h1>Mi perfil</h1>
                 <div class="info-card">
                     <p><strong>Nombre:</strong> <?php echo htmlspecialchars($user['nombre']); ?></p>
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
                     <p><strong>Rol:</strong> <?php echo htmlspecialchars($user['rol']); ?></p>
                 </div>
+                <h2 style="margin-top:20px;">Historial de reservas</h2>
+<div class="filter-bar">
+                    <label for="historial-filtro">Filtrar por estado:</label>
+                    <select id="historial-filtro">
+                        <option value="todas">Todas</option>
+                        <option value="Aprobada">Aprobadas</option>
+                        <option value="Rechazada">Rechazadas</option>
+                        <option value="Pendiente">Pendientes</option>
+                    </select>
+                </div>
+                <div id="perfil-historial" class="card-list"></div>
             </section>
 
             <section id="view-password" class="view">
@@ -134,6 +154,35 @@ $user = $_SESSION['user'];
         </main>
     </div>
 
-    <script src="js/dashboard.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/validador-fechas.js"></script>
+
+<!-- Modal para Calificar Servicio -->
+<div id="modal-calificar" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>⭐ Calificar Servicio</h2>
+        <p>Selecciona tu calificación del 1 al 10:</p>
+        <div class="rating-buttons">
+            <button class="rating-btn" data-value="1">1</button>
+            <button class="rating-btn" data-value="2">2</button>
+            <button class="rating-btn" data-value="3">3</button>
+            <button class="rating-btn" data-value="4">4</button>
+            <button class="rating-btn" data-value="5">5</button>
+            <button class="rating-btn" data-value="6">6</button>
+            <button class="rating-btn" data-value="7">7</button>
+            <button class="rating-btn" data-value="8">8</button>
+            <button class="rating-btn" data-value="9">9</button>
+            <button class="rating-btn" data-value="10">10</button>
+        </div>
+        <div id="rating-selection" style="margin:15px 0;font-size:18px;text-align:center;font-weight:bold;"></div>
+        <label>Comentario (opcional):</label>
+        <textarea id="rating-comment" rows="3" placeholder="Escribe tu comentario..."></textarea>
+        <button id="btn-enviar-calificacion" class="primary-btn" disabled>Enviar Calificación</button>
+        <p id="rating-msg" class="form-msg"></p>
+    </div>
+</div>
+
+<script src="js/servicio-cliente.js"></script>
 </body>
 </html>

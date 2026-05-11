@@ -19,7 +19,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 // CONFIGURACIÓN DEL REMITENTE
 // ============================================================
 define('MAIL_FROM',     'danielbenitezm4229@gmail.com');
-define('MAIL_FROM_NAME','Sistema de Reservas Poligran');
+define('MAIL_FROM_NAME','Sistema de Reservas Poli');
 define('MAIL_PASSWORD', 'tmpn fssi eufa fobk');
 define('MAIL_LOG_PATH', __DIR__ . '/mail_log.txt');
 
@@ -156,7 +156,7 @@ function build_approval_email(array $reserva): string
 <body>
   <div class="card">
     <div class="header">
-      <h1>🏛️ Sistema de Reservas Poligran</h1>
+      <h1>🏛️ Sistema de Reservas Poli</h1>
     </div>
     <div style="padding: 24px;">
       <p>Hola, <strong>{$nombre}</strong></p>
@@ -178,7 +178,7 @@ function build_approval_email(array $reserva): string
       </p>
     </div>
     <div class="footer">
-      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
     </div>
   </div>
 </body>
@@ -234,7 +234,7 @@ function build_rejection_email(array $reserva): string
 <body>
   <div class="card">
     <div class="header">
-      <h1>🏛️ Sistema de Reservas Poligran</h1>
+      <h1>🏛️ Sistema de Reservas Poli</h1>
     </div>
     <div style="padding: 24px;">
       <p>Hola, <strong>{$nombre}</strong></p>
@@ -253,7 +253,7 @@ function build_rejection_email(array $reserva): string
       </p>
     </div>
     <div class="footer">
-      Sistema de Reservas Poligran &mdash; Correo automático, no responder.
+      Sistema de Reservas Poli &mdash; Correo automático, no responder.
     </div>
   </div>
 </body>

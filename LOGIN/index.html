@@ -1,64 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Reservas Poli</title>
     <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-    <div class="container">
-
-        <div class="logo-section">
-            <img src="logo.png" alt="Logo" class="logo-img">
-        </div>
-
-        <div class="form sign-up-container">
-            <form class="formulario">
-            <h2>Iniciar sesión</h2>
-
-            <div class="inputs">
-                <input type="email" class="box" placeholder="Correo" id="email">
-                <div class="password-wrapper">
-                    <input type="password" class="box" placeholder="Contraseña" id="password">
-                    <span class="toggle-password" data-target="password">👁️</span>
+    <div class="page-wrapper">
+        <section class="hero-panel">
+            <div class="hero-content">
+                <h1>Bienvenido al sistema de reservas</h1>
+                <p>Inicia sesión para gestionar tus reservas o regístrate si aún no tienes cuenta.</p>
+                <div class="hero-notes">
+                    <p>• Usa un correo válido.</p>
+                    <p>• Administrativos y docentes requieren <strong>@poligran.edu.co</strong> cuando no están en local.</p>
+                    <p>• Si estás en local, puedes ingresar con cualquier cuenta de prueba.</p>
                 </div>
-                <p id="login-error-msg" class="login-error-msg" style="display:none;"></p>
-                <a href="#">Olvidaste tu contraseña</a>
-                <a href="#" class="ok-account">¿No tienes una cuenta?</a>
-                <input type="submit" value="Iniciar sesión" class="submit">
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="brand-block">
+                <div class="brand-logo">RP</div>
+                <div>
+                    <h2>Reservas Poli</h2>
+                    <p>Accede rápidamente a tu panel.</p>
+                </div>
             </div>
 
-          </form>
-        </div>
-
-        <div class="form sign-in-container">
-            <form class="formulario2">
-            <h2>REGISTRARSE</h2>
-
-            <div class="inputs">
-                <input type="text" class="box" placeholder="Nombre" name="nombre" id="name">
-                <input type="email" class="box" placeholder="Email" name="email" id="email2">
-                <div class="password-wrapper">
-                    <input type="password" class="box" placeholder="Contraseña" name="password" id="password2">
-                    <span class="toggle-password" data-target="password2">👁️</span>
-                </div>
-                <div class="password-wrapper">
-                    <input type="password" class="box" placeholder="Confirmar contraseña" name="confirm_password" id="confirm_password">
-                    <span class="toggle-password" data-target="confirm_password">👁️</span>
-                </div>
-                <select class="box" id="rol">
-                    <option value="" disabled selected>Selecciona rol</option>
-                    <option value="docente">Docente</option>
-                    <option value="administrativo">Administrativo</option>
-                    <option value="externo">Externo</option>
-                </select>
-                <a href="#" class="no-account">¿Ya tienes una cuenta?</a>
-                <input type="submit" value="Registrarse" class="submit">
+            <div class="form sign-up-container">
+                <form class="formulario">
+                    <h2>Iniciar sesión</h2>
+                    <div class="inputs">
+                        <input type="email" class="box" placeholder="Correo electrónico" id="email" autocomplete="username">
+                        <div class="password-wrapper">
+                            <input type="password" class="box" placeholder="Contraseña" id="password" autocomplete="current-password">
+                            <span class="toggle-password" data-target="password">👁️</span>
+                        </div>
+                        <p id="login-error-msg" class="login-error-msg" style="display:none;"></p>
+                        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        <a href="#" class="ok-account">¿No tienes cuenta? Regístrate</a>
+                        <input type="submit" value="Iniciar sesión" class="submit">
+                    </div>
+                </form>
             </div>
-            </form>
-        </div>
 
+            <div class="form sign-in-container">
+                <form class="formulario2">
+                    <h2>Crear cuenta</h2>
+                    <div class="inputs">
+                        <input type="text" class="box" placeholder="Nombre completo" name="nombre" id="name" autocomplete="name">
+                        <input type="email" class="box" placeholder="Correo electrónico" name="email" id="email2" autocomplete="email">
+                        <div class="password-wrapper">
+                            <input type="password" class="box" placeholder="Contraseña" name="password" id="password2" autocomplete="new-password">
+                            <span class="toggle-password" data-target="password2">👁️</span>
+                        </div>
+                        <div class="password-wrapper">
+                            <input type="password" class="box" placeholder="Confirmar contraseña" name="confirm_password" id="confirm_password" autocomplete="new-password">
+                            <span class="toggle-password" data-target="confirm_password">👁️</span>
+                        </div>
+                        <select class="box" id="rol">
+                            <option value="" disabled selected>Selecciona rol</option>
+                            <option value="docente">Docente</option>
+                            <option value="administrativo">Administrativo</option>
+                            <option value="externo">Externo</option>
+                            <option value="practicante">Practicante</option>
+                        </select>
+                        <a href="#" class="no-account">Volver a iniciar sesión</a>
+                        <input type="submit" value="Registrarse" class="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div id="runtime-links-banner" class="runtime-banner">
@@ -70,5 +84,6 @@
     <p class="notify check_notify">EXITO</p>
     <p class="notify error_notify">ERROR</p>
     <script src="js/script.js"></script>
+    <script src="js/servicio-cliente.js"></script>
 </body>
 </html>
