@@ -43,6 +43,26 @@ if (in_array($rol, ['administrativo', 'docente'], true) && !is_local_request()) 
     }
 }
 
+if (strlen($nombre) > 100) {
+    echo json_encode(['success' => false, 'message' => 'El nombre no puede superar los 100 caracteres']);
+    exit;
+}
+
+if (strlen($email) > 254) {
+    echo json_encode(['success' => false, 'message' => 'Email no válido']);
+    exit;
+}
+
+if (strlen($password) < 8) {
+    echo json_encode(['success' => false, 'message' => 'La contraseña debe tener al menos 8 caracteres']);
+    exit;
+}
+
+if (strlen($password) > 1024) {
+    echo json_encode(['success' => false, 'message' => 'Contraseña demasiado larga']);
+    exit;
+}
+
 if ($password !== $confirmPassword) {
     echo json_encode(['success' => false, 'message' => 'Las contraseñas no coinciden']);
     exit;

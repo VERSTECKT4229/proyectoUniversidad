@@ -8,48 +8,65 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
-$email = trim($data['email'] ?? '');
-$newPass = $data['new_password'] ?? '';
-$confirmPass = $data['confirm_password'] ?? '';
+$data        = json_decode(file_get_contents('php://input'), true) ?? [];
+$email       = trim($data['email']            ?? '');
+$codigo      = trim($data['codigo']           ?? '');
+$newPass     = $data['new_password']          ?? '';
+$confirmPass = $data['confirm_password']      ?? '';
 
-if ($email === '' || $newPass === '' || $confirmPass === '') {
-    echo json_encode(['success' => false, 'message' => 'Email no válido']);
+if (!$email || !$codigo || !$newPass || !$confirmPass) {
+    echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios.']);
+    exit;
+}
+
+if (strlen($newPass) < 8) {
+    echo json_encode(['success' => false, 'message' => 'La contraseña debe tener al menos 8 caracteres.']);
+    exit;
+}
+
+if ($newPass !== $confirmPass) {
+    echo json_encode(['success' => false, 'message' => 'Las contraseñas no coinciden.']);
     exit;
 }
 
 try {
-    $stmt = $pdo->prepare('SELECT id, nombre, email FROM usuarios WHERE email = ? LIMIT 1');
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Verificar código: debe ser válido, no usado y no expirado
+    $stmt = $pdo->prepare("
+        SELECT id FROM codigos_recuperacion
+        WHERE email = ? AND codigo = ? AND usado = 0 AND expires_at > NOW()
+        ORDER BY created_at DESC
+        LIMIT 1
+    ");
+    $stmt->execute([$email, $codigo]);
+    $registro = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$registro) {
+        echo json_encode(['success' => false, 'message' => 'Código incorrecto o expirado. Solicita uno nuevo.']);
+        exit;
+    }
+
+    // Verificar que la cuenta existe
+    $stmtUser = $pdo->prepare('SELECT id FROM usuarios WHERE email = ? LIMIT 1');
+    $stmtUser->execute([$email]);
+    $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        echo json_encode(['success' => false, 'message' => 'No existe una cuenta con ese correo']);
+        echo json_encode(['success' => false, 'message' => 'Cuenta no encontrada.']);
         exit;
     }
 
-    if (strlen($newPass) < 8) {
-        echo json_encode(['success' => false, 'message' => 'La clave debe tener 8+ caracteres']);
-        exit;
-    }
+    // Marcar código como usado
+    $pdo->prepare("UPDATE codigos_recuperacion SET usado = 1 WHERE id = ?")
+        ->execute([$registro['id']]);
 
-    if ($newPass !== $confirmPass) {
-        echo json_encode(['success' => false, 'message' => 'Las claves no coinciden']);
-        exit;
-    }
+    // Actualizar contraseña
+    $pdo->prepare("UPDATE usuarios SET password = ?, failed_attempts = 0, locked_until = NULL WHERE id = ?")
+        ->execute([password_hash($newPass, PASSWORD_BCRYPT), $user['id']]);
 
-    $hash = password_hash($newPass, PASSWORD_DEFAULT);
-    $update = $pdo->prepare('UPDATE usuarios SET password = ?, failed_attempts = 0, locked_until = NULL WHERE id = ?');
-    $update->execute([$hash, $user['id']]);
+    echo json_encode(['success' => true, 'message' => 'Contraseña actualizada correctamente. Ya puedes iniciar sesión.']);
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Contraseña actualizada. Ya puedes entrar.'
-    ]);
 } catch (Throwable $e) {
+    error_log('recuperar_password error: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error interno en recuperación de contraseña'
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Error interno. Intenta de nuevo.']);
 }

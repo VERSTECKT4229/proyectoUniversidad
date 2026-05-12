@@ -10,25 +10,26 @@
     <div class="page-wrapper">
         <section class="hero-panel">
             <div class="hero-content">
-                <h1>Bienvenido al sistema de reservas</h1>
-                <p>Inicia sesión para gestionar tus reservas o regístrate si aún no tienes cuenta.</p>
+                <h1>Sistema de reservas de auditorios</h1>
+                <p>Gestiona tus reservas de espacios de forma rápida y sencilla desde cualquier lugar.</p>
                 <div class="hero-notes">
-                    <p>• Usa un correo válido.</p>
-                    <p>• Administrativos y docentes requieren <strong>@poligran.edu.co</strong> cuando no están en local.</p>
-                    <p>• Si estás en local, puedes ingresar con cualquier cuenta de prueba.</p>
+                    <p>• Administrativos y docentes deben usar correo <strong>@poligran.edu.co</strong>.</p>
+                    <p>• Externos y practicantes pueden registrarse con cualquier correo válido.</p>
+                    <p>• Las reservas requieren aprobación del área administrativa.</p>
                 </div>
             </div>
         </section>
 
         <div class="container">
             <div class="brand-block">
-                <div class="brand-logo">RP</div>
+                <img src="logo.png" alt="Logo Universidad" class="brand-logo-img">
                 <div>
                     <h2>Reservas Poli</h2>
-                    <p>Accede rápidamente a tu panel.</p>
+                    <p>Panel de gestión de espacios</p>
                 </div>
             </div>
 
+            <!-- Formulario: Iniciar sesión -->
             <div class="form sign-up-container">
                 <form class="formulario">
                     <h2>Iniciar sesión</h2>
@@ -44,8 +45,45 @@
                         <input type="submit" value="Iniciar sesión" class="submit">
                     </div>
                 </form>
+
+                <!-- Recuperar contraseña: paso 1 (enviar código) -->
+                <div class="forgot-form" id="forgot-step1">
+                    <h3>Recuperar contraseña</h3>
+                    <p class="forgot-desc">Ingresa tu correo y te enviaremos un código de verificación.</p>
+                    <input type="email" class="box" id="forgot-email" placeholder="Correo electrónico" autocomplete="email">
+                    <p id="forgot-step1-msg" class="forgot-inline-msg"></p>
+                    <div class="forgot-form-actions">
+                        <button type="button" class="btn-secondary" id="btn-forgot-cancel">Cancelar</button>
+                        <button type="button" class="btn-primary-sm" id="btn-enviar-codigo">Enviar código</button>
+                    </div>
+                </div>
+
+                <!-- Recuperar contraseña: paso 2 (verificar código + nueva contraseña) -->
+                <div class="forgot-form" id="forgot-step2">
+                    <h3>Verifica tu identidad</h3>
+                    <p class="forgot-desc">Ingresa el código de 6 dígitos que enviamos a <strong id="forgot-email-label"></strong></p>
+                    <input type="text" class="box" id="forgot-codigo" placeholder="Código de 6 dígitos"
+                           maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+                    <div class="password-wrapper">
+                        <input type="password" class="box" id="forgot-new-pass" placeholder="Nueva contraseña (mín. 8 caracteres)" autocomplete="new-password">
+                        <span class="toggle-password" data-target="forgot-new-pass">👁️</span>
+                    </div>
+                    <div class="password-wrapper">
+                        <input type="password" class="box" id="forgot-confirm-pass" placeholder="Confirmar nueva contraseña" autocomplete="new-password">
+                        <span class="toggle-password" data-target="forgot-confirm-pass">👁️</span>
+                    </div>
+                    <p id="forgot-step2-msg" class="forgot-inline-msg"></p>
+                    <div class="forgot-form-actions">
+                        <button type="button" class="btn-secondary" id="btn-forgot-back">Volver</button>
+                        <button type="button" class="btn-primary-sm" id="btn-forgot-submit">Cambiar contraseña</button>
+                    </div>
+                    <p class="forgot-resend">¿No recibiste el código?
+                        <a href="#" id="btn-reenviar-codigo">Reenviar</a>
+                    </p>
+                </div>
             </div>
 
+            <!-- Formulario: Crear cuenta -->
             <div class="form sign-in-container">
                 <form class="formulario2">
                     <h2>Crear cuenta</h2>
@@ -61,7 +99,7 @@
                             <span class="toggle-password" data-target="confirm_password">👁️</span>
                         </div>
                         <select class="box" id="rol">
-                            <option value="" disabled selected>Selecciona rol</option>
+                            <option value="" disabled selected>Selecciona tu rol</option>
                             <option value="docente">Docente</option>
                             <option value="administrativo">Administrativo</option>
                             <option value="externo">Externo</option>
@@ -75,15 +113,8 @@
         </div>
     </div>
 
-    <div id="runtime-links-banner" class="runtime-banner">
-        <strong>Links activos:</strong>
-        <span id="runtime-local">Local: -</span>
-        <span id="runtime-public">Cloudflare: -</span>
-    </div>
-
     <p class="notify check_notify">EXITO</p>
     <p class="notify error_notify">ERROR</p>
     <script src="js/script.js"></script>
-    <script src="js/servicio-cliente.js"></script>
 </body>
 </html>

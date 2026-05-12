@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
-$email = trim($data['email'] ?? '');
+$data     = json_decode(file_get_contents('php://input'), true) ?? [];
+$email    = trim($data['email']    ?? '');
 $password = (string)($data['password'] ?? '');
 
 if ($email === '' || $password === '') {
@@ -26,22 +26,32 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
+// Limitar longitud para evitar ataques de payload gigante
+if (strlen($email) > 254 || strlen($password) > 1024) {
+    echo json_encode(['success' => false, 'message' => 'Credenciales inválidas']);
+    exit;
+}
+
+// Mensaje genérico: no revelar si el email existe o no
+define('CREDENCIALES_INVALIDAS', 'Credenciales incorrectas.');
+
 try {
     $stmt = $pdo->prepare(
         'SELECT id, nombre, email, password, rol, failed_attempts, locked_until
-         FROM usuarios
-         WHERE email = ?
-         LIMIT 1'
+         FROM usuarios WHERE email = ? LIMIT 1'
     );
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Respuesta genérica si no existe (no revelar que el email no está registrado)
     if (!$user) {
-        echo json_encode(['success' => false, 'message' => 'Usuario no encontrado']);
+        // Simular tiempo de bcrypt para evitar timing attack
+        password_verify($password, '$2y$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWXYZ01234');
+        echo json_encode(['success' => false, 'message' => CREDENCIALES_INVALIDAS]);
         exit;
     }
 
-$rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante'];
+    $rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante'];
     $rol = trim((string)($user['rol'] ?? ''));
 
     if (!in_array($rol, $rolesPermitidos, true)) {
@@ -49,97 +59,86 @@ $rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante'];
         exit;
     }
 
-    $requiresDomain = in_array($rol, ['administrativo', 'docente'], true);
-    if ($requiresDomain && !is_local_request()) {
+    if (in_array($rol, ['administrativo', 'docente'], true) && !is_local_request()) {
         if (!preg_match('/^[A-Za-z0-9._%+\-]+@poligran\.edu\.co$/i', (string)$user['email'])) {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Acceso bloqueado: para este rol se requiere correo @poligran.edu.co'
-            ]);
+            echo json_encode(['success' => false, 'message' => 'Para este rol se requiere correo @poligran.edu.co']);
             exit;
         }
     }
 
-    $userId = (int)($user['id'] ?? 0);
-    $failedAttempts = (int)($user['failed_attempts'] ?? 0);
-    $lockedUntil = $user['locked_until'] ?? null;
-    $passDb = (string)($user['password'] ?? '');
-    $now = date('Y-m-d H:i:s');
+    $userId         = (int)$user['id'];
+    $failedAttempts = (int)$user['failed_attempts'];
+    $lockedUntil    = $user['locked_until'] ?? null;
+    $now            = date('Y-m-d H:i:s');
 
+    // Verificar bloqueo activo
     if (!empty($lockedUntil) && $lockedUntil > $now) {
-        $remaining = max(1, strtotime($lockedUntil) - strtotime($now));
+        $remaining = max(1, strtotime($lockedUntil) - time());
         echo json_encode([
-            'success' => false,
-            'locked' => true,
+            'success'   => false,
+            'locked'    => true,
             'remaining' => $remaining,
-            'message' => 'Tu cuenta ha sido bloqueada. Espera ' . $remaining . ' segundos.'
+            'message'   => "Cuenta bloqueada. Espera {$remaining} segundos."
         ]);
         exit;
     }
 
+    // Resetear bloqueo expirado
     if (!empty($lockedUntil) && $lockedUntil <= $now) {
-        $reset = $pdo->prepare('UPDATE usuarios SET failed_attempts = 0, locked_until = NULL WHERE id = ?');
-        $reset->execute([$userId]);
+        $pdo->prepare('UPDATE usuarios SET failed_attempts = 0, locked_until = NULL WHERE id = ?')->execute([$userId]);
         $failedAttempts = 0;
     }
 
-    $valid = false;
-    if ($passDb !== '' && password_verify($password, $passDb)) {
-        $valid = true;
-    } elseif ($password === $passDb) {
-        $valid = true;
-    }
+    // Verificar contraseña — SOLO bcrypt, sin comparación en texto plano
+    $passDb = (string)($user['password'] ?? '');
+    $valid  = ($passDb !== '' && password_verify($password, $passDb));
 
     if (!$valid) {
         $newAttempts = $failedAttempts + 1;
-        $maxAttempts = 4;
+        $maxAttempts = 5;
 
         if ($newAttempts >= $maxAttempts) {
-            $lockSeconds = 5;
-            $lockTime = date('Y-m-d H:i:s', strtotime('+' . $lockSeconds . ' seconds'));
-            $upd = $pdo->prepare('UPDATE usuarios SET failed_attempts = ?, locked_until = ? WHERE id = ?');
-            $upd->execute([$newAttempts, $lockTime, $userId]);
-
+            // Bloqueo exponencial: 30 segundos base
+            $lockSeconds = 30 * (2 ** max(0, intdiv($newAttempts, $maxAttempts) - 1));
+            $lockSeconds = min($lockSeconds, 3600); // máximo 1 hora
+            $lockTime    = date('Y-m-d H:i:s', time() + $lockSeconds);
+            $pdo->prepare('UPDATE usuarios SET failed_attempts = ?, locked_until = ? WHERE id = ?')
+                ->execute([$newAttempts, $lockTime, $userId]);
             echo json_encode([
-                'success' => false,
-                'locked' => true,
+                'success'   => false,
+                'locked'    => true,
                 'remaining' => $lockSeconds,
-                'message' => 'Tu cuenta ha sido bloqueada. Espera 5 segundos.'
+                'message'   => "Demasiados intentos fallidos. Cuenta bloqueada por {$lockSeconds} segundos."
             ]);
         } else {
-            $remainingAttempts = $maxAttempts - $newAttempts;
-            $upd = $pdo->prepare('UPDATE usuarios SET failed_attempts = ? WHERE id = ?');
-            $upd->execute([$newAttempts, $userId]);
-
+            $restantes = $maxAttempts - $newAttempts;
+            $pdo->prepare('UPDATE usuarios SET failed_attempts = ? WHERE id = ?')->execute([$newAttempts, $userId]);
             echo json_encode([
                 'success' => false,
-                'message' => 'Credenciales incorrectas. Te quedan ' . $remainingAttempts . ' intento(s)'
+                'message' => CREDENCIALES_INVALIDAS . " Te quedan {$restantes} intento(s)."
             ]);
         }
         exit;
     }
 
-    $reset = $pdo->prepare('UPDATE usuarios SET failed_attempts = 0, locked_until = NULL WHERE id = ?');
-    $reset->execute([$userId]);
+    // Login correcto: resetear intentos
+    $pdo->prepare('UPDATE usuarios SET failed_attempts = 0, locked_until = NULL WHERE id = ?')->execute([$userId]);
 
     $_SESSION['user'] = [
-        'id' => $userId,
+        'id'     => $userId,
         'nombre' => $user['nombre'] ?? '',
-        'email' => $user['email'] ?? '',
-        'rol' => $rol
+        'email'  => $user['email']  ?? '',
+        'rol'    => $rol,
     ];
 
     echo json_encode([
-        'success' => true,
-        'message' => 'Inicio de sesión exitoso',
+        'success'  => true,
+        'message'  => 'Inicio de sesión exitoso',
         'redirect' => 'dashboard.php',
-        'user' => $_SESSION['user']
     ]);
+
 } catch (Throwable $e) {
-    error_log('login.php error: ' . $e->getMessage());
+    error_log('login.php: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error interno en login'
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Error interno']);
 }

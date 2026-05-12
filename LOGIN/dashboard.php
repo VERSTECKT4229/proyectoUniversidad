@@ -22,14 +22,18 @@ $user = $_SESSION['user'];
             <p class="welcome">Hola, <?php echo htmlspecialchars($user['nombre']); ?></p>
 
 <nav class="menu">
+                <button class="menu-item active" data-view="inicio">Inicio</button>
                 <?php if ($user['rol'] !== 'practicante'): ?>
-                <button class="menu-item active" data-view="mis-reservas">Mis reservas</button>
+                <button class="menu-item" data-view="mis-reservas">Mis reservas</button>
                 <button class="menu-item" data-view="nueva-reserva">Nueva reserva</button>
                 <?php endif; ?>
-                <button class="menu-item <?php echo ($user['rol'] === 'practicante') ? 'active' : ''; ?>" data-view="disponibilidad">Ver disponibilidad</button>
+                <button class="menu-item" data-view="disponibilidad">Ver disponibilidad</button>
 
-<?php if (in_array($user['rol'], ['administrador', 'administrativo'])): ?>
-                <button class="menu-item admin-view" data-view="admin-reservas">Reservas pendientes</button>
+                <?php if ($user['rol'] === 'administrativo'): ?>
+                <button class="menu-item admin-view" data-view="admin-reservas">Gestión de reservas</button>
+                <button class="menu-item admin-view" data-view="admin-usuarios">Usuarios</button>
+                <button class="menu-item admin-view" data-view="admin-recursos">Recursos</button>
+                <button class="menu-item admin-view" data-view="admin-dias">Días bloqueados</button>
                 <?php endif; ?>
                 <div class="menu-dropdown">
                     <button class="menu-item dropdown-toggle" type="button">Opciones</button>
@@ -43,11 +47,61 @@ $user = $_SESSION['user'];
         </aside>
 
         <main class="main-content">
-            <div id="runtime-links-banner" class="runtime-banner runtime-banner-dashboard">
-                <strong>Links activos:</strong>
-                <span id="runtime-local">Local: -</span>
-                <span id="runtime-public">Cloudflare: -</span>
-            </div>
+            <!-- ── VISTA: INICIO ───────────────────────────────────── -->
+            <section id="view-inicio" class="view active">
+                <h1>Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?></h1>
+
+                <!-- Stats del usuario -->
+                <div class="stats-grid" id="mis-stats-grid">
+                    <div class="stat-card stat-total">
+                        <span class="stat-num" id="stat-total">—</span>
+                        <span class="stat-label">Total reservas</span>
+                    </div>
+                    <div class="stat-card stat-pendiente">
+                        <span class="stat-num" id="stat-pendientes">—</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                    <div class="stat-card stat-aprobada">
+                        <span class="stat-num" id="stat-aprobadas">—</span>
+                        <span class="stat-label">Aprobadas</span>
+                    </div>
+                    <div class="stat-card stat-rechazada">
+                        <span class="stat-num" id="stat-rechazadas">—</span>
+                        <span class="stat-label">Rechazadas</span>
+                    </div>
+                </div>
+
+                <!-- Próxima reserva -->
+                <div id="proxima-reserva-card" class="proxima-card" style="display:none;">
+                    <p class="proxima-title">Próxima reserva aprobada</p>
+                    <div class="proxima-body" id="proxima-body"></div>
+                </div>
+
+                <!-- Stats del sistema (solo admin) -->
+                <?php if ($user['rol'] === 'administrativo'): ?>
+                <h2 style="margin-top:28px;margin-bottom:12px;font-size:1.1rem;color:#374151;">Sistema</h2>
+                <div class="stats-grid" id="sistema-stats-grid">
+                    <div class="stat-card stat-total">
+                        <span class="stat-num" id="sys-total">—</span>
+                        <span class="stat-label">Total reservas</span>
+                    </div>
+                    <div class="stat-card stat-pendiente">
+                        <span class="stat-num" id="sys-pendientes">—</span>
+                        <span class="stat-label">Pendientes aprobación</span>
+                    </div>
+                    <div class="stat-card stat-aprobada">
+                        <span class="stat-num" id="sys-aprobadas">—</span>
+                        <span class="stat-label">Aprobadas</span>
+                    </div>
+                    <div class="stat-card stat-hoy">
+                        <span class="stat-num" id="sys-hoy">—</span>
+                        <span class="stat-label">Reservas hoy</span>
+                    </div>
+                </div>
+                <div class="espacios-grid" id="espacios-grid"></div>
+                <?php endif; ?>
+            </section>
+
 <?php if ($user['rol'] !== 'practicante'): ?>
             <section id="view-mis-reservas" class="view active">
                 <h1 class="section-header">
@@ -86,8 +140,13 @@ $user = $_SESSION['user'];
                             <option value="B3">B3 - Capacidad (100)</option>
                         </select>
 
-<label>Recursos adicionales (opcional)</label>
-                        <textarea name="requisitos_adicionales" rows="4" placeholder="Proyector, sonido, etc."></textarea>
+<label>Notas adicionales (opcional)</label>
+                        <textarea name="requisitos_adicionales" rows="2" placeholder="Indicaciones especiales..."></textarea>
+
+                        <div id="recursos-seccion" style="display:none;">
+                            <label style="margin-top:6px;">Recursos a solicitar</label>
+                            <div id="recursos-lista" class="recursos-check-list"></div>
+                        </div>
 
                         <button type="submit" class="primary-btn">Finalizar reserva</button>
                     </form>
@@ -108,6 +167,7 @@ $user = $_SESSION['user'];
                 <p class="legend">
                     <span class="badge available">Verde: disponible</span>
                     <span class="badge occupied">Rojo: ocupado</span>
+                    <span class="badge blocked">Gris: bloqueado por dependencia B1/B2/B3</span>
                 </p>
                 <div id="disponibilidad-calendar" class="calendar-grid"></div>
             </section>
@@ -145,10 +205,138 @@ $user = $_SESSION['user'];
                 </div>
             </section>
 
-            <?php if (in_array($user['rol'], ['administrador', 'administrativo'])): ?>
+            <?php if ($user['rol'] === 'administrativo'): ?>
+
+            <section id="view-admin-dias" class="view">
+                <div class="crud-header">
+                    <h1>Días bloqueados</h1>
+                </div>
+                <p class="section-desc">Bloquea fechas específicas en las que no se podrán hacer reservas (además de martes y jueves que siempre están bloqueados).</p>
+
+                <div class="form-card" style="max-width:480px;margin-bottom:20px;">
+                    <div class="crud-form-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="field-group">
+                            <label>Fecha a bloquear</label>
+                            <input type="date" id="dia-fecha" min="<?php echo date('Y-m-d'); ?>">
+                        </div>
+                        <div class="field-group">
+                            <label>Motivo (opcional)</label>
+                            <input type="text" id="dia-motivo" placeholder="Ej: Mantenimiento">
+                        </div>
+                    </div>
+                    <p id="dias-form-msg" class="form-msg" style="margin-top:8px;"></p>
+                    <button class="primary-btn" id="btn-bloquear-dia" style="margin-top:12px;">Bloquear día</button>
+                </div>
+
+                <p id="admin-dias-msg" class="form-msg"></p>
+                <div class="table-wrapper">
+                    <table class="crud-table">
+                        <thead><tr><th>Fecha</th><th>Día</th><th>Motivo</th><th>Acción</th></tr></thead>
+                        <tbody id="admin-dias-tbody">
+                            <tr><td colspan="4" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <section id="view-admin-reservas" class="view">
-                <h1>Reservas pendientes (Admin)</h1>
-                <div id="admin-reservas-list" class="card-list"></div>
+                <div class="crud-header">
+                    <h1>Gestión de reservas</h1>
+                    <span id="admin-reservas-count" class="table-count"></span>
+                </div>
+
+                <div class="filter-bar filter-bar--admin">
+                    <div class="filter-group">
+                        <label>Estado</label>
+                        <select id="filtro-estado">
+                            <option value="">Todos</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aprobada">Aprobada</option>
+                            <option value="Rechazada">Rechazada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Espacio</label>
+                        <select id="filtro-espacio">
+                            <option value="">Todos</option>
+                            <option value="B1">B1</option>
+                            <option value="B2">B2</option>
+                            <option value="B3">B3</option>
+                        </select>
+                    </div>
+                    <button class="primary-btn" id="btn-filtrar-reservas" style="align-self:flex-end;">Filtrar</button>
+                </div>
+
+                <p id="admin-reservas-msg" class="form-msg"></p>
+
+                <div class="table-wrapper">
+                    <table class="crud-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Usuario</th>
+                                <th>Espacio</th>
+                                <th>Fecha</th>
+                                <th>Horario</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-reservas-tbody">
+                            <tr><td colspan="7" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-admin-usuarios" class="view">
+                <div class="crud-header">
+                    <h1>Gestión de usuarios</h1>
+                    <button class="primary-btn" id="btn-nuevo-usuario">+ Nuevo usuario</button>
+                </div>
+                <p id="admin-usuarios-msg" class="form-msg"></p>
+                <div class="table-wrapper">
+                    <table class="crud-table" id="admin-usuarios-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Creado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-usuarios-tbody">
+                            <tr><td colspan="6" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-admin-recursos" class="view">
+                <div class="crud-header">
+                    <h1>Gestión de recursos</h1>
+                    <button class="primary-btn" id="btn-nuevo-recurso">+ Nuevo recurso</button>
+                </div>
+                <p id="admin-recursos-msg" class="form-msg"></p>
+                <div class="table-wrapper">
+                    <table class="crud-table" id="admin-recursos-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-recursos-tbody">
+                            <tr><td colspan="5" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
             <?php endif; ?>
         </main>
@@ -184,5 +372,130 @@ $user = $_SESSION['user'];
 </div>
 
 <script src="js/servicio-cliente.js"></script>
+
+<!-- Modal editar reserva (admin) -->
+<div id="modal-editar-reserva" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="modal-close" data-modal="modal-editar-reserva">&times;</span>
+        <h2>Editar reserva</h2>
+        <form id="form-editar-reserva" class="crud-form">
+            <input type="hidden" id="er-id">
+            <div class="crud-form-grid">
+                <div class="field-group">
+                    <label>Usuario</label>
+                    <input type="text" id="er-usuario" disabled>
+                </div>
+                <div class="field-group">
+                    <label>Espacio</label>
+                    <select id="er-espacio" required>
+                        <option value="B1">B1 – Capacidad 50</option>
+                        <option value="B2">B2 – Capacidad 50</option>
+                        <option value="B3">B3 – Capacidad 100</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label>Fecha</label>
+                    <input type="date" id="er-fecha" required>
+                </div>
+                <div class="field-group">
+                    <label>Estado</label>
+                    <select id="er-estado" required>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aprobada">Aprobada</option>
+                        <option value="Rechazada">Rechazada</option>
+                        <option value="Cancelada">Cancelada</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label>Hora inicio</label>
+                    <input type="time" id="er-hora-inicio" required>
+                </div>
+                <div class="field-group">
+                    <label>Hora fin</label>
+                    <input type="time" id="er-hora-fin" required>
+                </div>
+                <div class="field-group field-group--full">
+                    <label>Recursos adicionales</label>
+                    <textarea id="er-requisitos" rows="2" placeholder="Proyector, sonido, etc."></textarea>
+                </div>
+            </div>
+            <p id="modal-er-msg" class="form-msg"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-modal="modal-editar-reserva">Cancelar</button>
+                <button type="submit" class="primary-btn">Guardar cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal CRUD usuarios -->
+<div id="modal-usuario" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="modal-close" data-modal="modal-usuario">&times;</span>
+        <h2 id="modal-usuario-title">Nuevo usuario</h2>
+        <form id="form-usuario" class="crud-form" autocomplete="off">
+            <input type="hidden" id="usuario-id">
+            <div class="crud-form-grid">
+                <div class="field-group">
+                    <label>Nombre completo</label>
+                    <input type="text" id="usuario-nombre" placeholder="Nombre completo" required>
+                </div>
+                <div class="field-group">
+                    <label>Email</label>
+                    <input type="email" id="usuario-email" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="field-group">
+                    <label>Contraseña <span id="pass-hint" class="field-hint">(mínimo 8 caracteres)</span></label>
+                    <input type="password" id="usuario-password" placeholder="Contraseña" autocomplete="new-password">
+                </div>
+                <div class="field-group">
+                    <label>Rol</label>
+                    <select id="usuario-rol" required>
+                        <option value="" disabled selected>Selecciona rol</option>
+                        <option value="administrativo">Administrativo</option>
+                        <option value="docente">Docente</option>
+                        <option value="externo">Externo</option>
+                        <option value="practicante">Practicante</option>
+                    </select>
+                </div>
+            </div>
+            <p id="modal-usuario-msg" class="form-msg"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-modal="modal-usuario">Cancelar</button>
+                <button type="submit" class="primary-btn">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal CRUD recursos -->
+<div id="modal-recurso" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="modal-close" data-modal="modal-recurso">&times;</span>
+        <h2 id="modal-recurso-title">Nuevo recurso</h2>
+        <form id="form-recurso" class="crud-form">
+            <input type="hidden" id="recurso-id">
+            <div class="crud-form-grid">
+                <div class="field-group">
+                    <label>Nombre</label>
+                    <input type="text" id="recurso-nombre" placeholder="Ej: Proyector" required>
+                </div>
+                <div class="field-group">
+                    <label>Cantidad</label>
+                    <input type="number" id="recurso-cantidad" placeholder="0" min="0" required>
+                </div>
+                <div class="field-group field-group--full">
+                    <label>Descripción</label>
+                    <textarea id="recurso-descripcion" rows="3" placeholder="Descripción del recurso..."></textarea>
+                </div>
+            </div>
+            <p id="modal-recurso-msg" class="form-msg"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-modal="modal-recurso">Cancelar</button>
+                <button type="submit" class="primary-btn">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

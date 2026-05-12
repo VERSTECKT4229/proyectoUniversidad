@@ -325,11 +325,19 @@ misReservasList.innerHTML = reservas.map(r => `
 
                     espacios.forEach(espacio => {
                         const td    = document.createElement('td');
-                        const match = reservas.some(r => r.espacio === espacio && overlaps(r.hora_inicio, r.hora_fin, hour));
+                        const match = reservas.find(r => r.espacio === espacio && overlaps(r.hora_inicio, r.hora_fin, hour));
 
                         if (match) {
-                            td.className   = 'slot occupied';
-                            td.textContent = 'Ocupado';
+                            if (match.tipo === 'bloqueado') {
+                                td.className   = 'slot blocked';
+                                td.innerHTML   = '⛔ Bloqueado';
+                                td.title       = espacio === 'B3'
+                                    ? 'B3 no disponible: B1 o B2 está ocupado'
+                                    : `${espacio} no disponible: B3 está reservado`;
+                            } else {
+                                td.className   = 'slot occupied';
+                                td.textContent = 'Ocupado';
+                            }
                         } else {
                             td.className   = 'slot available';
                             td.textContent = 'Disponible';
@@ -349,71 +357,187 @@ misReservasList.innerHTML = reservas.map(r => `
     }
 
     // ============================================
-    // ADMIN: RESERVAS PENDIENTES
+    // ADMIN: GESTIÓN DE RESERVAS
     // ============================================
+    function setMsgAdminReservas(msg, tipo) {
+        const el = document.getElementById('admin-reservas-msg');
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+        if (msg) setTimeout(() => { el.textContent = ''; el.className = 'form-msg'; }, 3500);
+    }
+
     async function loadAdminReservas() {
-        const adminReservasList = document.getElementById('admin-reservas-list');
-        if (!adminReservasList) return;
+        const tbody = document.getElementById('admin-reservas-tbody');
+        const count = document.getElementById('admin-reservas-count');
+        if (!tbody) return;
+
+        const estado  = document.getElementById('filtro-estado')?.value  || '';
+        const espacio = document.getElementById('filtro-espacio')?.value || '';
+
+        tbody.innerHTML = `<tr><td colspan="7" class="table-empty">Cargando...</td></tr>`;
 
         try {
-            const res  = await fetch('api/admin_reservas_pendientes.php');
+            const params = new URLSearchParams();
+            if (estado)  params.set('estado',  estado);
+            if (espacio) params.set('espacio', espacio);
+
+            const res  = await fetch('api/admin_gestionar_reserva.php?' + params.toString());
             const data = await res.json();
 
             if (!data.success) {
-                adminReservasList.innerHTML =
-                    `<p class="error-text">${data.message || 'Error al cargar.'}</p>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="table-empty error-text">${escapeHtml(data.message)}</td></tr>`;
                 return;
             }
 
-            if (!data.pendientes || data.pendientes.length === 0) {
-                adminReservasList.innerHTML = '<p>No hay reservas pendientes.</p>';
+            const reservas = data.reservas || [];
+            if (count) count.textContent = reservas.length + ' reserva' + (reservas.length !== 1 ? 's' : '');
+
+            if (!reservas.length) {
+                tbody.innerHTML = '<tr><td colspan="7" class="table-empty">No hay reservas con esos filtros.</td></tr>';
                 return;
             }
 
-            adminReservasList.innerHTML = data.pendientes.map(reserva => `
-                <div class="reservation-card admin-reserva">
-                    <div class="admin-card-header">
-                        <span class="admin-card-espacio">Auditorio ${escapeHtml(reserva.espacio)}</span>
-                        <span class="estado-pendiente">Pendiente</span>
-                    </div>
-                    <div class="admin-card-body">
-                        <div class="admin-card-row">
-                            <span class="admin-card-label">Usuario</span>
-                            <span>${escapeHtml(reserva.usuario)}</span>
-                        </div>
-                        <div class="admin-card-row">
-                            <span class="admin-card-label">Fecha</span>
-                            <span>${formatReservationDate(reserva.fecha)}</span>
-                        </div>
-                        <div class="admin-card-row">
-                            <span class="admin-card-label">Horario</span>
-                            <span>${reserva.hora_inicio.slice(0,5)} – ${reserva.hora_fin.slice(0,5)}</span>
-                        </div>
-                        <div class="admin-card-row">
-<span class="admin-card-label">Recursos</span>
-                            <span>${escapeHtml(reserva.requisitos) || '—'}</span>
-                        </div>
-                    </div>
-                    <div class="admin-card-actions">
-                        <button class="admin-btn approve-btn">✔ Aprobar</button>
-                        <button class="admin-btn reject-btn">✖ Rechazar</button>
-                    </div>
-                </div>
-            `).join('');
+            tbody.innerHTML = reservas.map(r => {
+                const esPendiente = r.estado === 'Pendiente';
+                const accionesPendiente = esPendiente ? `
+                    <button class="btn-aprobar"  data-id="${r.id}" title="Aprobar">✔ Aprobar</button>
+                    <button class="btn-rechazar" data-id="${r.id}" title="Rechazar">✖ Rechazar</button>
+                ` : '';
+                return `
+                <tr data-id="${r.id}">
+                    <td class="td-id">${r.id}</td>
+                    <td><span class="td-nombre">${escapeHtml(r.usuario)}</span><br>
+                        <span class="td-email">${escapeHtml(r.email)}</span></td>
+                    <td><span class="espacio-badge espacio-${r.espacio.toLowerCase()}">${r.espacio}</span></td>
+                    <td class="td-date">${formatReservationDate(r.fecha)}</td>
+                    <td class="td-date">${r.hora_inicio.slice(0,5)} – ${r.hora_fin.slice(0,5)}</td>
+                    <td><span class="estado-${r.estado.toLowerCase()}">${escapeHtml(r.estado)}</span></td>
+                    <td class="td-actions td-actions--wrap">
+                        ${accionesPendiente}
+                        <button class="btn-table-edit"   data-id="${r.id}">Editar</button>
+                        <button class="btn-table-delete" data-id="${r.id}">Eliminar</button>
+                    </td>
+                </tr>`;
+            }).join('');
 
-            // Closures: el ID es un número capturado directamente, nunca leído del DOM
-            const cards = adminReservasList.querySelectorAll('.reservation-card.admin-reserva');
-            data.pendientes.forEach((reserva, i) => {
-                const reservaId = parseInt(reserva.id, 10);
-                if (!cards[i]) return;
-                cards[i].querySelector('.approve-btn').addEventListener('click', () => decidirReserva(reservaId, 'aprobar'));
-                cards[i].querySelector('.reject-btn').addEventListener('click',  () => decidirReserva(reservaId, 'rechazar'));
+            // Guardar datos en el DOM para edición sin re-fetch
+            reservas.forEach(r => {
+                const row = tbody.querySelector(`tr[data-id="${r.id}"]`);
+                if (row) row.dataset.json = JSON.stringify(r);
+            });
+
+            // Aprobar
+            tbody.querySelectorAll('.btn-aprobar').forEach(btn => {
+                const id = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    if (!confirm('¿Aprobar esta reserva?')) return;
+                    await accionReserva(id, 'aprobar');
+                });
+            });
+
+            // Rechazar
+            tbody.querySelectorAll('.btn-rechazar').forEach(btn => {
+                const id = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    if (!confirm('¿Rechazar esta reserva?')) return;
+                    await accionReserva(id, 'rechazar');
+                });
+            });
+
+            // Editar
+            tbody.querySelectorAll('.btn-table-edit').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const r = JSON.parse(btn.closest('tr').dataset.json);
+                    document.getElementById('er-id').value          = r.id;
+                    document.getElementById('er-usuario').value     = r.usuario;
+                    document.getElementById('er-espacio').value     = r.espacio;
+                    document.getElementById('er-fecha').value       = r.fecha;
+                    document.getElementById('er-hora-inicio').value = r.hora_inicio.slice(0, 5);
+                    document.getElementById('er-hora-fin').value    = r.hora_fin.slice(0, 5);
+                    document.getElementById('er-estado').value      = r.estado;
+                    document.getElementById('er-requisitos').value  = r.requisitos || '';
+                    const msgEl = document.getElementById('modal-er-msg');
+                    if (msgEl) { msgEl.textContent = ''; msgEl.className = 'form-msg'; }
+                    openModal('modal-editar-reserva');
+                });
+            });
+
+            // Eliminar
+            tbody.querySelectorAll('.btn-table-delete').forEach(btn => {
+                const id = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    const r = JSON.parse(btn.closest('tr').dataset.json);
+                    if (!confirm(`¿Eliminar la reserva #${id} de ${r.usuario}?\nEsta acción no se puede deshacer.`)) return;
+                    try {
+                        const res  = await fetch('api/admin_gestionar_reserva.php', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id })
+                        });
+                        const data = await res.json();
+                        if (data.success) { setMsgAdminReservas(data.message, 'ok'); loadAdminReservas(); }
+                        else              { setMsgAdminReservas(data.message, 'error'); }
+                    } catch { setMsgAdminReservas('Error de conexión.', 'error'); }
+                });
             });
 
         } catch (err) {
-            console.error('Error loadAdminReservas:', err);
-            adminReservasList.innerHTML = '<p class="error-text">Error de conexión.</p>';
+            console.error('loadAdminReservas:', err);
+            tbody.innerHTML = '<tr><td colspan="7" class="table-empty error-text">Error de conexión.</td></tr>';
         }
+    }
+
+    async function accionReserva(id, accion) {
+        try {
+            const res  = await fetch('api/admin_gestionar_reserva.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, accion })
+            });
+            const data = await res.json();
+            if (data.success) { setMsgAdminReservas(data.message, 'ok'); loadAdminReservas(); }
+            else              { setMsgAdminReservas(data.message, 'error'); }
+        } catch { setMsgAdminReservas('Error de conexión.', 'error'); }
+    }
+
+    // Botón filtrar
+    document.getElementById('btn-filtrar-reservas')?.addEventListener('click', loadAdminReservas);
+
+    // Submit editar reserva
+    const formEditarReserva = document.getElementById('form-editar-reserva');
+    if (formEditarReserva) {
+        formEditarReserva.addEventListener('submit', async e => {
+            e.preventDefault();
+            const msgEl = document.getElementById('modal-er-msg');
+            const payload = {
+                id:          parseInt(document.getElementById('er-id').value, 10),
+                espacio:     document.getElementById('er-espacio').value,
+                fecha:       document.getElementById('er-fecha').value,
+                hora_inicio: document.getElementById('er-hora-inicio').value,
+                hora_fin:    document.getElementById('er-hora-fin').value,
+                estado:      document.getElementById('er-estado').value,
+                requisitos:  document.getElementById('er-requisitos').value.trim()
+            };
+
+            try {
+                const res  = await fetch('api/admin_gestionar_reserva.php', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    closeModal('modal-editar-reserva');
+                    setMsgAdminReservas(data.message, 'ok');
+                    loadAdminReservas();
+                } else {
+                    if (msgEl) { msgEl.textContent = data.message; msgEl.className = 'form-msg error'; }
+                }
+            } catch {
+                if (msgEl) { msgEl.textContent = 'Error de conexión.'; msgEl.className = 'form-msg error'; }
+            }
+        });
     }
 
 // ============================================
@@ -503,32 +627,6 @@ misReservasList.innerHTML = reservas.map(r => `
         }
     }
 
-    // ============================================
-    // DECIDIR RESERVA (aprobar / rechazar)
-    // ============================================
-    async function decidirReserva(reservaId, accion) {
-        const label = accion === 'aprobar' ? 'Aprobar' : 'Rechazar';
-        if (!confirm(`¿${label} esta reserva?`)) return;
-
-        try {
-            const res  = await fetch('api/admin_decidir_reserva.php', {
-                method:  'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify({ id: reservaId, accion })
-            });
-            const data = await res.json();
-
-            if (data.success) {
-                alert(accion === 'aprobar' ? '✅ Reserva aprobada' : '✅ Reserva rechazada');
-                loadAdminReservas();
-            } else {
-                alert('❌ ' + (data.message || 'No se pudo procesar'));
-            }
-        } catch (err) {
-            alert('❌ Error de conexión: ' + err.message);
-        }
-    }
-
 // ============================================
     // ACTIVAR VISTA
     // ============================================
@@ -543,10 +641,15 @@ misReservasList.innerHTML = reservas.map(r => `
         if (targetBtn) targetBtn.classList.add('active');
 
         // Cargar datos según la vista
-        if (viewName === 'mis-reservas') loadMisReservas();
-        if (viewName === 'disponibilidad') loadDisponibilidad();
-        if (viewName === 'admin-reservas') loadAdminReservas();
-        if (viewName === 'perfil') loadPerfilHistorial();
+        if (viewName === 'inicio')          loadDashboardStats();
+        if (viewName === 'mis-reservas')    loadMisReservas();
+        if (viewName === 'nueva-reserva')   loadRecursosParaReserva();
+        if (viewName === 'disponibilidad')  loadDisponibilidad();
+        if (viewName === 'admin-reservas')  loadAdminReservas();
+        if (viewName === 'perfil')          loadPerfilHistorial();
+        if (viewName === 'admin-usuarios')  loadAdminUsuarios();
+        if (viewName === 'admin-recursos')  loadAdminRecursos();
+        if (viewName === 'admin-dias')      loadAdminDias();
     }
 
 // ============================================
@@ -555,20 +658,6 @@ misReservasList.innerHTML = reservas.map(r => `
     // El rol se pasa desde PHP en un data attribute del body
     const bodyElement = document.querySelector('.dashboard-body');
     const userRol = bodyElement ? bodyElement.getAttribute('data-user-role') : null;
-
-    // Si es practicante, la vista inicial debe ser disponibilidad
-    if (userRol === 'practicante') {
-        const disponibilidadView = document.getElementById('view-disponibilidad');
-        const disponibilidadBtn = document.querySelector('.menu-item[data-view="disponibilidad"]');
-        
-        views.forEach(v => v.classList.remove('active'));
-        menuButtons.forEach(b => b.classList.remove('active'));
-        
-        if (disponibilidadView) disponibilidadView.classList.add('active');
-        if (disponibilidadBtn) disponibilidadBtn.classList.add('active');
-        
-        loadDisponibilidad(); // Cargar disponibilidad al inicio
-    }
 
     // ============================================
     // EVENT LISTENERS
@@ -635,7 +724,8 @@ misReservasList.innerHTML = reservas.map(r => `
                 hora_inicio:            formData.get('hora_inicio'),
                 hora_fin:               formData.get('hora_fin'),
                 espacio:                formData.get('espacio'),
-                requisitos_adicionales: formData.get('requisitos_adicionales')
+                requisitos_adicionales: formData.get('requisitos_adicionales'),
+                recursos:               getRecursosSeleccionados()
             };
 
             try {
@@ -694,8 +784,8 @@ misReservasList.innerHTML = reservas.map(r => `
             try {
                 const res  = await fetch('api/cambiar_password.php', {
                     method:  'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body:    `current_password=${encodeURIComponent(currentPass)}&new_password=${encodeURIComponent(newPass)}&confirm_password=${encodeURIComponent(confirmPass)}`
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({ current_password: currentPass, new_password: newPass, confirm_password: confirmPass })
                 });
                 const data = await res.json();
 
@@ -812,10 +902,532 @@ misReservasList.innerHTML = reservas.map(r => `
     }
 
     // ============================================
+    // UTILIDAD: ABRIR / CERRAR MODALES
+    // ============================================
+    function openModal(id) {
+        const m = document.getElementById(id);
+        if (m) m.style.display = 'flex';
+    }
+
+    function closeModal(id) {
+        const m = document.getElementById(id);
+        if (m) m.style.display = 'none';
+    }
+
+    // Cerrar modal al hacer clic en X o en el botón Cancelar
+    document.querySelectorAll('.modal-close, [data-modal]').forEach(el => {
+        el.addEventListener('click', () => closeModal(el.dataset.modal));
+    });
+
+    // Cerrar al hacer clic fuera del contenido
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', e => {
+            if (e.target === modal) closeModal(modal.id);
+        });
+    });
+
+    // ============================================
+    // CRUD — USUARIOS
+    // ============================================
+    let usuariosModo = 'crear'; // 'crear' | 'editar'
+
+    function setMsgUsuario(msg, tipo) {
+        const el = document.getElementById('modal-usuario-msg');
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+    }
+
+    function setMsgUsuarioVista(msg, tipo) {
+        const el = document.getElementById('admin-usuarios-msg');
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+        setTimeout(() => { el.textContent = ''; el.className = 'form-msg'; }, 3500);
+    }
+
+    function rolBadge(rol) {
+        const map = {
+            administrativo: 'badge-admin',
+            docente:        'badge-docente',
+            externo:        'badge-externo',
+            practicante:    'badge-practicante'
+        };
+        return `<span class="rol-badge ${map[rol] || ''}">${escapeHtml(rol)}</span>`;
+    }
+
+    async function loadAdminUsuarios() {
+        const tbody = document.getElementById('admin-usuarios-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="6" class="table-empty">Cargando...</td></tr>';
+
+        try {
+            const res  = await fetch('api/admin_usuarios.php');
+            const data = await res.json();
+
+            if (!data.success) {
+                tbody.innerHTML = `<tr><td colspan="6" class="table-empty error-text">${escapeHtml(data.message)}</td></tr>`;
+                return;
+            }
+
+            if (!data.usuarios.length) {
+                tbody.innerHTML = '<tr><td colspan="6" class="table-empty">No hay usuarios registrados.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.usuarios.map(u => `
+                <tr data-id="${u.id}">
+                    <td class="td-id">${u.id}</td>
+                    <td>${escapeHtml(u.nombre)}</td>
+                    <td>${escapeHtml(u.email)}</td>
+                    <td>${rolBadge(u.rol)}</td>
+                    <td class="td-date">${formatReservationDate(u.created_at)}</td>
+                    <td class="td-actions">
+                        <button class="btn-table-edit"   data-id="${u.id}">Editar</button>
+                        <button class="btn-table-delete" data-id="${u.id}">Eliminar</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Guardar datos en el DOM para edición sin re-fetch
+            data.usuarios.forEach(u => {
+                const row = tbody.querySelector(`tr[data-id="${u.id}"]`);
+                if (row) row.dataset.json = JSON.stringify(u);
+            });
+
+            tbody.querySelectorAll('.btn-table-edit').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const row  = btn.closest('tr');
+                    const u    = JSON.parse(row.dataset.json);
+                    usuariosModo = 'editar';
+                    document.getElementById('modal-usuario-title').textContent = 'Editar usuario';
+                    document.getElementById('usuario-id').value      = u.id;
+                    document.getElementById('usuario-nombre').value  = u.nombre;
+                    document.getElementById('usuario-email').value   = u.email;
+                    document.getElementById('usuario-password').value = '';
+                    document.getElementById('usuario-rol').value     = u.rol;
+                    document.getElementById('pass-hint').textContent = '(dejar vacío para no cambiar)';
+                    setMsgUsuario('', '');
+                    openModal('modal-usuario');
+                });
+            });
+
+            tbody.querySelectorAll('.btn-table-delete').forEach(btn => {
+                const uid = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    const row  = btn.closest('tr');
+                    const nombre = JSON.parse(row.dataset.json).nombre;
+                    if (!confirm(`¿Eliminar al usuario "${nombre}"? Esta acción no se puede deshacer.`)) return;
+                    try {
+                        const res  = await fetch('api/admin_usuarios.php', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: uid })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            setMsgUsuarioVista(data.message, 'ok');
+                            loadAdminUsuarios();
+                        } else {
+                            setMsgUsuarioVista(data.message, 'error');
+                        }
+                    } catch { setMsgUsuarioVista('Error de conexión.', 'error'); }
+                });
+            });
+
+        } catch { tbody.innerHTML = '<tr><td colspan="6" class="table-empty error-text">Error de conexión.</td></tr>'; }
+    }
+
+    // Botón "Nuevo usuario"
+    const btnNuevoUsuario = document.getElementById('btn-nuevo-usuario');
+    if (btnNuevoUsuario) {
+        btnNuevoUsuario.addEventListener('click', () => {
+            usuariosModo = 'crear';
+            document.getElementById('modal-usuario-title').textContent = 'Nuevo usuario';
+            document.getElementById('form-usuario').reset();
+            document.getElementById('usuario-id').value = '';
+            document.getElementById('pass-hint').textContent = '(mínimo 8 caracteres)';
+            setMsgUsuario('', '');
+            openModal('modal-usuario');
+        });
+    }
+
+    // Submit formulario usuario
+    const formUsuario = document.getElementById('form-usuario');
+    if (formUsuario) {
+        formUsuario.addEventListener('submit', async e => {
+            e.preventDefault();
+            const id       = document.getElementById('usuario-id').value;
+            const nombre   = document.getElementById('usuario-nombre').value.trim();
+            const email    = document.getElementById('usuario-email').value.trim();
+            const password = document.getElementById('usuario-password').value;
+            const rol      = document.getElementById('usuario-rol').value;
+
+            setMsgUsuario('', '');
+
+            try {
+                let res, data;
+                if (usuariosModo === 'crear') {
+                    res  = await fetch('api/admin_usuarios.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ nombre, email, password, rol })
+                    });
+                } else {
+                    const payload = { id: parseInt(id, 10), nombre, email, rol };
+                    if (password) payload.password = password;
+                    res  = await fetch('api/admin_usuarios.php', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                }
+                data = await res.json();
+                if (data.success) {
+                    closeModal('modal-usuario');
+                    setMsgUsuarioVista(data.message, 'ok');
+                    loadAdminUsuarios();
+                } else {
+                    setMsgUsuario(data.message, 'error');
+                }
+            } catch { setMsgUsuario('Error de conexión.', 'error'); }
+        });
+    }
+
+    // ============================================
+    // CRUD — RECURSOS
+    // ============================================
+    let recursosModo = 'crear';
+
+    function setMsgRecurso(msg, tipo) {
+        const el = document.getElementById('modal-recurso-msg');
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+    }
+
+    function setMsgRecursoVista(msg, tipo) {
+        const el = document.getElementById('admin-recursos-msg');
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+        setTimeout(() => { el.textContent = ''; el.className = 'form-msg'; }, 3500);
+    }
+
+    async function loadAdminRecursos() {
+        const tbody = document.getElementById('admin-recursos-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="5" class="table-empty">Cargando...</td></tr>';
+
+        try {
+            const res  = await fetch('api/admin_recursos.php');
+            const data = await res.json();
+
+            if (!data.success) {
+                tbody.innerHTML = `<tr><td colspan="5" class="table-empty error-text">${escapeHtml(data.message)}</td></tr>`;
+                return;
+            }
+
+            if (!data.recursos.length) {
+                tbody.innerHTML = '<tr><td colspan="5" class="table-empty">No hay recursos registrados.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.recursos.map(r => `
+                <tr data-id="${r.id}">
+                    <td class="td-id">${r.id}</td>
+                    <td><strong>${escapeHtml(r.nombre)}</strong></td>
+                    <td class="td-desc">${escapeHtml(r.descripcion || '—')}</td>
+                    <td><span class="cantidad-badge">${r.cantidad}</span></td>
+                    <td class="td-actions">
+                        <button class="btn-table-edit"   data-id="${r.id}">Editar</button>
+                        <button class="btn-table-delete" data-id="${r.id}">Eliminar</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            data.recursos.forEach(r => {
+                const row = tbody.querySelector(`tr[data-id="${r.id}"]`);
+                if (row) row.dataset.json = JSON.stringify(r);
+            });
+
+            tbody.querySelectorAll('.btn-table-edit').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const row = btn.closest('tr');
+                    const r   = JSON.parse(row.dataset.json);
+                    recursosModo = 'editar';
+                    document.getElementById('modal-recurso-title').textContent = 'Editar recurso';
+                    document.getElementById('recurso-id').value          = r.id;
+                    document.getElementById('recurso-nombre').value      = r.nombre;
+                    document.getElementById('recurso-descripcion').value = r.descripcion || '';
+                    document.getElementById('recurso-cantidad').value    = r.cantidad;
+                    setMsgRecurso('', '');
+                    openModal('modal-recurso');
+                });
+            });
+
+            tbody.querySelectorAll('.btn-table-delete').forEach(btn => {
+                const rid = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    const row    = btn.closest('tr');
+                    const nombre = JSON.parse(row.dataset.json).nombre;
+                    if (!confirm(`¿Eliminar el recurso "${nombre}"?`)) return;
+                    try {
+                        const res  = await fetch('api/admin_recursos.php', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: rid })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            setMsgRecursoVista(data.message, 'ok');
+                            loadAdminRecursos();
+                        } else {
+                            setMsgRecursoVista(data.message, 'error');
+                        }
+                    } catch { setMsgRecursoVista('Error de conexión.', 'error'); }
+                });
+            });
+
+        } catch { tbody.innerHTML = '<tr><td colspan="5" class="table-empty error-text">Error de conexión.</td></tr>'; }
+    }
+
+    // Botón "Nuevo recurso"
+    const btnNuevoRecurso = document.getElementById('btn-nuevo-recurso');
+    if (btnNuevoRecurso) {
+        btnNuevoRecurso.addEventListener('click', () => {
+            recursosModo = 'crear';
+            document.getElementById('modal-recurso-title').textContent = 'Nuevo recurso';
+            document.getElementById('form-recurso').reset();
+            document.getElementById('recurso-id').value = '';
+            setMsgRecurso('', '');
+            openModal('modal-recurso');
+        });
+    }
+
+    // Submit formulario recurso
+    const formRecurso = document.getElementById('form-recurso');
+    if (formRecurso) {
+        formRecurso.addEventListener('submit', async e => {
+            e.preventDefault();
+            const id          = document.getElementById('recurso-id').value;
+            const nombre      = document.getElementById('recurso-nombre').value.trim();
+            const descripcion = document.getElementById('recurso-descripcion').value.trim();
+            const cantidad    = parseInt(document.getElementById('recurso-cantidad').value, 10);
+
+            setMsgRecurso('', '');
+
+            try {
+                const method  = recursosModo === 'crear' ? 'POST' : 'PUT';
+                const payload = recursosModo === 'crear'
+                    ? { nombre, descripcion, cantidad }
+                    : { id: parseInt(id, 10), nombre, descripcion, cantidad };
+
+                const res  = await fetch('api/admin_recursos.php', {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    closeModal('modal-recurso');
+                    setMsgRecursoVista(data.message, 'ok');
+                    loadAdminRecursos();
+                } else {
+                    setMsgRecurso(data.message, 'error');
+                }
+            } catch { setMsgRecurso('Error de conexión.', 'error'); }
+        });
+    }
+
+    // ============================================
+    // STATS — VISTA INICIO
+    // ============================================
+    async function loadDashboardStats() {
+        try {
+            const res  = await fetch('api/dashboard_stats.php');
+            const data = await res.json();
+            if (!data.success) return;
+
+            const s = data.mis_stats;
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+            set('stat-total',     s.total);
+            set('stat-pendientes', s.pendientes);
+            set('stat-aprobadas',  s.aprobadas);
+            set('stat-rechazadas', s.rechazadas);
+
+            // Próxima reserva
+            if (data.proxima) {
+                const p    = data.proxima;
+                const card = document.getElementById('proxima-reserva-card');
+                const body = document.getElementById('proxima-body');
+                if (card && body) {
+                    body.innerHTML = `
+                        <span class="proxima-dato"><strong>Espacio</strong> ${escapeHtml(p.espacio)}</span>
+                        <span class="proxima-dato"><strong>Fecha</strong> ${formatReservationDate(p.fecha)}</span>
+                        <span class="proxima-dato"><strong>Horario</strong> ${p.hora_inicio.slice(0,5)} – ${p.hora_fin.slice(0,5)}</span>
+                    `;
+                    card.style.display = 'block';
+                }
+            }
+
+            // Stats del sistema (admin)
+            if (data.sistema) {
+                const sys = data.sistema;
+                set('sys-total',      sys.total);
+                set('sys-pendientes', sys.pendientes);
+                set('sys-aprobadas',  sys.aprobadas);
+                set('sys-hoy',        sys.hoy);
+
+                const grid = document.getElementById('espacios-grid');
+                if (grid && sys.por_espacio) {
+                    grid.innerHTML = Object.entries(sys.por_espacio).map(([esp, tot]) => `
+                        <div class="espacio-stat">
+                            <span class="espacio-badge espacio-${esp.toLowerCase()}">${esp}</span>
+                            <span class="espacio-num">${tot} aprobadas</span>
+                        </div>
+                    `).join('');
+                }
+            }
+        } catch (e) { console.error('loadDashboardStats:', e); }
+    }
+
+    // ============================================
+    // RECURSOS EN NUEVA RESERVA
+    // ============================================
+    let _recursosCache = null;
+
+    async function loadRecursosParaReserva() {
+        const seccion = document.getElementById('recursos-seccion');
+        const lista   = document.getElementById('recursos-lista');
+        if (!seccion || !lista) return;
+
+        try {
+            if (!_recursosCache) {
+                const res  = await fetch('api/admin_recursos.php');
+                const data = await res.json();
+                _recursosCache = data.success ? (data.recursos || []) : [];
+            }
+
+            if (_recursosCache.length === 0) { seccion.style.display = 'none'; return; }
+
+            seccion.style.display = 'block';
+            lista.innerHTML = _recursosCache.map(r => `
+                <label class="recurso-check-item">
+                    <input type="checkbox" class="rec-check" data-id="${r.id}" data-nombre="${escapeHtml(r.nombre)}">
+                    <span class="rec-info">
+                        <strong>${escapeHtml(r.nombre)}</strong>
+                        ${r.descripcion ? `<span class="rec-desc">${escapeHtml(r.descripcion)}</span>` : ''}
+                    </span>
+                    <span class="rec-cant-wrap" style="display:none;">
+                        <input type="number" class="rec-cant" data-id="${r.id}" value="1" min="1" max="${r.cantidad}" style="width:60px;">
+                        <span class="rec-max">/ ${r.cantidad}</span>
+                    </span>
+                </label>
+            `).join('');
+
+            // Toggle cantidad al marcar/desmarcar
+            lista.querySelectorAll('.rec-check').forEach(chk => {
+                chk.addEventListener('change', () => {
+                    const cantWrap = chk.closest('.recurso-check-item').querySelector('.rec-cant-wrap');
+                    if (cantWrap) cantWrap.style.display = chk.checked ? 'inline-flex' : 'none';
+                });
+            });
+
+        } catch (e) { seccion.style.display = 'none'; }
+    }
+
+    // Recolectar recursos seleccionados del formulario
+    function getRecursosSeleccionados() {
+        const recursos = [];
+        document.querySelectorAll('.rec-check:checked').forEach(chk => {
+            const id   = parseInt(chk.dataset.id, 10);
+            const cant = parseInt(chk.closest('.recurso-check-item').querySelector('.rec-cant')?.value || '1', 10);
+            recursos.push({ id, cantidad: cant });
+        });
+        return recursos;
+    }
+
+    // ============================================
+    // ADMIN: DÍAS BLOQUEADOS
+    // ============================================
+    function setMsgDias(id, msg, tipo) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+        if (msg && tipo !== '') setTimeout(() => { el.textContent = ''; el.className = 'form-msg'; }, 3500);
+    }
+
+    const DIAS_ES = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+
+    async function loadAdminDias() {
+        const tbody = document.getElementById('admin-dias-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="4" class="table-empty">Cargando...</td></tr>';
+
+        try {
+            const res  = await fetch('api/admin_dias_bloqueados.php');
+            const data = await res.json();
+            if (!data.success) { tbody.innerHTML = `<tr><td colspan="4" class="table-empty error-text">${escapeHtml(data.message)}</td></tr>`; return; }
+
+            if (!data.dias.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No hay días bloqueados.</td></tr>'; return; }
+
+            tbody.innerHTML = data.dias.map(d => {
+                const dt      = new Date(d.fecha + 'T00:00:00');
+                const nombreDia = DIAS_ES[dt.getDay()];
+                const fechaFmt  = dt.toLocaleDateString('es-CO', { day:'2-digit', month:'long', year:'numeric' });
+                return `<tr data-id="${d.id}">
+                    <td class="td-date">${fechaFmt}</td>
+                    <td>${nombreDia}</td>
+                    <td>${escapeHtml(d.motivo || '—')}</td>
+                    <td><button class="btn-table-delete btn-desbloquear" data-id="${d.id}">Desbloquear</button></td>
+                </tr>`;
+            }).join('');
+
+            tbody.querySelectorAll('.btn-desbloquear').forEach(btn => {
+                const id = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    if (!confirm('¿Desbloquear este día?')) return;
+                    try {
+                        const res  = await fetch('api/admin_dias_bloqueados.php', {
+                            method: 'DELETE', headers: {'Content-Type':'application/json'}, body: JSON.stringify({id})
+                        });
+                        const data = await res.json();
+                        if (data.success) { setMsgDias('admin-dias-msg', data.message, 'ok'); loadAdminDias(); }
+                        else              { setMsgDias('admin-dias-msg', data.message, 'error'); }
+                    } catch { setMsgDias('admin-dias-msg', 'Error de conexión.', 'error'); }
+                });
+            });
+        } catch { tbody.innerHTML = '<tr><td colspan="4" class="table-empty error-text">Error de conexión.</td></tr>'; }
+    }
+
+    document.getElementById('btn-bloquear-dia')?.addEventListener('click', async () => {
+        const fecha  = document.getElementById('dia-fecha')?.value;
+        const motivo = document.getElementById('dia-motivo')?.value.trim() || '';
+        if (!fecha) { setMsgDias('dias-form-msg', 'Selecciona una fecha.', 'error'); return; }
+
+        try {
+            const res  = await fetch('api/admin_dias_bloqueados.php', {
+                method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({fecha, motivo})
+            });
+            const data = await res.json();
+            if (data.success) {
+                setMsgDias('dias-form-msg', data.message, 'ok');
+                document.getElementById('dia-fecha').value  = '';
+                document.getElementById('dia-motivo').value = '';
+                loadAdminDias();
+            } else { setMsgDias('dias-form-msg', data.message, 'error'); }
+        } catch { setMsgDias('dias-form-msg', 'Error de conexión.', 'error'); }
+    });
+
+    // ============================================
     // INICIALIZACIÓN
     // ============================================
     loadRuntimeLinks();
     setupHistorialFiltro();
     initCalificarServicio();
-    activateView('mis-reservas');
+    activateView('inicio');
 });

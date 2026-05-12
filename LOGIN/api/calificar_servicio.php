@@ -8,51 +8,52 @@ header('Content-Type: application/json');
 require_once '../config.php';
 require_once '../session.php';
 require_once './mail_helper.php';
+require_auth_api();
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+    exit;
+}
 
 try {
-    $data = json_decode(file_get_contents('php://input'), true);
-    
-    $calificacion = isset($data['calificacion']) ? (int)$data['calificacion'] : 0;
-    $comentario = isset($data['comentario']) ? trim($data['comentario']) : '';
-    $nombreUsuario = isset($_SESSION['user']['nombre']) ? $_SESSION['user']['nombre'] : 'Usuario';
-    $emailUsuario = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : 'No registrado';
+    $data = json_decode(file_get_contents('php://input'), true) ?? [];
 
-    // Validar calificación
+    $calificacion  = (int)($data['calificacion'] ?? 0);
+    $comentario    = mb_substr(trim($data['comentario'] ?? ''), 0, 1000);
+    $userId        = (int)$_SESSION['user']['id'];
+    $nombreUsuario = $_SESSION['user']['nombre'] ?? 'Usuario';
+    $emailUsuario  = $_SESSION['user']['email']  ?? '';
+
     if ($calificacion < 1 || $calificacion > 10) {
-        echo json_encode([
-            'success' => false,
-            'message' => 'La calificación debe ser entre 1 y 10'
-        ]);
+        echo json_encode(['success' => false, 'message' => 'La calificación debe ser entre 1 y 10']);
         exit;
     }
 
-    // Construir correo de notificación de calificación
-    $subject = "📊 Nueva Calificación de Servicio: {$calificacion}/10";
-    
-    $body = build_calification_email($nombreUsuario, $emailUsuario, $calificacion, $comentario);
-
-    // Enviar al administrador
-    $adminEmail = 'danielbenitezm4229@gmail.com';
-    $error = null;
-    $sent = send_system_email($adminEmail, $subject, $body, $error);
-
-    if ($sent) {
-        echo json_encode([
-            'success' => true,
-            'message' => 'Gracias por tu calificación'
-        ]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Error al enviar la calificación: ' . ($error ?? 'desconocido')
-        ]);
+    // Rate limit: 1 calificación por usuario cada 24 horas
+    $stmtChk = $pdo->prepare(
+        "SELECT id FROM calificaciones WHERE usuario_id = ? AND created_at > DATE_SUB(NOW(), INTERVAL 24 HOUR) LIMIT 1"
+    );
+    $stmtChk->execute([$userId]);
+    if ($stmtChk->fetch()) {
+        echo json_encode(['success' => false, 'message' => 'Ya enviaste una calificación en las últimas 24 horas.']);
+        exit;
     }
 
+    // Guardar en DB
+    $pdo->prepare("INSERT INTO calificaciones (usuario_id, calificacion, comentario) VALUES (?, ?, ?)")
+        ->execute([$userId, $calificacion, $comentario ?: null]);
+
+    $subject  = "Nueva Calificación de Servicio: {$calificacion}/10";
+    $bodyMail = build_calification_email($nombreUsuario, $emailUsuario, $calificacion, $comentario);
+    send_system_email('danielbenitezm4229@gmail.com', $subject, $bodyMail);
+
+    echo json_encode(['success' => true, 'message' => 'Gracias por tu calificación']);
+
 } catch (Throwable $e) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error interno: ' . $e->getMessage()
-    ]);
+    error_log('calificar_servicio: ' . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Error interno']);
 }
 
 /**

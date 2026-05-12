@@ -21,33 +21,16 @@ try {
     $reservasCompletas = [];
     
     foreach ($reservasArray as $reserva) {
-        $reservasCompletas[] = $reserva;
-        
-        // Si hay reserva de B3, agregar reservas "virtuales" de B1 y B2
+        // Reserva real
+        $reservasCompletas[] = array_merge($reserva, ['tipo' => 'ocupado']);
+
         if ($reserva['espacio'] === 'B3') {
-            $reservasCompletas[] = [
-                'espacio' => 'B1',
-                'fecha' => $reserva['fecha'],
-                'hora_inicio' => $reserva['hora_inicio'],
-                'hora_fin' => $reserva['hora_fin']
-            ];
-            $reservasCompletas[] = [
-                'espacio' => 'B2',
-                'fecha' => $reserva['fecha'],
-                'hora_inicio' => $reserva['hora_inicio'],
-                'hora_fin' => $reserva['hora_fin']
-            ];
-        }
-        
-        // Si hay reserva de B1 o B2, agregar reserva "virtual" de B3
-        // (para indicar que B3 no está disponible si B1 o B2 está ocupado)
-        if ($reserva['espacio'] === 'B1' || $reserva['espacio'] === 'B2') {
-            $reservasCompletas[] = [
-                'espacio' => 'B3',
-                'fecha' => $reserva['fecha'],
-                'hora_inicio' => $reserva['hora_inicio'],
-                'hora_fin' => $reserva['hora_fin']
-            ];
+            // B3 ocupado → B1 y B2 quedan bloqueados
+            $reservasCompletas[] = ['espacio' => 'B1', 'fecha' => $reserva['fecha'], 'hora_inicio' => $reserva['hora_inicio'], 'hora_fin' => $reserva['hora_fin'], 'tipo' => 'bloqueado'];
+            $reservasCompletas[] = ['espacio' => 'B2', 'fecha' => $reserva['fecha'], 'hora_inicio' => $reserva['hora_inicio'], 'hora_fin' => $reserva['hora_fin'], 'tipo' => 'bloqueado'];
+        } elseif ($reserva['espacio'] === 'B1' || $reserva['espacio'] === 'B2') {
+            // B1 o B2 ocupado → B3 queda bloqueado
+            $reservasCompletas[] = ['espacio' => 'B3', 'fecha' => $reserva['fecha'], 'hora_inicio' => $reserva['hora_inicio'], 'hora_fin' => $reserva['hora_fin'], 'tipo' => 'bloqueado'];
         }
     }
 
