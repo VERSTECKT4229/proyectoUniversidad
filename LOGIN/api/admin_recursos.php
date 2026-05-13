@@ -4,7 +4,7 @@ require_once '../config.php';
 require_auth_api();
 
 $me = $_SESSION['user'];
-if ($me['rol'] !== 'administrativo') {
+if (!in_array($me['rol'], ['administrativo', 'coordinador'])) {
     http_response_code(403);
     echo json_encode(['success' => false, 'message' => 'Acceso denegado']);
     exit;

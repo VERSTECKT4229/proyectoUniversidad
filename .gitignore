@@ -1,5 +1,2 @@
-# Dependencias de Composer
-LOGIN/api/vendor/
-
 # Logs locales
 LOGIN/api/mail_log.txt

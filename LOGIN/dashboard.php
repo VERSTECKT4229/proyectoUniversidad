@@ -37,6 +37,9 @@ $user = $_SESSION['user'];
                 <?php endif; ?>
                 <?php if ($user['rol'] === 'coordinador'): ?>
                 <button class="menu-item" data-view="coordinador-dashboard">📊 Dashboard avanzado</button>
+                <button class="menu-item admin-view" data-view="admin-reservas">Gestión de reservas</button>
+                <button class="menu-item admin-view" data-view="admin-usuarios">Usuarios</button>
+                <button class="menu-item admin-view" data-view="admin-recursos">Recursos</button>
                 <?php endif; ?>
                 <div class="menu-dropdown">
                     <button class="menu-item dropdown-toggle" type="button">Opciones</button>
