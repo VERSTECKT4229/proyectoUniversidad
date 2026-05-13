@@ -23,3 +23,15 @@ CREATE TABLE IF NOT EXISTS codigos_invitacion (
 );
 
 CREATE INDEX idx_codigo_activo ON codigos_invitacion (codigo, activo);
+
+-- 3. Tabla de códigos de verificación para registro
+CREATE TABLE IF NOT EXISTS codigos_verificacion (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    email      VARCHAR(254) NOT NULL,
+    codigo     VARCHAR(6)   NOT NULL,
+    expires_at DATETIME     NOT NULL,
+    usado      TINYINT(1)   NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_verif_email ON codigos_verificacion (email, usado);

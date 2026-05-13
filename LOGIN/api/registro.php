@@ -15,9 +15,9 @@ $email           = trim($data['email']            ?? '');
 $password        = (string)($data['password']     ?? '');
 $confirmPassword = (string)($data['confirm_password'] ?? '');
 $rol             = trim($data['rol']              ?? '');
-$codigoInput     = strtoupper(trim($data['codigo_invitacion'] ?? ''));
+$codigoVerif     = trim($data['codigo_verificacion'] ?? '');
 
-// Solo docente, externo y practicante pueden auto-registrarse
+// Solo estos roles pueden auto-registrarse
 $rolesPublicos = ['docente', 'externo', 'practicante'];
 
 if ($nombre === '' || $email === '' || $password === '' || $confirmPassword === '' || $rol === '') {
@@ -25,38 +25,35 @@ if ($nombre === '' || $email === '' || $password === '' || $confirmPassword === 
     exit;
 }
 
-if ($codigoInput === '') {
-    echo json_encode(['success' => false, 'message' => 'Se requiere un código de invitación para registrarse.']);
+if ($codigoVerif === '') {
+    echo json_encode(['success' => false, 'message' => 'Ingresa el código de verificación enviado a tu correo.']);
+    exit;
+}
+
+if (!preg_match('/^\d{6}$/', $codigoVerif)) {
+    echo json_encode(['success' => false, 'message' => 'El código debe ser de 6 dígitos.']);
     exit;
 }
 
 if (!in_array($rol, $rolesPublicos, true)) {
-    echo json_encode(['success' => false, 'message' => 'Ese rol no se puede registrar por aquí. Contacta al administrador.']);
+    echo json_encode(['success' => false, 'message' => 'Ese rol no se puede registrar aquí. Contacta al administrador.']);
     exit;
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) {
     echo json_encode(['success' => false, 'message' => 'Email no válido']);
     exit;
 }
 
-if (in_array($rol, ['docente'], true) && !is_local_request()) {
+if ($rol === 'docente' && !is_local_request()) {
     if (!preg_match('/^[A-Za-z0-9._%+\-]+@poligran\.edu\.co$/i', $email)) {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Los docentes deben usar un correo @poligran.edu.co'
-        ]);
+        echo json_encode(['success' => false, 'message' => 'Los docentes deben usar un correo @poligran.edu.co']);
         exit;
     }
 }
 
 if (strlen($nombre) > 100) {
     echo json_encode(['success' => false, 'message' => 'El nombre no puede superar los 100 caracteres']);
-    exit;
-}
-
-if (strlen($email) > 254) {
-    echo json_encode(['success' => false, 'message' => 'Email no válido']);
     exit;
 }
 
@@ -76,31 +73,17 @@ if ($password !== $confirmPassword) {
 }
 
 try {
-    // ── Validar código de invitación ─────────────────────────────────────────
+    // ── Validar código de verificación ──────────────────────────────────────
     $stmtCod = $pdo->prepare("
-        SELECT id, rol_permitido, usos_maximos, usos_actuales
-        FROM codigos_invitacion
-        WHERE codigo = ? AND activo = 1
-        LIMIT 1
+        SELECT id FROM codigos_verificacion
+        WHERE email = ? AND codigo = ? AND usado = 0 AND expires_at > NOW()
+        ORDER BY created_at DESC LIMIT 1
     ");
-    $stmtCod->execute([$codigoInput]);
-    $codigo = $stmtCod->fetch(PDO::FETCH_ASSOC);
+    $stmtCod->execute([$email, $codigoVerif]);
+    $codRow = $stmtCod->fetch(PDO::FETCH_ASSOC);
 
-    if (!$codigo) {
-        echo json_encode(['success' => false, 'message' => 'Código de invitación inválido o inactivo.']);
-        exit;
-    }
-
-    if ((int)$codigo['usos_actuales'] >= (int)$codigo['usos_maximos']) {
-        echo json_encode(['success' => false, 'message' => 'Este código ya alcanzó el límite de usos.']);
-        exit;
-    }
-
-    if ($codigo['rol_permitido'] !== null && $codigo['rol_permitido'] !== $rol) {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Este código solo es válido para el rol: ' . $codigo['rol_permitido'] . '.'
-        ]);
+    if (!$codRow) {
+        echo json_encode(['success' => false, 'message' => 'Código incorrecto o expirado. Solicita uno nuevo.']);
         exit;
     }
 
@@ -112,32 +95,25 @@ try {
         exit;
     }
 
-    // ── Insertar usuario y consumir código (transacción) ─────────────────────
+    // ── Insertar usuario y marcar código como usado (transacción) ────────────
     $pdo->beginTransaction();
 
-    $hash   = password_hash($password, PASSWORD_DEFAULT);
-    $insert = $pdo->prepare(
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $pdo->prepare(
         'INSERT INTO usuarios (nombre, email, password, rol, failed_attempts, locked_until)
          VALUES (?, ?, ?, ?, 0, NULL)'
-    );
-    $insert->execute([$nombre, $email, $hash, $rol]);
+    )->execute([$nombre, $email, $hash, $rol]);
 
-    $pdo->prepare("UPDATE codigos_invitacion SET usos_actuales = usos_actuales + 1 WHERE id = ?")
-        ->execute([$codigo['id']]);
+    $pdo->prepare("UPDATE codigos_verificacion SET usado = 1 WHERE id = ?")
+        ->execute([$codRow['id']]);
 
     $pdo->commit();
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Registro exitoso. Ya puedes iniciar sesión.'
-    ]);
+    echo json_encode(['success' => true, 'message' => 'Registro exitoso. Ya puedes iniciar sesión.']);
 
 } catch (Throwable $e) {
     if ($pdo->inTransaction()) $pdo->rollBack();
     error_log("Error en registro: " . $e->getMessage());
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error al registrar usuario'
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Error al registrar usuario']);
 }

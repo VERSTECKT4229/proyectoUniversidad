@@ -87,19 +87,19 @@
                 </div>
             </div>
 
-            <!-- Formulario: Crear cuenta -->
+            <!-- Formulario: Crear cuenta — Paso 1 -->
             <div class="form sign-in-container">
-                <form class="formulario2">
+                <div id="reg-step1">
                     <h2>Crear cuenta</h2>
                     <div class="inputs">
-                        <input type="text" class="box" placeholder="Nombre completo" name="nombre" id="name" autocomplete="name">
-                        <input type="email" class="box" placeholder="Correo electrónico" name="email" id="email2" autocomplete="email">
+                        <input type="text" class="box" placeholder="Nombre completo" id="name" autocomplete="name">
+                        <input type="email" class="box" placeholder="Correo electrónico" id="email2" autocomplete="email">
                         <div class="password-wrapper">
-                            <input type="password" class="box" placeholder="Contraseña" name="password" id="password2" autocomplete="new-password">
+                            <input type="password" class="box" placeholder="Contraseña" id="password2" autocomplete="new-password">
                             <span class="toggle-password" data-target="password2">👁️</span>
                         </div>
                         <div class="password-wrapper">
-                            <input type="password" class="box" placeholder="Confirmar contraseña" name="confirm_password" id="confirm_password" autocomplete="new-password">
+                            <input type="password" class="box" placeholder="Confirmar contraseña" id="confirm_password" autocomplete="new-password">
                             <span class="toggle-password" data-target="confirm_password">👁️</span>
                         </div>
                         <select class="box" id="rol">
@@ -108,16 +108,34 @@
                             <option value="externo">Externo</option>
                             <option value="practicante">Practicante</option>
                         </select>
-                        <div class="codigo-invitacion-wrap">
-                            <input type="text" class="box codigo-box" placeholder="Código de invitación" id="codigo_invitacion"
-                                   autocomplete="off" maxlength="32" spellcheck="false">
-                            <span class="codigo-info" title="Solicita tu código al administrador">🔑</span>
-                        </div>
                         <p class="registro-nota">¿Eres administrador o coordinador? Contacta al área de sistemas.</p>
+                        <p id="reg-step1-msg" class="forgot-inline-msg"></p>
                         <a href="#" class="no-account">Volver a iniciar sesión</a>
-                        <input type="submit" value="Registrarse" class="submit">
+                        <button type="button" class="submit" id="btn-enviar-verif" style="cursor:pointer;">Verificar correo</button>
                     </div>
-                </form>
+                </div>
+
+                <!-- Paso 2: ingresar código -->
+                <div id="reg-step2" style="display:none;">
+                    <h2>Verificar correo</h2>
+                    <div class="inputs">
+                        <p class="forgot-desc">
+                            Enviamos un código de 6 dígitos a <strong id="reg-email-label"></strong>.<br>
+                            Ingrésalo para completar tu registro.
+                        </p>
+                        <input type="text" class="box codigo-box" id="reg-codigo"
+                               placeholder="Código de 6 dígitos"
+                               maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+                        <p id="reg-step2-msg" class="forgot-inline-msg"></p>
+                        <div style="display:flex;gap:8px;margin-top:4px;">
+                            <button type="button" class="btn-secondary" id="btn-reg-volver">← Volver</button>
+                            <button type="button" class="btn-primary-sm" id="btn-reg-submit" style="flex:1;">Crear cuenta</button>
+                        </div>
+                        <p class="forgot-resend" style="margin-top:12px;">
+                            ¿No llegó el código? <a href="#" id="btn-reenviar-verif">Reenviar</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

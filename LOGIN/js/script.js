@@ -300,60 +300,153 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // REGISTRO
+    // REGISTRO — flujo de dos pasos con verificación de correo
     // ============================================
-    const regForm = document.querySelector('.formulario2');
-    if (regForm) {
-        regForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const nombre             = document.getElementById('name').value.trim();
-            const email              = document.getElementById('email2').value.trim();
-            const password           = document.getElementById('password2').value;
-            const confirmPassword    = document.getElementById('confirm_password').value;
-            const rol                = document.getElementById('rol').value.trim();
-            const codigoInvitacion   = document.getElementById('codigo_invitacion').value.trim().toUpperCase();
 
-            if (!nombre || !email || !password || !confirmPassword || !rol) {
-                showError('Todos los campos son obligatorios.');
-                return;
-            }
+    // Datos del paso 1 guardados en memoria para usarlos en el paso 2
+    let regDatos = {};
 
-            if (!codigoInvitacion) {
-                showError('Ingresa tu código de invitación.');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showError('Las contraseñas no coinciden.');
-                return;
-            }
-
-            if (password.length < 8) {
-                showError('La contraseña debe tener al menos 8 caracteres.');
-                return;
-            }
-
-            try {
-                const res = await fetch('api/registro.php', {
-                    method:  'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body:    JSON.stringify({ nombre, email, password, confirm_password: confirmPassword, rol, codigo_invitacion: codigoInvitacion })
-                });
-                const data = await res.json();
-
-                if (data.success) {
-                    showSuccess(data.message || '¡Registro exitoso! Ya puedes iniciar sesión.');
-                    regForm.reset();
-                    setTimeout(() => {
-                        signInContainer.style.display = 'none';
-                        signUpContainer.style.display = 'block';
-                    }, 1500);
-                } else {
-                    showError(data.message || 'Error al registrar. Intenta de nuevo.');
-                }
-            } catch (err) {
-                showError('Error de red o respuesta inválida del servidor.');
-            }
-        });
+    function setRegMsg(stepId, msg, tipo) {
+        const el = document.getElementById(stepId);
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'forgot-inline-msg ' + tipo;
     }
+
+    function mostrarRegStep2(email) {
+        document.getElementById('reg-step1').style.display = 'none';
+        document.getElementById('reg-step2').style.display = 'block';
+        document.getElementById('reg-email-label').textContent = email;
+        document.getElementById('reg-codigo').value = '';
+        setRegMsg('reg-step2-msg', '', '');
+        document.getElementById('reg-codigo').focus();
+    }
+
+    function mostrarRegStep1() {
+        document.getElementById('reg-step2').style.display = 'none';
+        document.getElementById('reg-step1').style.display = 'block';
+        setRegMsg('reg-step1-msg', '', '');
+    }
+
+    async function enviarCodigoVerificacion() {
+        const nombre          = document.getElementById('name').value.trim();
+        const email           = document.getElementById('email2').value.trim();
+        const password        = document.getElementById('password2').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+        const rol             = document.getElementById('rol').value.trim();
+
+        setRegMsg('reg-step1-msg', '', '');
+
+        if (!nombre || !email || !password || !confirmPassword || !rol) {
+            setRegMsg('reg-step1-msg', 'Todos los campos son obligatorios.', 'msg-error'); return;
+        }
+        if (password !== confirmPassword) {
+            setRegMsg('reg-step1-msg', 'Las contraseñas no coinciden.', 'msg-error'); return;
+        }
+        if (password.length < 8) {
+            setRegMsg('reg-step1-msg', 'La contraseña debe tener al menos 8 caracteres.', 'msg-error'); return;
+        }
+
+        const btn = document.getElementById('btn-enviar-verif');
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        try {
+            const res  = await fetch('api/enviar_verificacion_registro.php', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ email })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                regDatos = { nombre, email, password, confirmPassword, rol };
+                mostrarRegStep2(email);
+            } else {
+                setRegMsg('reg-step1-msg', data.message, 'msg-error');
+            }
+        } catch {
+            setRegMsg('reg-step1-msg', 'Error de conexión. Intenta de nuevo.', 'msg-error');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Verificar correo';
+        }
+    }
+
+    document.getElementById('btn-enviar-verif')?.addEventListener('click', enviarCodigoVerificacion);
+
+    document.getElementById('btn-reenviar-verif')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (!regDatos.email) return;
+        setRegMsg('reg-step2-msg', 'Reenviando...', '');
+        try {
+            const res  = await fetch('api/enviar_verificacion_registro.php', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ email: regDatos.email })
+            });
+            const data = await res.json();
+            setRegMsg('reg-step2-msg', data.message, data.success ? 'msg-ok' : 'msg-error');
+        } catch {
+            setRegMsg('reg-step2-msg', 'Error de conexión.', 'msg-error');
+        }
+    });
+
+    document.getElementById('btn-reg-volver')?.addEventListener('click', mostrarRegStep1);
+
+    // Solo dígitos en el campo código
+    document.getElementById('reg-codigo')?.addEventListener('input', e => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    });
+
+    document.getElementById('btn-reg-submit')?.addEventListener('click', async () => {
+        const codigo = document.getElementById('reg-codigo').value.trim();
+        setRegMsg('reg-step2-msg', '', '');
+
+        if (!codigo || codigo.length !== 6) {
+            setRegMsg('reg-step2-msg', 'Ingresa el código de 6 dígitos.', 'msg-error'); return;
+        }
+
+        const btn = document.getElementById('btn-reg-submit');
+        btn.disabled = true;
+        btn.textContent = 'Creando cuenta...';
+
+        try {
+            const res  = await fetch('api/registro.php', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({
+                    nombre:               regDatos.nombre,
+                    email:                regDatos.email,
+                    password:             regDatos.password,
+                    confirm_password:     regDatos.confirmPassword,
+                    rol:                  regDatos.rol,
+                    codigo_verificacion:  codigo
+                })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                showSuccess(data.message || '¡Registro exitoso! Ya puedes iniciar sesión.');
+                regDatos = {};
+                // Resetear campos y volver al login
+                ['name','email2','password2','confirm_password','rol'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = '';
+                });
+                mostrarRegStep1();
+                setTimeout(() => {
+                    signInContainer.style.display = 'none';
+                    signUpContainer.style.display = 'block';
+                }, 1600);
+            } else {
+                setRegMsg('reg-step2-msg', data.message, 'msg-error');
+            }
+        } catch {
+            setRegMsg('reg-step2-msg', 'Error de conexión. Intenta de nuevo.', 'msg-error');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Crear cuenta';
+        }
+    });
 });
