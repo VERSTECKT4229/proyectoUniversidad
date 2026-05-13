@@ -26,9 +26,38 @@ body {
     background: linear-gradient(145deg, #1a237e 0%, #283593 50%, #3949ab 100%);
     color: #fff;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-foto-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.35;
+    display: block;
+}
+
+.hero-foto-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(26,35,126,0.85) 0%, rgba(40,53,147,0.75) 50%, rgba(57,73,171,0.7) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
 }
 
 .hero-content {
@@ -1601,4 +1630,269 @@ h1 {
     .reject-btn  { border-radius: 0 0 8px 8px; border-left: none; border-top: 1px solid rgba(255,255,255,0.2); }
 
     .card-list { grid-template-columns: 1fr; }
+}
+
+/* ====================================================
+   DÍA BLOQUEADO BANNER (disponibilidad)
+   ==================================================== */
+.dia-bloqueado-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-left: 5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 16px;
+    color: #78350f;
+}
+
+.dia-bloqueado-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.dia-bloqueado-banner strong {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.dia-bloqueado-banner p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* ====================================================
+   DASHBOARD MEJORADO — stat cards con gradiente
+   ==================================================== */
+.stat-card {
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.11);
+}
+
+.stat-total    { background: linear-gradient(135deg, #fff 60%, #ede9fe 100%); }
+.stat-pendiente { background: linear-gradient(135deg, #fff 60%, #fef9c3 100%); }
+.stat-aprobada  { background: linear-gradient(135deg, #fff 60%, #dcfce7 100%); }
+.stat-rechazada { background: linear-gradient(135deg, #fff 60%, #fee2e2 100%); }
+.stat-hoy       { background: linear-gradient(135deg, #fff 60%, #e0f2fe 100%); }
+
+/* Welcome banner improved */
+.welcome-banner {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: #fff;
+    border-radius: 14px;
+    padding: 22px 28px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 4px 18px rgba(26,35,126,.25);
+}
+
+.welcome-banner h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #fff;
+}
+
+.welcome-banner p {
+    font-size: 0.85rem;
+    opacity: .8;
+    margin: 4px 0 0;
+}
+
+.welcome-badge {
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* ====================================================
+   COORDINADOR — DASHBOARD AVANZADO
+   ==================================================== */
+.coord-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.coord-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+}
+
+.coord-kpi {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    border-top: 4px solid #6366f1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.coord-kpi:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.11);
+}
+
+.coord-kpi.kpi-blue   { border-top-color: #3b82f6; }
+.coord-kpi.kpi-green  { border-top-color: #16a34a; }
+.coord-kpi.kpi-orange { border-top-color: #f59e0b; }
+.coord-kpi.kpi-purple { border-top-color: #7c3aed; }
+.coord-kpi.kpi-pink   { border-top-color: #ec4899; }
+
+.coord-kpi-icon { font-size: 1.5rem; }
+.coord-kpi-val  { font-size: 1.8rem; font-weight: 800; color: #111827; line-height: 1; }
+.coord-kpi-lbl  { font-size: 0.78rem; color: #6b7280; font-weight: 500; }
+
+.coord-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.coord-chart-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+}
+
+.coord-chart-card h3 {
+    font-size: 0.95rem;
+    color: #1a237e;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.coord-chart-card canvas {
+    max-height: 240px;
+}
+
+.coord-heatmap-wrap {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    overflow-x: auto;
+}
+
+.coord-heatmap-wrap h3 {
+    font-size: 0.95rem;
+    color: #1a237e;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.heatmap-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+}
+
+.heatmap-table th {
+    padding: 6px 8px;
+    text-align: center;
+    color: #6b7280;
+    font-weight: 600;
+    background: #f9faff;
+}
+
+.heatmap-table td {
+    padding: 6px 8px;
+    text-align: center;
+    border: 1px solid #f3f4f6;
+    border-radius: 4px;
+    font-weight: 600;
+    min-width: 44px;
+    cursor: default;
+    transition: transform 0.1s;
+}
+
+.heatmap-table td:hover { transform: scale(1.1); }
+
+.heatmap-0  { background: #f9fafb; color: #9ca3af; }
+.heatmap-1  { background: #dbeafe; color: #1e40af; }
+.heatmap-2  { background: #93c5fd; color: #1e3a8a; }
+.heatmap-3  { background: #3b82f6; color: #fff; }
+.heatmap-4  { background: #1d4ed8; color: #fff; }
+.heatmap-5  { background: #1e3a8a; color: #fff; }
+
+.coord-decision-card {
+    background: linear-gradient(135deg, #f0f4ff, #e8edfb);
+    border-radius: 12px;
+    padding: 20px 24px;
+    border: 1px solid #c7d2ff;
+}
+
+.coord-decision-card h3 {
+    font-size: 0.95rem;
+    color: #1a237e;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.decision-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.decision-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px 16px;
+    border-left: 4px solid #6366f1;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+.decision-item.di-green  { border-left-color: #16a34a; }
+.decision-item.di-orange { border-left-color: #f59e0b; }
+.decision-item.di-red    { border-left-color: #dc2626; }
+
+.decision-item strong {
+    display: block;
+    font-size: 0.78rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 4px;
+}
+
+.decision-item span {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.decision-item p {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* Rol badge coordinador */
+.badge-coordinador { background: #fce7f3; color: #9d174d; }
+
+@media (max-width: 900px) {
+    .coord-charts-row { grid-template-columns: 1fr; }
 }

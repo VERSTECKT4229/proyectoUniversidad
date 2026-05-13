@@ -14,7 +14,7 @@ header('Content-Type: application/json');
 $method = $_SERVER['REQUEST_METHOD'];
 $body   = json_decode(file_get_contents('php://input'), true) ?? [];
 
-$roles_validos = ['administrativo', 'docente', 'externo', 'practicante'];
+$roles_validos = ['administrativo', 'coordinador', 'docente', 'externo', 'practicante'];
 
 if ($method === 'GET') {
     $stmt = $pdo->query("SELECT id, nombre, email, rol, created_at FROM usuarios ORDER BY created_at DESC");

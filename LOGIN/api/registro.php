@@ -16,7 +16,7 @@ $password = (string)($data['password'] ?? '');
 $confirmPassword = (string)($data['confirm_password'] ?? '');
 $rol = trim($data['rol'] ?? '');
 
-$rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante'];
+$rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante', 'coordinador'];
 
 if ($nombre === '' || $email === '' || $password === '' || $confirmPassword === '' || $rol === '') {
     echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios']);
@@ -33,7 +33,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-if (in_array($rol, ['administrativo', 'docente'], true) && !is_local_request()) {
+if (in_array($rol, ['administrativo', 'docente', 'coordinador'], true) && !is_local_request()) {
     if (!preg_match('/^[A-Za-z0-9._%+\-]+@poligran\.edu\.co$/i', $email)) {
         echo json_encode([
             'success' => false,

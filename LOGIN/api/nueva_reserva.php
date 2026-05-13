@@ -87,8 +87,6 @@ function verificarDisponibilidad(PDO $pdo, string $espacio, string $fecha, strin
     } else {
         if (hasConflict($pdo, $espacio, $fecha, $ini, $fin))
             return ['disponible' => false, 'mensaje' => "El espacio {$espacio} ya está ocupado en ese horario."];
-        if (hasConflict($pdo, 'B3', $fecha, $ini, $fin))
-            return ['disponible' => false, 'mensaje' => "No se puede reservar {$espacio}: B3 ya está ocupado en ese horario."];
     }
     return ['disponible' => true, 'mensaje' => 'Disponible'];
 }

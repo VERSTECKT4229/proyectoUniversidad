@@ -309,6 +309,19 @@ misReservasList.innerHTML = reservas.map(r => `
                 return;
             }
 
+            if (data.dia_bloqueado) {
+                const motivo = data.motivo_bloqueo ? ` — Motivo: ${escapeHtml(data.motivo_bloqueo)}` : '';
+                disponibilidadCalendar.innerHTML = `
+                    <div class="dia-bloqueado-banner">
+                        <span class="dia-bloqueado-icon">⛔</span>
+                        <div>
+                            <strong>Día bloqueado por la administración</strong>${motivo}
+                            <p>No se pueden hacer reservas en esta fecha.</p>
+                        </div>
+                    </div>`;
+                return;
+            }
+
             const reservas = data.reservas || [];
             const espacios = ['B1', 'B2', 'B3'];
 
@@ -641,15 +654,16 @@ misReservasList.innerHTML = reservas.map(r => `
         if (targetBtn) targetBtn.classList.add('active');
 
         // Cargar datos según la vista
-        if (viewName === 'inicio')          loadDashboardStats();
-        if (viewName === 'mis-reservas')    loadMisReservas();
-        if (viewName === 'nueva-reserva')   loadRecursosParaReserva();
-        if (viewName === 'disponibilidad')  loadDisponibilidad();
-        if (viewName === 'admin-reservas')  loadAdminReservas();
-        if (viewName === 'perfil')          loadPerfilHistorial();
-        if (viewName === 'admin-usuarios')  loadAdminUsuarios();
-        if (viewName === 'admin-recursos')  loadAdminRecursos();
-        if (viewName === 'admin-dias')      loadAdminDias();
+        if (viewName === 'inicio')                  loadDashboardStats();
+        if (viewName === 'mis-reservas')            loadMisReservas();
+        if (viewName === 'nueva-reserva')           loadRecursosParaReserva();
+        if (viewName === 'disponibilidad')          loadDisponibilidad();
+        if (viewName === 'admin-reservas')          loadAdminReservas();
+        if (viewName === 'perfil')                  loadPerfilHistorial();
+        if (viewName === 'admin-usuarios')          loadAdminUsuarios();
+        if (viewName === 'admin-recursos')          loadAdminRecursos();
+        if (viewName === 'admin-dias')              loadAdminDias();
+        if (viewName === 'coordinador-dashboard')   loadCoordinadorDashboard();
     }
 
 // ============================================
@@ -949,6 +963,7 @@ misReservasList.innerHTML = reservas.map(r => `
     function rolBadge(rol) {
         const map = {
             administrativo: 'badge-admin',
+            coordinador:    'badge-coordinador',
             docente:        'badge-docente',
             externo:        'badge-externo',
             practicante:    'badge-practicante'
@@ -1424,10 +1439,201 @@ misReservasList.innerHTML = reservas.map(r => `
     });
 
     // ============================================
+    // COORDINADOR — DASHBOARD AVANZADO
+    // ============================================
+    const _coordCharts = {};
+
+    function destroyChart(id) {
+        if (_coordCharts[id]) { _coordCharts[id].destroy(); delete _coordCharts[id]; }
+    }
+
+    function buildChart(id, type, labels, datasets, options = {}) {
+        destroyChart(id);
+        const ctx = document.getElementById(id);
+        if (!ctx) return;
+        _coordCharts[id] = new Chart(ctx, {
+            type,
+            data: { labels, datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } },
+                ...options
+            }
+        });
+    }
+
+    function buildHeatmap(container, heatmapData) {
+        if (!container) return;
+        const dias   = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+        const horas  = [];
+        for (let h = 7; h <= 19; h++) horas.push(String(h).padStart(2,'0') + ':00');
+
+        // Construir mapa dia+hora → count
+        const map = {};
+        let maxVal = 1;
+        heatmapData.forEach(d => {
+            const key = d.dia + '|' + d.hora;
+            map[key] = d.total;
+            if (d.total > maxVal) maxVal = d.total;
+        });
+
+        const table = document.createElement('table');
+        table.className = 'heatmap-table';
+
+        const thead = document.createElement('thead');
+        const headRow = document.createElement('tr');
+        headRow.innerHTML = '<th>Hora</th>' + dias.map(d => `<th>${d}</th>`).join('');
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        horas.forEach(hora => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<th>${hora}</th>` + dias.map(dia => {
+                const val = map[dia + '|' + hora] || 0;
+                const level = val === 0 ? 0 : Math.min(5, Math.ceil((val / maxVal) * 5));
+                return `<td class="heatmap-${level}" title="${dia} ${hora}: ${val} reservas">${val || ''}</td>`;
+            }).join('');
+            tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+
+        container.innerHTML = '';
+        container.appendChild(table);
+    }
+
+    async function loadCoordinadorDashboard() {
+        try {
+            const res  = await fetch('api/dashboard_coordinador.php');
+            const data = await res.json();
+            if (!data.success) return;
+
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+            set('ck-total',        data.total);
+            set('ck-tasa',         data.tasa_aprobacion);
+            set('ck-espacio',      data.espacio_mas_usado);
+            set('ck-hora-pico',    data.hora_pico);
+            set('ck-calificacion', data.calificacion_prom !== null ? data.calificacion_prom + '/10' : 'N/A');
+
+            // Gráfica por espacio (barra)
+            const espacios = Object.keys(data.por_espacio || {});
+            const espacioVals = Object.values(data.por_espacio || {});
+            buildChart('chart-por-espacio', 'bar', espacios, [{
+                label: 'Reservas aprobadas',
+                data: espacioVals,
+                backgroundColor: ['#3b82f6','#ec4899','#10b981'],
+                borderRadius: 6
+            }], { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } });
+
+            // Gráfica por día de semana (barra horizontal)
+            const diasLabels = Object.keys(data.por_dia_semana || {});
+            const diasVals   = Object.values(data.por_dia_semana || {});
+            buildChart('chart-por-dia', 'bar', diasLabels, [{
+                label: 'Reservas',
+                data: diasVals,
+                backgroundColor: '#6366f1',
+                borderRadius: 6
+            }], { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } });
+
+            // Tendencia semanal (línea)
+            const semanaLabels = (data.tendencia_semanal || []).map(s => `Sem ${s.semana}`);
+            const semanaVals   = (data.tendencia_semanal || []).map(s => s.total);
+            buildChart('chart-tendencia', 'line', semanaLabels, [{
+                label: 'Reservas / semana',
+                data: semanaVals,
+                borderColor: '#1a237e',
+                backgroundColor: 'rgba(26,35,126,0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4
+            }], { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } });
+
+            // Por rol (dona)
+            const rolLabels = Object.keys(data.por_rol || {});
+            const rolVals   = Object.values(data.por_rol || {});
+            buildChart('chart-por-rol', 'doughnut', rolLabels, [{
+                data: rolVals,
+                backgroundColor: ['#3b82f6','#10b981','#f59e0b','#ec4899','#7c3aed'],
+                borderWidth: 2
+            }]);
+
+            // Heatmap
+            buildHeatmap(document.getElementById('coord-heatmap'), data.heatmap || []);
+
+            // Herramientas de decisión
+            const decisions = document.getElementById('coord-decisions');
+            if (decisions) {
+                const total    = data.total || 0;
+                const aprob    = data.aprobadas || 0;
+                const pend     = data.pendientes || 0;
+                const rechaz   = data.rechazadas || 0;
+                const tasaNum  = total > 0 ? Math.round((aprob / total) * 100) : 0;
+                const satClass = tasaNum >= 70 ? 'di-green' : tasaNum >= 40 ? 'di-orange' : 'di-red';
+                const pendRate = total > 0 ? Math.round((pend / total) * 100) : 0;
+                const pendClass= pendRate < 20 ? 'di-green' : pendRate < 40 ? 'di-orange' : 'di-red';
+
+                decisions.innerHTML = `
+                    <div class="decision-item ${satClass}">
+                        <strong>Eficiencia de aprobación</strong>
+                        <span>${tasaNum}%</span>
+                        <p>${tasaNum >= 70 ? 'Proceso ágil — buen desempeño' : tasaNum >= 40 ? 'Margen de mejora en tiempos de respuesta' : 'Alta tasa de rechazo — revisar criterios'}</p>
+                    </div>
+                    <div class="decision-item ${pendClass}">
+                        <strong>Reservas pendientes</strong>
+                        <span>${pend}</span>
+                        <p>${pendRate < 20 ? 'Backlog bajo — al día con aprobaciones' : pendRate < 40 ? 'Backlog moderado — atender pronto' : 'Backlog alto — priorizar revisión'}</p>
+                    </div>
+                    <div class="decision-item di-green">
+                        <strong>Espacio recomendado</strong>
+                        <span>${data.espacio_mas_usado}</span>
+                        <p>Mayor demanda histórica — considerar ampliación o política de acceso</p>
+                    </div>
+                    <div class="decision-item di-orange">
+                        <strong>Hora pico</strong>
+                        <span>${data.hora_pico}</span>
+                        <p>Mayor concentración de reservas — planificar recursos en este horario</p>
+                    </div>
+                    ${data.calificacion_prom !== null ? `
+                    <div class="decision-item ${data.calificacion_prom >= 7 ? 'di-green' : data.calificacion_prom >= 5 ? 'di-orange' : 'di-red'}">
+                        <strong>Satisfacción del servicio</strong>
+                        <span>${data.calificacion_prom}/10</span>
+                        <p>${data.calificacion_prom >= 7 ? 'Servicio bien evaluado' : data.calificacion_prom >= 5 ? 'Satisfacción media — identificar áreas de mejora' : 'Satisfacción baja — revisión urgente del servicio'}</p>
+                    </div>` : ''}
+                `;
+            }
+
+        } catch (e) {
+            console.error('loadCoordinadorDashboard:', e);
+        }
+    }
+
+    // ============================================
+    // TOGGLE VER/OCULTAR CONTRASEÑA (dashboard)
+    // ============================================
+    function initPasswordToggles() {
+        document.querySelectorAll('.toggle-password').forEach(eye => {
+            eye.addEventListener('click', () => {
+                const input = document.getElementById(eye.getAttribute('data-target'));
+                if (!input) return;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eye.textContent = '🙈';
+                } else {
+                    input.type = 'password';
+                    eye.textContent = '👁️';
+                }
+            });
+        });
+    }
+
+    // ============================================
     // INICIALIZACIÓN
     // ============================================
     loadRuntimeLinks();
     setupHistorialFiltro();
     initCalificarServicio();
+    initPasswordToggles();
     activateView('inicio');
 });

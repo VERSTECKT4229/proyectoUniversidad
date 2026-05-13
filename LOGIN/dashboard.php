@@ -35,6 +35,9 @@ $user = $_SESSION['user'];
                 <button class="menu-item admin-view" data-view="admin-recursos">Recursos</button>
                 <button class="menu-item admin-view" data-view="admin-dias">Días bloqueados</button>
                 <?php endif; ?>
+                <?php if ($user['rol'] === 'coordinador'): ?>
+                <button class="menu-item" data-view="coordinador-dashboard">📊 Dashboard avanzado</button>
+                <?php endif; ?>
                 <div class="menu-dropdown">
                     <button class="menu-item dropdown-toggle" type="button">Opciones</button>
                     <div class="dropdown-content">
@@ -49,9 +52,18 @@ $user = $_SESSION['user'];
         <main class="main-content">
             <!-- ── VISTA: INICIO ───────────────────────────────────── -->
             <section id="view-inicio" class="view active">
-                <h1>Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?></h1>
+
+                <!-- Banner de bienvenida mejorado -->
+                <div class="welcome-banner">
+                    <div>
+                        <h2>Bienvenido, <?php echo htmlspecialchars($user['nombre']); ?> 👋</h2>
+                        <p>Panel de gestión de auditorios · Politécnico Grancolombiano</p>
+                    </div>
+                    <span class="welcome-badge"><?php echo htmlspecialchars($user['rol']); ?></span>
+                </div>
 
                 <!-- Stats del usuario -->
+                <h3 style="font-size:0.85rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;font-weight:600;">Mis reservas</h3>
                 <div class="stats-grid" id="mis-stats-grid">
                     <div class="stat-card stat-total">
                         <span class="stat-num" id="stat-total">—</span>
@@ -73,13 +85,13 @@ $user = $_SESSION['user'];
 
                 <!-- Próxima reserva -->
                 <div id="proxima-reserva-card" class="proxima-card" style="display:none;">
-                    <p class="proxima-title">Próxima reserva aprobada</p>
+                    <p class="proxima-title">📅 Próxima reserva aprobada</p>
                     <div class="proxima-body" id="proxima-body"></div>
                 </div>
 
                 <!-- Stats del sistema (solo admin) -->
                 <?php if ($user['rol'] === 'administrativo'): ?>
-                <h2 style="margin-top:28px;margin-bottom:12px;font-size:1.1rem;color:#374151;">Sistema</h2>
+                <h3 style="font-size:0.85rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin:24px 0 12px;font-weight:600;">Estado del sistema</h3>
                 <div class="stats-grid" id="sistema-stats-grid">
                     <div class="stat-card stat-total">
                         <span class="stat-num" id="sys-total">—</span>
@@ -196,14 +208,96 @@ $user = $_SESSION['user'];
                 <h1>Cambiar contraseña</h1>
                 <div class="form-card centered">
                     <form id="cambiar-password-form">
-                        <input type="password" id="current-password" placeholder="Contraseña actual" required>
-                        <input type="password" id="new-password" placeholder="Nueva contraseña" required>
-                        <input type="password" id="confirm-password" placeholder="Confirmar nueva contraseña" required>
+                        <div class="password-wrapper">
+                            <input type="password" id="current-password" placeholder="Contraseña actual" required>
+                            <span class="toggle-password" data-target="current-password">👁️</span>
+                        </div>
+                        <div class="password-wrapper">
+                            <input type="password" id="new-password" placeholder="Nueva contraseña" required>
+                            <span class="toggle-password" data-target="new-password">👁️</span>
+                        </div>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm-password" placeholder="Confirmar nueva contraseña" required>
+                            <span class="toggle-password" data-target="confirm-password">👁️</span>
+                        </div>
                         <button type="submit" class="primary-btn">Cambiar contraseña</button>
                     </form>
                     <p id="password-msg" class="form-msg"></p>
                 </div>
             </section>
+
+            <?php if ($user['rol'] === 'coordinador'): ?>
+            <!-- ── VISTA: DASHBOARD COORDINADOR ──────────────────────── -->
+            <section id="view-coordinador-dashboard" class="view">
+                <h1>Dashboard avanzado</h1>
+                <div class="coord-dashboard">
+                    <!-- KPIs -->
+                    <div class="coord-kpis">
+                        <div class="coord-kpi kpi-blue">
+                            <span class="coord-kpi-icon">📋</span>
+                            <span class="coord-kpi-val" id="ck-total">—</span>
+                            <span class="coord-kpi-lbl">Total reservas</span>
+                        </div>
+                        <div class="coord-kpi kpi-green">
+                            <span class="coord-kpi-icon">✅</span>
+                            <span class="coord-kpi-val" id="ck-tasa">—</span>
+                            <span class="coord-kpi-lbl">Tasa de aprobación</span>
+                        </div>
+                        <div class="coord-kpi kpi-orange">
+                            <span class="coord-kpi-icon">🏆</span>
+                            <span class="coord-kpi-val" id="ck-espacio">—</span>
+                            <span class="coord-kpi-lbl">Espacio más usado</span>
+                        </div>
+                        <div class="coord-kpi kpi-purple">
+                            <span class="coord-kpi-icon">⏰</span>
+                            <span class="coord-kpi-val" id="ck-hora-pico">—</span>
+                            <span class="coord-kpi-lbl">Hora pico</span>
+                        </div>
+                        <div class="coord-kpi kpi-pink">
+                            <span class="coord-kpi-icon">⭐</span>
+                            <span class="coord-kpi-val" id="ck-calificacion">—</span>
+                            <span class="coord-kpi-lbl">Calificación promedio</span>
+                        </div>
+                    </div>
+
+                    <!-- Gráficas fila 1 -->
+                    <div class="coord-charts-row">
+                        <div class="coord-chart-card">
+                            <h3>Reservas por espacio</h3>
+                            <canvas id="chart-por-espacio"></canvas>
+                        </div>
+                        <div class="coord-chart-card">
+                            <h3>Reservas por día de semana</h3>
+                            <canvas id="chart-por-dia"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Gráfica tendencia + por rol -->
+                    <div class="coord-charts-row">
+                        <div class="coord-chart-card">
+                            <h3>Tendencia últimas 8 semanas</h3>
+                            <canvas id="chart-tendencia"></canvas>
+                        </div>
+                        <div class="coord-chart-card">
+                            <h3>Reservas por tipo de usuario</h3>
+                            <canvas id="chart-por-rol"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Heatmap hora × día -->
+                    <div class="coord-heatmap-wrap">
+                        <h3>Heatmap de ocupación (hora × día de semana)</h3>
+                        <div id="coord-heatmap"></div>
+                    </div>
+
+                    <!-- Herramientas de decisión -->
+                    <div class="coord-decision-card">
+                        <h3>🧠 Herramientas de decisión</h3>
+                        <div class="decision-items" id="coord-decisions"></div>
+                    </div>
+                </div>
+            </section>
+            <?php endif; ?>
 
             <?php if ($user['rol'] === 'administrativo'): ?>
 
@@ -342,6 +436,7 @@ $user = $_SESSION['user'];
         </main>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/validador-fechas.js"></script>
 
@@ -453,6 +548,7 @@ $user = $_SESSION['user'];
                     <select id="usuario-rol" required>
                         <option value="" disabled selected>Selecciona rol</option>
                         <option value="administrativo">Administrativo</option>
+                        <option value="coordinador">Coordinador</option>
                         <option value="docente">Docente</option>
                         <option value="externo">Externo</option>
                         <option value="practicante">Practicante</option>

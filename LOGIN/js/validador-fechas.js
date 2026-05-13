@@ -45,13 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (esDiasBloqueados(fecha)) {
             const dia = getNombreDia(fecha);
+            const diaPlural = dia.endsWith('s') ? dia : dia + 's';
             advertencia.style.display = 'block';
             advertencia.style.background = '#fee2e2';
             advertencia.style.borderLeft = '4px solid #dc2626';
             advertencia.style.color = '#991b1b';
             advertencia.innerHTML = `
                 ❌ <strong>Fecha no permitida</strong><br>
-                No se permiten reservas los <strong>${dia}s</strong>. 
+                No se permiten reservas los <strong>${diaPlural}</strong>.
                 Selecciona otro día (lunes, miércoles, viernes, sábado o domingo).
             `;
         } else {
