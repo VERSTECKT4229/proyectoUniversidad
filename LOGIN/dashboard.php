@@ -142,10 +142,10 @@ $user = $_SESSION['user'];
                         <input type="date" name="fecha" required>
 
                         <label>Hora inicio</label>
-                        <input type="time" name="hora_inicio" required>
+                        <input type="time" name="hora_inicio" min="08:00" max="21:00" required>
 
                         <label>Hora fin</label>
-                        <input type="time" name="hora_fin" required>
+                        <input type="time" name="hora_fin" min="08:00" max="21:00" required>
 
                         <label>Espacio</label>
                         <select name="espacio" required>

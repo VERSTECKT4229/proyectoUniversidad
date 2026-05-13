@@ -60,8 +60,8 @@ if ($diaSemana === '2' || $diaSemana === '4') {
 if ($horaInicio >= $horaFin) {
     echo json_encode(['success' => false, 'message' => 'La hora de inicio debe ser menor a la hora de fin.']); exit;
 }
-if ($horaInicio < '07:00' || $horaFin > '20:00') {
-    echo json_encode(['success' => false, 'message' => 'Las reservas deben estar entre las 07:00 y las 20:00.']); exit;
+if ($horaInicio < '08:00' || $horaFin > '21:00') {
+    echo json_encode(['success' => false, 'message' => 'Las reservas deben estar entre las 08:00 y las 21:00.']); exit;
 }
 
 // ── Funciones de conflicto (reutilizadas dentro de la transacción) ───────────

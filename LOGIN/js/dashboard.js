@@ -743,6 +743,12 @@ misReservasList.innerHTML = reservas.map(r => `
                 recursos:               getRecursosSeleccionados()
             };
 
+            if (payload.hora_inicio < '08:00' || payload.hora_fin > '21:00') {
+                nuevaReservaMsg.textContent = 'Las reservas deben estar entre las 08:00 y las 21:00.';
+                nuevaReservaMsg.className   = 'form-msg error';
+                return;
+            }
+
             try {
                 const res  = await fetch('api/nueva_reserva.php', {
                     method:  'POST',
