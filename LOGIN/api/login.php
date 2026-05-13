@@ -51,7 +51,7 @@ try {
         exit;
     }
 
-    $rolesPermitidos = ['administrativo', 'docente', 'externo', 'practicante'];
+    $rolesPermitidos = ['administrativo', 'coordinador', 'docente', 'externo', 'practicante'];
     $rol = trim((string)($user['rol'] ?? ''));
 
     if (!in_array($rol, $rolesPermitidos, true)) {
@@ -59,7 +59,7 @@ try {
         exit;
     }
 
-    if (in_array($rol, ['administrativo', 'docente'], true) && !is_local_request()) {
+    if (in_array($rol, ['administrativo', 'coordinador', 'docente'], true) && !is_local_request()) {
         if (!preg_match('/^[A-Za-z0-9._%+\-]+@poligran\.edu\.co$/i', (string)$user['email'])) {
             echo json_encode(['success' => false, 'message' => 'Para este rol se requiere correo @poligran.edu.co']);
             exit;

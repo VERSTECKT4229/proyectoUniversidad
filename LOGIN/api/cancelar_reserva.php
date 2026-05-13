@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
+$data = json_decode(file_get_contents('php://input'), true) ?? [];
 $idReserva = (int)($data['id_reserva'] ?? 0);
 $userId = $_SESSION['user']['id'];
 

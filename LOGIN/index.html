@@ -105,11 +105,15 @@
                         <select class="box" id="rol">
                             <option value="" disabled selected>Selecciona tu rol</option>
                             <option value="docente">Docente</option>
-                            <option value="coordinador">Coordinador</option>
-                            <option value="administrativo">Administrativo</option>
                             <option value="externo">Externo</option>
                             <option value="practicante">Practicante</option>
                         </select>
+                        <div class="codigo-invitacion-wrap">
+                            <input type="text" class="box codigo-box" placeholder="Código de invitación" id="codigo_invitacion"
+                                   autocomplete="off" maxlength="32" spellcheck="false">
+                            <span class="codigo-info" title="Solicita tu código al administrador">🔑</span>
+                        </div>
+                        <p class="registro-nota">¿Eres administrador o coordinador? Contacta al área de sistemas.</p>
                         <a href="#" class="no-account">Volver a iniciar sesión</a>
                         <input type="submit" value="Registrarse" class="submit">
                     </div>

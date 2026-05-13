@@ -306,14 +306,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (regForm) {
         regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const nombre          = document.getElementById('name').value.trim();
-            const email           = document.getElementById('email2').value.trim();
-            const password        = document.getElementById('password2').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-            const rol             = document.getElementById('rol').value.trim();
+            const nombre             = document.getElementById('name').value.trim();
+            const email              = document.getElementById('email2').value.trim();
+            const password           = document.getElementById('password2').value;
+            const confirmPassword    = document.getElementById('confirm_password').value;
+            const rol                = document.getElementById('rol').value.trim();
+            const codigoInvitacion   = document.getElementById('codigo_invitacion').value.trim().toUpperCase();
 
             if (!nombre || !email || !password || !confirmPassword || !rol) {
                 showError('Todos los campos son obligatorios.');
+                return;
+            }
+
+            if (!codigoInvitacion) {
+                showError('Ingresa tu código de invitación.');
                 return;
             }
 
@@ -331,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const res = await fetch('api/registro.php', {
                     method:  'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body:    JSON.stringify({ nombre, email, password, confirm_password: confirmPassword, rol })
+                    body:    JSON.stringify({ nombre, email, password, confirm_password: confirmPassword, rol, codigo_invitacion: codigoInvitacion })
                 });
                 const data = await res.json();
 

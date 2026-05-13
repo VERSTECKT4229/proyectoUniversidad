@@ -33,18 +33,20 @@ try {
         try {
             $pdo = create_pdo('localhost', $port, $db, $user, $pass, $options);
         } catch (\PDOException $e2) {
+            error_log('DB connect error (localhost): ' . $e2->getMessage());
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'message' => 'Error de conexión a la base de datos local: ' . $e2->getMessage()
+                'message' => 'Error de conexión a la base de datos.'
             ]);
             exit;
         }
     } else {
+        error_log('DB connect error: ' . $e->getMessage());
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Error de conexión a la base de datos: ' . $e->getMessage()
+            'message' => 'Error de conexión a la base de datos.'
         ]);
         exit;
     }

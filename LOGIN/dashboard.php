@@ -34,6 +34,7 @@ $user = $_SESSION['user'];
                 <button class="menu-item admin-view" data-view="admin-usuarios">Usuarios</button>
                 <button class="menu-item admin-view" data-view="admin-recursos">Recursos</button>
                 <button class="menu-item admin-view" data-view="admin-dias">Días bloqueados</button>
+                <button class="menu-item admin-view" data-view="admin-codigos">🔑 Códigos de invitación</button>
                 <?php endif; ?>
                 <?php if ($user['rol'] === 'coordinador'): ?>
                 <button class="menu-item" data-view="coordinador-dashboard">📊 Dashboard avanzado</button>
@@ -404,6 +405,67 @@ $user = $_SESSION['user'];
                         </thead>
                         <tbody id="admin-usuarios-tbody">
                             <tr><td colspan="6" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-admin-codigos" class="view">
+                <div class="crud-header">
+                    <h1>Códigos de invitación</h1>
+                    <button class="primary-btn" id="btn-nuevo-codigo">+ Nuevo código</button>
+                </div>
+                <p class="section-desc">Los nuevos usuarios necesitan un código para registrarse. Crea códigos con usos limitados y rol específico si lo necesitas.</p>
+                <p id="admin-codigos-msg" class="form-msg"></p>
+
+                <!-- Formulario crear código -->
+                <div class="form-card codigo-form-card" id="codigo-form-card" style="display:none;">
+                    <div class="crud-form-grid" style="grid-template-columns:1fr 1fr 1fr;">
+                        <div class="field-group">
+                            <label>Código (dejar vacío = auto)</label>
+                            <input type="text" id="nuevo-codigo-valor" placeholder="Ej: POLI2025" maxlength="32"
+                                   style="text-transform:uppercase;">
+                        </div>
+                        <div class="field-group">
+                            <label>Rol permitido</label>
+                            <select id="nuevo-codigo-rol">
+                                <option value="">Cualquier rol no privilegiado</option>
+                                <option value="docente">Solo Docente</option>
+                                <option value="externo">Solo Externo</option>
+                                <option value="practicante">Solo Practicante</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label>Usos máximos</label>
+                            <input type="number" id="nuevo-codigo-usos" value="1" min="1" max="1000">
+                        </div>
+                        <div class="field-group field-group--full">
+                            <label>Descripción (opcional)</label>
+                            <input type="text" id="nuevo-codigo-desc" placeholder="Ej: Docentes Facultad Ingeniería" maxlength="200">
+                        </div>
+                    </div>
+                    <p id="codigo-form-msg" class="form-msg"></p>
+                    <div style="display:flex;gap:10px;margin-top:12px;">
+                        <button class="btn-secondary" id="btn-cancelar-codigo">Cancelar</button>
+                        <button class="primary-btn" id="btn-guardar-codigo">Crear código</button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper" style="margin-top:16px;">
+                    <table class="crud-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Rol</th>
+                                <th>Usos</th>
+                                <th>Estado</th>
+                                <th>Creado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-codigos-tbody">
+                            <tr><td colspan="7" class="table-empty">Cargando...</td></tr>
                         </tbody>
                     </table>
                 </div>

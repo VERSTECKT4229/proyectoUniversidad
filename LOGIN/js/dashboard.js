@@ -664,6 +664,7 @@ misReservasList.innerHTML = reservas.map(r => `
         if (viewName === 'admin-recursos')          loadAdminRecursos();
         if (viewName === 'admin-dias')              loadAdminDias();
         if (viewName === 'coordinador-dashboard')   loadCoordinadorDashboard();
+        if (viewName === 'admin-codigos')           loadAdminCodigos();
     }
 
 // ============================================
@@ -1436,6 +1437,147 @@ misReservasList.innerHTML = reservas.map(r => `
                 loadAdminDias();
             } else { setMsgDias('dias-form-msg', data.message, 'error'); }
         } catch { setMsgDias('dias-form-msg', 'Error de conexión.', 'error'); }
+    });
+
+    // ============================================
+    // ADMIN: CÓDIGOS DE INVITACIÓN
+    // ============================================
+    function setMsgCodigos(id, msg, tipo) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = msg;
+        el.className = 'form-msg ' + tipo;
+        if (msg && tipo !== '') setTimeout(() => { el.textContent = ''; el.className = 'form-msg'; }, 4000);
+    }
+
+    async function loadAdminCodigos() {
+        const tbody = document.getElementById('admin-codigos-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="7" class="table-empty">Cargando...</td></tr>';
+
+        try {
+            const res  = await fetch('api/admin_codigos.php');
+            const data = await res.json();
+
+            if (!data.success) {
+                tbody.innerHTML = `<tr><td colspan="7" class="table-empty error-text">${escapeHtml(data.message)}</td></tr>`;
+                return;
+            }
+
+            const codigos = data.codigos || [];
+            if (!codigos.length) {
+                tbody.innerHTML = '<tr><td colspan="7" class="table-empty">No hay códigos creados.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = codigos.map(c => {
+                const usosClass = c.agotado ? 'codigo-agotado' : '';
+                const estadoBadge = !c.activo
+                    ? '<span class="codigo-badge badge-inactivo">Inactivo</span>'
+                    : c.agotado
+                        ? '<span class="codigo-badge badge-agotado">Agotado</span>'
+                        : '<span class="codigo-badge badge-activo">Activo</span>';
+                return `
+                <tr data-id="${c.id}" class="${usosClass}">
+                    <td><code class="codigo-chip">${escapeHtml(c.codigo)}</code></td>
+                    <td class="td-desc">${escapeHtml(c.descripcion || '—')}</td>
+                    <td>${c.rol_permitido ? `<span class="rol-badge badge-${c.rol_permitido}">${escapeHtml(c.rol_permitido)}</span>` : '<span style="color:#9ca3af">Cualquiera</span>'}</td>
+                    <td class="td-date">${c.usos_actuales} / ${c.usos_maximos}</td>
+                    <td>${estadoBadge}</td>
+                    <td class="td-date">${formatReservationDate(c.created_at)}</td>
+                    <td class="td-actions">
+                        <button class="btn-toggle-codigo ${c.activo ? 'btn-table-delete' : 'btn-table-edit'}"
+                                data-id="${c.id}" data-activo="${c.activo ? '1' : '0'}">
+                            ${c.activo ? 'Desactivar' : 'Activar'}
+                        </button>
+                        <button class="btn-del-codigo btn-table-delete" data-id="${c.id}">Eliminar</button>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            // Activar / desactivar
+            tbody.querySelectorAll('.btn-toggle-codigo').forEach(btn => {
+                const id     = parseInt(btn.dataset.id, 10);
+                const activo = btn.dataset.activo === '1';
+                btn.addEventListener('click', async () => {
+                    if (!confirm(activo ? '¿Desactivar este código?' : '¿Reactivar este código?')) return;
+                    try {
+                        const res  = await fetch('api/admin_codigos.php', {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id, activo: !activo })
+                        });
+                        const data = await res.json();
+                        if (data.success) { setMsgCodigos('admin-codigos-msg', data.message, 'ok'); loadAdminCodigos(); }
+                        else              { setMsgCodigos('admin-codigos-msg', data.message, 'error'); }
+                    } catch { setMsgCodigos('admin-codigos-msg', 'Error de conexión.', 'error'); }
+                });
+            });
+
+            // Eliminar
+            tbody.querySelectorAll('.btn-del-codigo').forEach(btn => {
+                const id = parseInt(btn.dataset.id, 10);
+                btn.addEventListener('click', async () => {
+                    if (!confirm('¿Eliminar este código permanentemente?')) return;
+                    try {
+                        const res  = await fetch('api/admin_codigos.php', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id })
+                        });
+                        const data = await res.json();
+                        if (data.success) { setMsgCodigos('admin-codigos-msg', data.message, 'ok'); loadAdminCodigos(); }
+                        else              { setMsgCodigos('admin-codigos-msg', data.message, 'error'); }
+                    } catch { setMsgCodigos('admin-codigos-msg', 'Error de conexión.', 'error'); }
+                });
+            });
+
+        } catch { tbody.innerHTML = '<tr><td colspan="7" class="table-empty error-text">Error de conexión.</td></tr>'; }
+    }
+
+    // Mostrar / ocultar formulario de nuevo código
+    document.getElementById('btn-nuevo-codigo')?.addEventListener('click', () => {
+        const card = document.getElementById('codigo-form-card');
+        if (card) { card.style.display = 'block'; document.getElementById('nuevo-codigo-valor').focus(); }
+    });
+
+    document.getElementById('btn-cancelar-codigo')?.addEventListener('click', () => {
+        const card = document.getElementById('codigo-form-card');
+        if (card) { card.style.display = 'none'; }
+        setMsgCodigos('codigo-form-msg', '', '');
+    });
+
+    document.getElementById('btn-guardar-codigo')?.addEventListener('click', async () => {
+        const codigo      = document.getElementById('nuevo-codigo-valor')?.value.trim().toUpperCase() || '';
+        const rol         = document.getElementById('nuevo-codigo-rol')?.value    || '';
+        const usos        = parseInt(document.getElementById('nuevo-codigo-usos')?.value || '1', 10);
+        const descripcion = document.getElementById('nuevo-codigo-desc')?.value.trim() || '';
+
+        setMsgCodigos('codigo-form-msg', '', '');
+
+        try {
+            const res  = await fetch('api/admin_codigos.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ codigo, rol_permitido: rol, usos_maximos: usos, descripcion })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setMsgCodigos('codigo-form-msg', `✅ Código creado: ${data.codigo}`, 'ok');
+                document.getElementById('nuevo-codigo-valor').value  = '';
+                document.getElementById('nuevo-codigo-desc').value   = '';
+                document.getElementById('nuevo-codigo-rol').value    = '';
+                document.getElementById('nuevo-codigo-usos').value   = '1';
+                loadAdminCodigos();
+            } else {
+                setMsgCodigos('codigo-form-msg', data.message, 'error');
+            }
+        } catch { setMsgCodigos('codigo-form-msg', 'Error de conexión.', 'error'); }
+    });
+
+    // Auto-mayúsculas en el campo código
+    document.getElementById('nuevo-codigo-valor')?.addEventListener('input', e => {
+        e.target.value = e.target.value.toUpperCase();
     });
 
     // ============================================
